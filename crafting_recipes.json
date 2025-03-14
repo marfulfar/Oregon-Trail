@@ -1,0 +1,41 @@
+[
+	{
+		"recipeid": "LIT0001",
+		"ingredientsjson": "item_id:[BAS0001],quantity:[2];item_id:[BAS0002],quantity:[1]",
+		"result": "item_id:[LIT0001],quantity:[1]",
+		"category": "LIT",
+		"craftinglocation": "EVR",
+		"resultresourcepath": "res://resources/firecamp.tres",
+		"ingredient1resourcepath": "res://resources/Log.tres",
+		"ingredient2resourcepath": "res://resources/grass.tres",
+		"toolrequirement": "null",
+		"skillrequirement": "null",
+		"description": "null"
+	},
+	{
+		"recipeid": "TOL0001",
+		"ingredientsjson": "item_id:[BAS0004],quantity:[1];item_id:[BAS0003],quantity:[1]",
+		"result": "item_id:[TOL0001],quantity:[1]",
+		"category": "TOL",
+		"craftinglocation": "EVR",
+		"resultresourcepath": "res://resources/Berries.tres",
+		"ingredient1resourcepath": "res://resources/Pinecone.tres",
+		"ingredient2resourcepath": "res://resources/Flint.tres",
+		"toolrequirement": "null",
+		"skillrequirement": "null",
+		"description": "null"
+	},
+	{
+		"recipeid": "LIT0002",
+		"ingredientsjson": "item_id:[BAS0004],quantity:[1];item_id:[BAS0002],quantity:[1]",
+		"result": "item_id:[LIT0002],quantity:[1]",
+		"category": "LIT",
+		"craftinglocation": "EVR",
+		"resultresourcepath": "res://resources/Red_mushroom.tres",
+		"ingredient1resourcepath": "res://resources/Flint.tres",
+		"ingredient2resourcepath": "res://resources/grass.tres",
+		"toolrequirement": "null",
+		"skillrequirement": "null",
+		"description": "null"
+	}
+]

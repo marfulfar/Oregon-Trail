@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://b6ei2u4deajp5"]
+
+[ext_resource type="Script" path="res://scripts/base_item.gd" id="1_635rq"]
+[ext_resource type="Texture2D" uid="uid://dgo5e8fxrawgq" path="res://assets/sprites/Flint/flint_slim.png" id="1_ss4b4"]
+
+[resource]
+script = ExtResource("1_635rq")
+item_name = "Flint"
+item_texture = ExtResource("1_ss4b4")
+item_desc = "flint"
+item_edible = false
+item_stackable = true
+item_stack_limit = 5
+item_tool = false
+item_ingredient = true
+item_scene_path = "res://scenes/flint.tscn"
+item_qty_per_item = 1

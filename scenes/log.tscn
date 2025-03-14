@@ -1,0 +1,48 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6hg3wd30o74y"]
+
+[ext_resource type="Script" path="res://scripts/log.gd" id="1_3i05w"]
+[ext_resource type="Texture2D" uid="uid://b3cfdk008p75m" path="res://assets/sprites/log/log120.png" id="2_s2vig"]
+[ext_resource type="SpriteFrames" uid="uid://brvcbntbcddrh" path="res://assets/animations/collect_somke.tres" id="3_xxdyr"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yuj3t"]
+radius = 54.1589
+height = 108.318
+
+[node name="log" type="StaticBody2D"]
+scale = Vector2(2, 2)
+script = ExtResource("1_3i05w")
+
+[node name="log_sprite" type="Sprite2D" parent="."]
+position = Vector2(-7.375, 1)
+scale = Vector2(0.1695, 0.145)
+texture = ExtResource("2_s2vig")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("3_xxdyr")
+animation = &"collect_smoke"
+frame = 23
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-5, 3)
+rotation = 1.01313
+scale = Vector2(0.226909, 0.232902)
+shape = SubResource("CapsuleShape2D_yuj3t")
+debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
+
+[node name="Label" type="Label" parent="."]
+visible = false
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -60.0
+offset_top = 12.0
+offset_right = 71.0
+offset_bottom = 35.0
+grow_horizontal = 2
+text = "Press A to collect"
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

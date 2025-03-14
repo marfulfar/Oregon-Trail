@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://dr1cqy47uaf4s"]
+
+[ext_resource type="Script" path="res://scripts/pinecone.gd" id="1_wgr7s"]
+[ext_resource type="SpriteFrames" uid="uid://brvcbntbcddrh" path="res://assets/animations/collect_somke.tres" id="2_h0ld8"]
+[ext_resource type="Texture2D" uid="uid://drm3yb7a6xnxd" path="res://assets/sprites/pinecone.png" id="3_okavb"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hkq0x"]
+radius = 8.0
+
+[node name="StaticBody2D" type="StaticBody2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_wgr7s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -17)
+scale = Vector2(6.3248, 5.28543)
+sprite_frames = ExtResource("2_h0ld8")
+animation = &"collect_smoke"
+
+[node name="pinecone_sprite" type="Sprite2D" parent="."]
+rotation = 1.28631
+texture = ExtResource("3_okavb")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(33.1593, 31.4709)
+shape = SubResource("CircleShape2D_hkq0x")
+debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
+
+[node name="Label" type="Label" parent="."]
+z_index = 10
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -280.0
+offset_top = 255.0
+offset_right = 215.0
+offset_bottom = 338.0
+grow_horizontal = 2
+scale = Vector2(2.81555, 3.67374)
+theme_override_font_sizes/font_size = 30
+text = "Press A to collect"
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://bb2yfge0sdd8b"]
+
+[ext_resource type="Script" path="res://scripts/mushroom.gd" id="1_lqb10"]
+[ext_resource type="Texture2D" uid="uid://ch4wrncfn6oew" path="res://assets/sprites/mushroom.png" id="2_68j78"]
+[ext_resource type="Resource" uid="uid://bym0e0tp7yq8u" path="res://resources/Red_mushroom.tres" id="2_l5ou7"]
+[ext_resource type="SpriteFrames" uid="uid://brvcbntbcddrh" path="res://assets/animations/collect_somke.tres" id="3_o4wo8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ikkh4"]
+radius = 249.064
+
+[node name="red_mushroom" type="StaticBody2D" groups=["edible"]]
+scale = Vector2(0.3, 0.3)
+script = ExtResource("1_lqb10")
+item_resource = ExtResource("2_l5ou7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-23, -52)
+rotation = 3.14159
+scale = Vector2(3.95494, -2.62648)
+sprite_frames = ExtResource("3_o4wo8")
+animation = &"collect_smoke"
+
+[node name="mushroom_sprite" type="Sprite2D" parent="."]
+position = Vector2(-7.00006, -149)
+scale = Vector2(0.246094, 0.270996)
+texture = ExtResource("2_68j78")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-2, -158)
+shape = SubResource("CircleShape2D_ikkh4")
+debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
+
+[node name="Label" type="Label" parent="."]
+z_index = 10
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -635.0
+offset_top = 20.0
+offset_right = -140.0
+offset_bottom = 103.0
+grow_horizontal = 2
+scale = Vector2(2.8361, 4.47201)
+theme_override_font_sizes/font_size = 60
+text = "Press A to collect"
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

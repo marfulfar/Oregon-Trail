@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=3 uid="uid://cynwu4jo0mcda"]
+
+[ext_resource type="Script" path="res://scripts/flint.gd" id="1_k32kw"]
+[ext_resource type="SpriteFrames" uid="uid://brvcbntbcddrh" path="res://assets/animations/collect_somke.tres" id="2_2hbv0"]
+[ext_resource type="Texture2D" uid="uid://dgo5e8fxrawgq" path="res://assets/sprites/Flint/flint_slim.png" id="3_ukurh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5nh0y"]
+
+[node name="StaticBody2D" type="StaticBody2D"]
+script = ExtResource("1_k32kw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(24, -59)
+scale = Vector2(2.8328, 3.0674)
+sprite_frames = ExtResource("2_2hbv0")
+animation = &"collect_smoke"
+
+[node name="flint_sprite" type="Sprite2D" parent="."]
+position = Vector2(0, -1)
+rotation = 1.58073
+scale = Vector2(0.3, 0.3)
+texture = ExtResource("3_ukurh")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+rotation = 1.75842
+scale = Vector2(3.15557, 3.81644)
+shape = SubResource("CapsuleShape2D_5nh0y")
+debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
+
+[node name="Label" type="Label" parent="."]
+z_index = 10
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -149.0
+offset_top = 36.0
+offset_right = 346.0
+offset_bottom = 119.0
+grow_horizontal = 2
+scale = Vector2(2.81555, 3.67374)
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 15
+text = "Press A to collect"
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

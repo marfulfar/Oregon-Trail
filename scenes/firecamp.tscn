@@ -1,0 +1,70 @@
+[gd_scene load_steps=13 format=3 uid="uid://ca82kyhb7h5mn"]
+
+[ext_resource type="Script" path="res://scripts/firecamp.gd" id="1_bfran"]
+[ext_resource type="Shader" path="res://shaders/firecamp.gdshader" id="2_dhjc3"]
+[ext_resource type="Texture2D" uid="uid://cjixf8qvs16nt" path="res://assets/sprites/textures/Radial_03-512x512.png" id="3_yakj6"]
+[ext_resource type="Texture2D" uid="uid://dhx3htx6rbns0" path="res://assets/sprites/Campfire/campfire1.png" id="4_o0w50"]
+[ext_resource type="Texture2D" uid="uid://crcf57ip8e7pa" path="res://assets/sprites/Campfire/campfire2.png" id="5_4afml"]
+[ext_resource type="Texture2D" uid="uid://da8wdpo6h83b0" path="res://assets/sprites/Campfire/campfire3.png" id="6_yk7lf"]
+[ext_resource type="Texture2D" uid="uid://12ban3ib3350" path="res://assets/sprites/Campfire/campfire4.png" id="7_2qtg2"]
+[ext_resource type="Texture2D" uid="uid://dg6xyanmuttgi" path="res://assets/sprites/Campfire/campfire5.png" id="8_e2lhx"]
+[ext_resource type="Texture2D" uid="uid://tngttgw1wro0" path="res://assets/sprites/Campfire/campfire6.png" id="9_f6rou"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_shhd6"]
+shader = ExtResource("2_dhjc3")
+shader_parameter/intensity = 0.9
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_rwste"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_o0w50")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4afml")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_yk7lf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_2qtg2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_e2lhx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_f6rou")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 7.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_73wmq"]
+radius = 10.6072
+
+[node name="RigidBody2D" type="StaticBody2D"]
+script = ExtResource("1_bfran")
+
+[node name="CampfireLight" type="Node2D" parent="."]
+
+[node name="CampfireLightSprite" type="Sprite2D" parent="CampfireLight"]
+visible = false
+material = SubResource("ShaderMaterial_shhd6")
+position = Vector2(0, 120)
+scale = Vector2(18.6001, 9.59773)
+texture = ExtResource("3_yakj6")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(2, 132)
+sprite_frames = SubResource("SpriteFrames_rwste")
+animation = &"idle"
+autoplay = "idle"
+frame_progress = 0.77505
+offset = Vector2(-2, -250)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 13)
+scale = Vector2(9.24, 4.6)
+shape = SubResource("CircleShape2D_73wmq")
+debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)

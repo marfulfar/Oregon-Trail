@@ -1,0 +1,136 @@
+[gd_scene load_steps=22 format=3 uid="uid://byfysua6sa63t"]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_8547p"]
+[ext_resource type="Texture2D" uid="uid://bnkxeebmck538" path="res://assets/character/idle/1.png" id="2_rjtea"]
+[ext_resource type="Texture2D" uid="uid://b4e5d7aofmdb6" path="res://assets/character/new_axe/1.png" id="2_uvgum"]
+[ext_resource type="Texture2D" uid="uid://c6k4aeumaaay1" path="res://assets/character/idle/2.png" id="3_vcgls"]
+[ext_resource type="Texture2D" uid="uid://3sxhbacpcjbg" path="res://assets/character/new_axe/2.png" id="3_vft3j"]
+[ext_resource type="Texture2D" uid="uid://chf88lovypnwo" path="res://assets/character/new_axe/3.png" id="4_3wdhr"]
+[ext_resource type="Texture2D" uid="uid://x6uf3vm8kipv" path="res://assets/character/idle/3.png" id="4_e5gpu"]
+[ext_resource type="Texture2D" uid="uid://beojh13p7lcb7" path="res://assets/character/walk/Extended2.png" id="4_kwgf0"]
+[ext_resource type="Texture2D" uid="uid://cju2c7aeas8dl" path="res://assets/character/walk/Extended3.png" id="5_dpnpo"]
+[ext_resource type="Texture2D" uid="uid://d2m8h6382w1kf" path="res://assets/character/new_axe/4.png" id="5_ldnfs"]
+[ext_resource type="Texture2D" uid="uid://boeahhdv7xh6b" path="res://assets/character/walk/Extended 1.png" id="6_celxa"]
+[ext_resource type="Texture2D" uid="uid://cmolq16ihj3vc" path="res://assets/character/new_axe/5.png" id="6_x4ruc"]
+[ext_resource type="Texture2D" uid="uid://bvfgjtdudogb1" path="res://assets/character/new_axe/6.png" id="7_tsrdn"]
+[ext_resource type="Texture2D" uid="uid://dr5hqslgx8qcd" path="res://assets/character/walk/Extended.png" id="7_ybird"]
+[ext_resource type="Texture2D" uid="uid://cs35gj7ovlb61" path="res://assets/character/new_axe/7.png" id="8_l1jt3"]
+[ext_resource type="Texture2D" uid="uid://4wy8b7xwrnau" path="res://assets/character/new_axe/8(1).png" id="9_26oxo"]
+[ext_resource type="Texture2D" uid="uid://cv6sblgeneluf" path="res://assets/character/new_axe/8.png" id="10_kfolh"]
+[ext_resource type="Script" path="res://scripts/hand.gd" id="13_ca7c7"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5byww"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_uvgum")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vft3j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_3wdhr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ldnfs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_x4ruc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_tsrdn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_l1jt3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_26oxo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_kfolh")
+}],
+"loop": false,
+"name": &"axe",
+"speed": 40.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_rjtea")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vcgls")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_e5gpu")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_kwgf0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_dpnpo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_celxa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ybird")
+}],
+"loop": true,
+"name": &"walk",
+"speed": 7.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_odmj4"]
+radius = 34.0
+height = 154.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nopsf"]
+radius = 22.211
+
+[node name="character" type="CharacterBody2D" groups=["player"]]
+scale = Vector2(1.5, 1.5)
+script = ExtResource("1_8547p")
+hunger_num_of_days_full_depletion = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_5byww")
+animation = &"axe"
+autoplay = "idle"
+frame = 8
+frame_progress = 1.0
+offset = Vector2(0, -900)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-0.666667, -32.6667)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_odmj4")
+debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
+
+[node name="hand" type="Node2D" parent="."]
+position = Vector2(23.3333, -97.3333)
+script = ExtResource("13_ca7c7")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -332.0
+offset_top = 36.0
+offset_right = 329.0
+offset_bottom = 119.0
+theme_override_font_sizes/font_size = 60
+text = "Press A to make follow"
+
+[node name="Follow_area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Follow_area"]
+position = Vector2(0, -146.667)
+scale = Vector2(17.779, 17.0037)
+shape = SubResource("CircleShape2D_nopsf")
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="body_entered" from="Follow_area" to="." method="_on_follow_area_body_entered"]
+[connection signal="body_exited" from="Follow_area" to="." method="_on_follow_area_body_exited"]

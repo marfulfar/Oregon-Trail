@@ -1,0 +1,708 @@
+[gd_scene load_steps=35 format=3 uid="uid://b14excqnkrkjy"]
+
+[ext_resource type="Texture2D" uid="uid://b6s4rcg7doxqj" path="res://assets/tiles/240/isometric240.png" id="1_f7jce"]
+[ext_resource type="PackedScene" uid="uid://byfysua6sa63t" path="res://scenes/character.tscn" id="1_wr2da"]
+[ext_resource type="Script" path="res://scripts/Camera2D.gd" id="4_k4tfq"]
+[ext_resource type="Script" path="res://scripts/TimeManager.gd" id="5_oxrcr"]
+[ext_resource type="Script" path="res://scripts/EnvironmentManager.gd" id="6_11ond"]
+[ext_resource type="Texture2D" uid="uid://ckp5y2j6ugsik" path="res://assets/sprites/half_sun_moon.png" id="10_uej6q"]
+[ext_resource type="Texture2D" uid="uid://iktmuolfa5dm" path="res://assets/sprites/arrow.png" id="11_3ge5d"]
+[ext_resource type="Script" path="res://scripts/sunDial.gd" id="12_ytb47"]
+[ext_resource type="Script" path="res://scripts/inventorySprite.gd" id="13_gtppk"]
+[ext_resource type="Texture2D" uid="uid://7rnigoxvqcm2" path="res://assets/sprites/UI/inventory_black_back.png" id="15_s3qf2"]
+[ext_resource type="Texture2D" uid="uid://dpi4vthq6c8j8" path="res://assets/sprites/stomach.png" id="17_kgcnv"]
+[ext_resource type="Script" path="res://scripts/Hunger.gd" id="18_xxnn3"]
+[ext_resource type="Texture2D" uid="uid://dic00bb23isrc" path="res://assets/sprites/thirst.png" id="19_cfo54"]
+[ext_resource type="Script" path="res://scripts/Thirst.gd" id="20_8r5v4"]
+[ext_resource type="Script" path="res://scripts/craftMenu.gd" id="20_17a26"]
+[ext_resource type="Texture2D" uid="uid://dki60k3ksvytm" path="res://assets/sprites/orange&black_cursor.png" id="20_ml287"]
+[ext_resource type="Texture2D" uid="uid://ciwn1uwnpc7w8" path="res://assets/sprites/brain.png" id="20_qvrsu"]
+[ext_resource type="Texture2D" uid="uid://ccc7klvqnexcc" path="res://assets/sprites/stats_container.png" id="21_82x7d"]
+[ext_resource type="Texture2D" uid="uid://b7ivbwiy8ja7b" path="res://assets/sprites/UI/background_square_noframe.png" id="21_nlmvw"]
+[ext_resource type="Texture2D" uid="uid://4aqmuiy18eku" path="res://assets/sprites/heart.png" id="21_ytj0f"]
+[ext_resource type="Script" path="res://scripts/Crafting.gd" id="22_a7nxx"]
+[ext_resource type="PackedScene" uid="uid://d0sx5an7d75jn" path="res://scenes/oxen.tscn" id="22_ckoe8"]
+[ext_resource type="Texture2D" uid="uid://cvpgnfumiywso" path="res://assets/sprites/UI/side_panel.png" id="23_0xl2r"]
+[ext_resource type="Texture2D" uid="uid://bqtth6cysotdy" path="res://assets/sprites/hatchet/hatchet.png" id="23_hhtt5"]
+[ext_resource type="Texture2D" uid="uid://dhx3htx6rbns0" path="res://assets/sprites/Campfire/campfire1.png" id="23_y85ue"]
+[ext_resource type="Texture2D" uid="uid://clueuxuonhph8" path="res://assets/sprites/Wagon/prairie_schooner1.png" id="24_nxm1u"]
+[ext_resource type="Script" path="res://scripts/Health.gd" id="24_pd4ix"]
+[ext_resource type="Texture2D" uid="uid://cxv6ueycfvwtk" path="res://assets/sprites/UI/detail_panel_2slots.png" id="24_q824w"]
+[ext_resource type="Texture2D" uid="uid://cus2au1ne8w7l" path="res://assets/sprites/cooktop/crockpot.png" id="25_17ytw"]
+[ext_resource type="Texture2D" uid="uid://cd3lkr71hvoje" path="res://assets/sprites/grass/cut_grass_150x150.png" id="25_vo207"]
+[ext_resource type="Texture2D" uid="uid://biusqinqpwja2" path="res://assets/sprites/wood plank/wood_plank.png" id="26_4mxi0"]
+[ext_resource type="Texture2D" uid="uid://b3cfdk008p75m" path="res://assets/sprites/log/log120.png" id="26_40w2u"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ij2am"]
+texture = ExtResource("1_f7jce")
+margins = Vector2i(5, 35)
+texture_region_size = Vector2i(240, 120)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_me23t"]
+tile_shape = 1
+tile_layout = 4
+tile_size = Vector2i(240, 120)
+sources/5 = SubResource("TileSetAtlasSource_ij2am")
+
+[node name="world" type="Node2D"]
+y_sort_enabled = true
+scale = Vector2(10, 10)
+
+[node name="TileMap" type="TileMap" parent="."]
+z_index = -5
+position = Vector2(-526.1, -59.3)
+tile_set = SubResource("TileSet_me23t")
+format = 2
+layer_0/tile_data = PackedInt32Array(-327675, 5, 0, -327674, 5, 0, -393210, 5, 0, -393211, 5, 805306368, -262138, 5, 805306368, -262139, 5, 805306368, -262137, 5, 805306368, -327673, 5, 0, -393209, 5, 805306368, -458745, 5, 805306368, -524281, 5, 805306368, -524282, 5, 805306368, -524283, 5, 805306368, -458747, 5, 805306368, -458748, 5, 0, -393212, 5, 0, -393213, 5, 805306368, -327677, 5, 0, -327676, 5, 0, -458746, 5, 0, -524284, 5, 805306368, -458749, 5, 805306368, -393214, 5, 0, -327678, 5, 0, -262141, 5, 805306368, -196605, 5, 805306368, -196604, 5, 0, -262140, 5, 805306368, -262142, 5, 805306368, -196603, 5, 805306368, -196602, 5, 0, -524285, 5, 805306368, -458750, 5, 0, -196601, 5, 805306368, -589820, 5, 805306368, -589819, 5, 805306368, -589818, 5, 805306368, -589817, 5, 805306368, -589816, 5, 805306368, -524280, 5, 805306368, -458744, 5, 0, -393208, 5, 0, -327672, 5, 0, -262136, 5, 805306368, -196600, 5, 0, -131065, 5, 805306368, -851970, 5, 0, -786434, 5, 0, -720898, 5, 0, -655362, 5, 805306368, -589826, 5, 0, -524290, 5, 805306368, -458754, 5, 805306368, -393218, 5, 0, -851969, 5, 805306368, -786433, 5, 805306368, -720897, 5, 0, -655361, 5, 805306368, -589825, 5, 805306368, -524289, 5, 805306368, -458753, 5, 805306368, -917504, 5, 0, -851968, 5, 0, -786432, 5, 0, -720896, 5, 805306368, -655360, 5, 0, -589824, 5, 805306368, -524288, 5, 805306368, -393217, 5, 805306368, -458752, 5, 0, -917503, 5, 805306368, -851967, 5, 805306368, -786431, 5, 0, -720895, 5, 805306368, -655359, 5, 805306368, -589823, 5, 805306368, -524287, 5, 805306368, -917502, 5, 0, -851966, 5, 0, -786430, 5, 0, -720894, 5, 805306368, -655358, 5, 0, -589822, 5, 805306368, -524286, 5, 805306368, -458751, 5, 805306368, -917501, 5, 805306368, -851965, 5, 805306368, -786429, 5, 0, -720893, 5, 805306368, -655357, 5, 805306368, -589821, 5, 805306368, -917500, 5, 0, -851964, 5, 0, -786428, 5, 0, -720892, 5, 805306368, -655356, 5, 0, -917499, 5, 805306368, -851963, 5, 805306368, -786427, 5, 0, -720891, 5, 805306368, -655355, 5, 805306368, -917498, 5, 0, -851962, 5, 0, -786426, 5, 0, -720890, 5, 805306368, -655354, 5, 0, -983051, 5, 805306368, -917515, 5, 805306368, -851979, 5, 805306368, -786443, 5, 805306368, -720907, 5, 0, -655371, 5, 805306368, -589835, 5, 805306368, -524299, 5, 805306368, -458763, 5, 805306368, -393227, 5, 805306368, -327691, 5, 805306368, -262155, 5, 0, -196619, 5, 805306368, -131083, 5, 805306368, -65547, 5, 805306368, -11, 5, 805306368, 65525, 5, 805306368, 131061, 5, 805306368, 196597, 5, 0, 262133, 5, 805306368, 327669, 5, 805306368, 393205, 5, 805306368, 458741, 5, 805306368, 524277, 5, 805306368, 589813, 5, 805306368, 655349, 5, 0, 720885, 5, 805306368, 786421, 5, 805306368, 851957, 5, 805306368, 917493, 5, 805306368, -983050, 5, 805306368, -917514, 5, 805306368, -851978, 5, 0, -786442, 5, 0, -720906, 5, 0, -655370, 5, 805306368, -589834, 5, 0, -983049, 5, 805306368, -917513, 5, 805306368, -851977, 5, 805306368, -786441, 5, 805306368, -720905, 5, 0, -655369, 5, 805306368, -589833, 5, 805306368, -524298, 5, 805306368, -458762, 5, 805306368, -393226, 5, 0, -327690, 5, 0, -262154, 5, 0, -196618, 5, 805306368, -131082, 5, 0, -524297, 5, 805306368, -458761, 5, 805306368, -393225, 5, 805306368, -327689, 5, 805306368, -262153, 5, 0, -196617, 5, 805306368, -131081, 5, 805306368, -65546, 5, 805306368, -10, 5, 805306368, 65526, 5, 0, 131062, 5, 0, 196598, 5, 0, 262134, 5, 805306368, 327670, 5, 0, -65545, 5, 805306368, -9, 5, 805306368, 65527, 5, 805306368, 131063, 5, 805306368, 196599, 5, 0, 262135, 5, 805306368, 327671, 5, 805306368, 393206, 5, 805306368, 458742, 5, 805306368, 524278, 5, 0, 589814, 5, 0, 655350, 5, 0, 720886, 5, 805306368, 786422, 5, 0, 393207, 5, 805306368, 458743, 5, 805306368, 524279, 5, 805306368, 589815, 5, 805306368, 655351, 5, 0, 720887, 5, 805306368, 786423, 5, 805306368, 851958, 5, 805306368, 917494, 5, 805306368, 851959, 5, 805306368, 917495, 5, 805306368, -983048, 5, 805306368, -917512, 5, 805306368, -851976, 5, 0, -786440, 5, 0, -720904, 5, 0, -655368, 5, 805306368, -589832, 5, 0, -983047, 5, 805306368, -917511, 5, 805306368, -851975, 5, 805306368, -786439, 5, 805306368, -720903, 5, 0, -655367, 5, 805306368, -589831, 5, 805306368, -524296, 5, 805306368, -458760, 5, 805306368, -393224, 5, 0, -327688, 5, 0, -262152, 5, 0, -196616, 5, 805306368, -131080, 5, 0, -524295, 5, 805306368, -458759, 5, 805306368, -393223, 5, 805306368, -327687, 5, 805306368, -262151, 5, 0, -196615, 5, 805306368, -131079, 5, 805306368, -65544, 5, 805306368, -8, 5, 805306368, 65528, 5, 0, 131064, 5, 0, 196600, 5, 0, 262136, 5, 805306368, 327672, 5, 0, -65543, 5, 805306368, -7, 5, 805306368, 65529, 5, 805306368, 131065, 5, 805306368, 196601, 5, 0, 262137, 5, 805306368, 327673, 5, 805306368, 393208, 5, 805306368, 458744, 5, 805306368, 524280, 5, 0, 589816, 5, 0, 655352, 5, 0, 720888, 5, 805306368, 786424, 5, 0, 393209, 5, 805306368, 458745, 5, 805306368, 524281, 5, 805306368, 589817, 5, 805306368, 655353, 5, 0, 720889, 5, 805306368, 786425, 5, 805306368, 851960, 5, 805306368, 917496, 5, 805306368, 851961, 5, 805306368, 917497, 5, 805306368, -983046, 5, 805306368, -917510, 5, 805306368, -851974, 5, 0, -786438, 5, 0, -720902, 5, 0, -655366, 5, 805306368, -589830, 5, 0, -983045, 5, 805306368, -917509, 5, 805306368, -851973, 5, 805306368, -786437, 5, 805306368, -720901, 5, 0, -655365, 5, 805306368, -589829, 5, 805306368, -524294, 5, 805306368, -458758, 5, 805306368, -393222, 5, 0, -327686, 5, 0, -262150, 5, 0, -196614, 5, 805306368, -131078, 5, 0, -524293, 5, 805306368, -458757, 5, 805306368, -393221, 5, 805306368, -327685, 5, 805306368, -262149, 5, 0, -196613, 5, 805306368, -131077, 5, 805306368, -65542, 5, 805306368, -6, 5, 805306368, 65530, 5, 0, 131066, 5, 0, 196602, 5, 0, 262138, 5, 805306368, 327674, 5, 0, -65541, 5, 805306368, -5, 5, 805306368, 65531, 5, 805306368, 131067, 5, 805306368, 196603, 5, 0, 262139, 5, 805306368, 327675, 5, 805306368, 393210, 5, 805306368, 458746, 5, 805306368, 524282, 5, 0, 589818, 5, 0, 655354, 5, 0, 720890, 5, 805306368, 786426, 5, 0, 393211, 5, 805306368, 458747, 5, 805306368, 524283, 5, 805306368, 589819, 5, 805306368, 655355, 5, 0, 720891, 5, 805306368, 786427, 5, 805306368, 851962, 5, 805306368, 917498, 5, 805306368, 851963, 5, 805306368, 917499, 5, 805306368, -983044, 5, 805306368, -917508, 5, 805306368, -851972, 5, 0, -786436, 5, 0, -720900, 5, 0, -655364, 5, 805306368, -589828, 5, 0, -983043, 5, 805306368, -917507, 5, 805306368, -851971, 5, 805306368, -786435, 5, 805306368, -720899, 5, 0, -655363, 5, 805306368, -589827, 5, 805306368, -524292, 5, 805306368, -458756, 5, 805306368, -393220, 5, 0, -327684, 5, 0, -262148, 5, 0, -196612, 5, 805306368, -131076, 5, 0, -524291, 5, 805306368, -458755, 5, 805306368, -393219, 5, 805306368, -327683, 5, 805306368, -262147, 5, 0, -196611, 5, 805306368, -131075, 5, 805306368, -65540, 5, 805306368, -4, 5, 805306368, 65532, 5, 0, 131068, 5, 0, 196604, 5, 0, 262140, 5, 805306368, 327676, 5, 0, -65539, 5, 805306368, -3, 5, 805306368, 65533, 5, 805306368, 131069, 5, 805306368, 196605, 5, 0, 262141, 5, 805306368, 327677, 5, 805306368, 393212, 5, 805306368, 458748, 5, 805306368, 524284, 5, 0, 589820, 5, 0, 655356, 5, 0, 720892, 5, 805306368, 786428, 5, 0, 393213, 5, 805306368, 458749, 5, 805306368, 524285, 5, 805306368, 589821, 5, 805306368, 655357, 5, 0, 720893, 5, 805306368, 786429, 5, 805306368, 851964, 5, 805306368, 917500, 5, 805306368, 851965, 5, 805306368, 917501, 5, 805306368, -983042, 5, 805306368, -917506, 5, 805306368, -983041, 5, 805306368, -917505, 5, 805306368, -327682, 5, 0, -262146, 5, 0, -196610, 5, 805306368, -131074, 5, 0, -327681, 5, 805306368, -262145, 5, 0, -196609, 5, 805306368, -131073, 5, 805306368, -65538, 5, 805306368, -2, 5, 805306368, 65534, 5, 0, 131070, 5, 0, 196606, 5, 0, 262142, 5, 805306368, 327678, 5, 0, -65537, 5, 805306368, -1, 5, 805306368, 65535, 5, 805306368, 131071, 5, 805306368, 196607, 5, 0, 262143, 5, 805306368, 327679, 5, 805306368, 393214, 5, 805306368, 458750, 5, 805306368, 524286, 5, 0, 589822, 5, 0, 655358, 5, 0, 720894, 5, 805306368, 786430, 5, 0, 393215, 5, 805306368, 458751, 5, 805306368, 524287, 5, 805306368, 589823, 5, 805306368, 655359, 5, 0, 720895, 5, 805306368, 786431, 5, 805306368, 851966, 5, 805306368, 917502, 5, 805306368, 851967, 5, 805306368, 917503, 5, 805306368, -1048576, 5, 805306368, -983040, 5, 805306368, -1048575, 5, 805306368, -983039, 5, 805306368, -393216, 5, 0, -327680, 5, 0, -262144, 5, 805306368, -196608, 5, 0, -393215, 5, 805306368, -327679, 5, 0, -262143, 5, 805306368, -196607, 5, 805306368, -131072, 5, 805306368, -65536, 5, 805306368, 0, 5, 0, 65536, 5, 0, 131072, 5, 0, 196608, 5, 805306368, 262144, 5, 0, -131071, 5, 805306368, -65535, 5, 805306368, 1, 5, 805306368, 65537, 5, 805306368, 131073, 5, 0, 196609, 5, 805306368, 262145, 5, 805306368, 327680, 5, 805306368, 393216, 5, 805306368, 458752, 5, 0, 524288, 5, 0, 589824, 5, 0, 655360, 5, 805306368, 720896, 5, 0, 327681, 5, 805306368, 393217, 5, 805306368, 458753, 5, 805306368, 524289, 5, 805306368, 589825, 5, 0, 655361, 5, 805306368, 720897, 5, 805306368, 786432, 5, 805306368, 851968, 5, 805306368, 786433, 5, 805306368, 851969, 5, 805306368, -1048574, 5, 805306368, -983038, 5, 805306368, -1048573, 5, 805306368, -983037, 5, 805306368, -196606, 5, 0, -131070, 5, 805306368, -65534, 5, 805306368, 2, 5, 0, 65538, 5, 0, 131074, 5, 0, 196610, 5, 805306368, 262146, 5, 0, -131069, 5, 805306368, -65533, 5, 805306368, 3, 5, 805306368, 65539, 5, 805306368, 131075, 5, 0, 196611, 5, 805306368, 262147, 5, 805306368, 327682, 5, 805306368, 393218, 5, 805306368, 458754, 5, 0, 524290, 5, 0, 589826, 5, 0, 655362, 5, 805306368, 720898, 5, 0, 327683, 5, 805306368, 393219, 5, 805306368, 458755, 5, 805306368, 524291, 5, 805306368, 589827, 5, 0, 655363, 5, 805306368, 720899, 5, 805306368, 786434, 5, 805306368, 851970, 5, 805306368, 786435, 5, 805306368, 851971, 5, 805306368, -1048572, 5, 805306368, -983036, 5, 805306368, -1048571, 5, 805306368, -983035, 5, 805306368, -131068, 5, 805306368, -65532, 5, 805306368, 4, 5, 0, 65540, 5, 0, 131076, 5, 0, 196612, 5, 805306368, 262148, 5, 0, -131067, 5, 805306368, -65531, 5, 805306368, 5, 5, 805306368, 65541, 5, 805306368, 131077, 5, 0, 196613, 5, 805306368, 262149, 5, 805306368, 327684, 5, 805306368, 393220, 5, 805306368, 458756, 5, 0, 524292, 5, 0, 589828, 5, 0, 655364, 5, 805306368, 720900, 5, 0, 327685, 5, 805306368, 393221, 5, 805306368, 458757, 5, 805306368, 524293, 5, 805306368, 589829, 5, 0, 655365, 5, 805306368, 720901, 5, 805306368, 786436, 5, 805306368, 851972, 5, 805306368, 786437, 5, 805306368, 851973, 5, 805306368, -1048570, 5, 805306368, -983034, 5, 805306368, -1048569, 5, 805306368, -983033, 5, 805306368, -917497, 5, 805306368, -851961, 5, 805306368, -786425, 5, 0, -720889, 5, 805306368, -655353, 5, 805306368, -131066, 5, 805306368, -65530, 5, 805306368, 6, 5, 0, 65542, 5, 0, 131078, 5, 0, 196614, 5, 805306368, 262150, 5, 0, -65529, 5, 805306368, 7, 5, 805306368, 65543, 5, 805306368, 131079, 5, 0, 196615, 5, 805306368, 262151, 5, 805306368, 327686, 5, 805306368, 393222, 5, 805306368, 458758, 5, 0, 524294, 5, 0, 589830, 5, 0, 655366, 5, 805306368, 720902, 5, 0, 327687, 5, 805306368, 393223, 5, 805306368, 458759, 5, 805306368, 524295, 5, 805306368, 589831, 5, 0, 655367, 5, 805306368, 720903, 5, 805306368, 786438, 5, 805306368, 851974, 5, 805306368, 786439, 5, 805306368, 851975, 5, 805306368, -1048568, 5, 805306368, -983032, 5, 805306368, -917496, 5, 0, -851960, 5, 0, -786424, 5, 0, -720888, 5, 805306368, -655352, 5, 0, -1048567, 5, 805306368, -983031, 5, 805306368, -917495, 5, 805306368, -851959, 5, 805306368, -786423, 5, 0, -720887, 5, 805306368, -655351, 5, 805306368, -589815, 5, 805306368, -524279, 5, 805306368, -458743, 5, 805306368, -393207, 5, 805306368, -327671, 5, 0, -262135, 5, 805306368, -196599, 5, 805306368, -131064, 5, 805306368, -65528, 5, 805306368, 8, 5, 0, 65544, 5, 0, 131080, 5, 0, 196616, 5, 805306368, 262152, 5, 0, -131063, 5, 805306368, -65527, 5, 805306368, 9, 5, 805306368, 65545, 5, 805306368, 131081, 5, 0, 196617, 5, 805306368, 262153, 5, 805306368, 327688, 5, 805306368, 393224, 5, 805306368, 458760, 5, 0, 524296, 5, 0, 589832, 5, 0, 655368, 5, 805306368, 720904, 5, 0, 327689, 5, 805306368, 393225, 5, 805306368, 458761, 5, 805306368, 524297, 5, 805306368, 589833, 5, 0, 655369, 5, 805306368, 720905, 5, 805306368, 786440, 5, 805306368, 851976, 5, 805306368, 786441, 5, 805306368, 851977, 5, 805306368, -1048566, 5, 805306368, -983030, 5, 805306368, -917494, 5, 0, -851958, 5, 0, -786422, 5, 0, -720886, 5, 805306368, -655350, 5, 0, -1048565, 5, 805306368, -983029, 5, 805306368, -917493, 5, 805306368, -851957, 5, 805306368, -786421, 5, 0, -720885, 5, 805306368, -655349, 5, 805306368, -589814, 5, 805306368, -524278, 5, 805306368, -458742, 5, 0, -393206, 5, 0, -327670, 5, 0, -262134, 5, 805306368, -196598, 5, 0, -589813, 5, 805306368, -524277, 5, 805306368, -458741, 5, 805306368, -393205, 5, 805306368, -327669, 5, 0, -262133, 5, 805306368, -196597, 5, 805306368, -131062, 5, 805306368, -65526, 5, 805306368, 10, 5, 0, 65546, 5, 0, 131082, 5, 0, 196618, 5, 805306368, 262154, 5, 0, -131061, 5, 805306368, -65525, 5, 805306368, 11, 5, 805306368, 65547, 5, 805306368, 131083, 5, 0, 196619, 5, 805306368, 262155, 5, 805306368, 327690, 5, 805306368, 393226, 5, 805306368, 458762, 5, 0, 524298, 5, 0, 589834, 5, 0, 655370, 5, 805306368, 720906, 5, 0, 327691, 5, 805306368, 393227, 5, 805306368, 458763, 5, 805306368, 524299, 5, 805306368, 589835, 5, 0, 655371, 5, 805306368, 720907, 5, 805306368, 786442, 5, 805306368, 851978, 5, 805306368, 786443, 5, 805306368, 851979, 5, 805306368, -1048564, 5, 805306368, -983028, 5, 805306368, -917492, 5, 0, -851956, 5, 0, -786420, 5, 0, -720884, 5, 805306368, -655348, 5, 0, -1048563, 5, 805306368, -983027, 5, 805306368, -917491, 5, 805306368, -851955, 5, 805306368, -786419, 5, 0, -720883, 5, 805306368, -655347, 5, 805306368, -589812, 5, 805306368, -524276, 5, 805306368, -458740, 5, 0, -393204, 5, 0, -327668, 5, 0, -262132, 5, 805306368, -196596, 5, 0, -589811, 5, 805306368, -524275, 5, 805306368, -458739, 5, 805306368, -393203, 5, 805306368, -327667, 5, 0, -262131, 5, 805306368, -196595, 5, 805306368, -131060, 5, 805306368, -65524, 5, 805306368, 12, 5, 0, 65548, 5, 0, 131084, 5, 0, 196620, 5, 805306368, 262156, 5, 0, -131059, 5, 805306368, -65523, 5, 805306368, 13, 5, 805306368, 65549, 5, 805306368, 131085, 5, 0, 196621, 5, 805306368, 262157, 5, 805306368, 327692, 5, 805306368, 393228, 5, 805306368, 458764, 5, 0, 524300, 5, 0, 589836, 5, 0, 655372, 5, 805306368, 720908, 5, 0, 327693, 5, 805306368, 393229, 5, 805306368, 458765, 5, 805306368, 524301, 5, 805306368, 589837, 5, 0, 655373, 5, 805306368, 720909, 5, 805306368, 786444, 5, 805306368, 851980, 5, 805306368, 786445, 5, 805306368, 851981, 5, 805306368)
+
+[node name="TimeManager" type="Node" parent="." groups=["TimeManager"]]
+unique_name_in_owner = true
+script = ExtResource("5_oxrcr")
+
+[node name="EnvironmentManager" type="Node2D" parent="."]
+position = Vector2(0, -4)
+script = ExtResource("6_11ond")
+
+[node name="DirectionalLight2D" type="DirectionalLight2D" parent="EnvironmentManager"]
+position = Vector2(67, -29)
+rotation = -3.14159
+color = Color(0.980392, 0.905882, 0, 0.392157)
+energy = 0.5
+shadow_enabled = true
+shadow_color = Color(0, 0, 0, 0.717647)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="EnvironmentManager"]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="EnvironmentManager/CanvasLayer"]
+anchors_preset = -1
+anchor_left = -3.233
+anchor_top = -4.289
+anchor_right = 2.125
+anchor_bottom = 3.499
+offset_left = -96993.8
+offset_top = -65819.9
+offset_right = -102175.0
+offset_bottom = -70287.6
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(118.037, 108.662)
+color = Color(0, 0, 0, 0.941176)
+metadata/_edit_use_anchors_ = true
+
+[node name="Node y sorting" type="Node2D" parent="."]
+y_sort_enabled = true
+scale = Vector2(5, 4.718)
+
+[node name="character" parent="Node y sorting" instance=ExtResource("1_wr2da")]
+unique_name_in_owner = true
+position = Vector2(-121.68, -126.706)
+scale = Vector2(0.05, 0.05)
+
+[node name="Camera2D" type="Camera2D" parent="Node y sorting/character"]
+position = Vector2(798.8, 74.6006)
+zoom = Vector2(0.2, 0.2)
+script = ExtResource("4_k4tfq")
+
+[node name="HUD" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 2
+
+[node name="inventorySprite" type="TextureRect" parent="HUD"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -258.0
+offset_top = -113.0
+offset_right = 242.0
+offset_bottom = 8.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("15_s3qf2")
+expand_mode = 2
+stretch_mode = 3
+script = ExtResource("13_gtppk")
+
+[node name="Container" type="Control" parent="HUD/inventorySprite"]
+layout_mode = 1
+anchor_left = 0.104
+anchor_top = 0.165
+anchor_right = 0.9
+anchor_bottom = 0.711
+offset_top = 0.0349998
+offset_right = -3.05176e-05
+offset_bottom = -0.0310059
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="cursor" type="TextureRect" parent="HUD/inventorySprite/Container"]
+layout_mode = 0
+offset_right = 1024.0
+offset_bottom = 1024.0
+scale = Vector2(0.0608954, 0.0624467)
+texture = ExtResource("20_ml287")
+
+[node name="Drop_label" type="Label" parent="HUD/inventorySprite/Container/cursor"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -1283.82
+offset_top = -832.71
+offset_right = -730.815
+offset_bottom = -749.71
+grow_horizontal = 2
+scale = Vector2(5, 5)
+theme_override_font_sizes/font_size = 60
+text = "Press S to drop"
+
+[node name="Use_label" type="Label" parent="HUD/inventorySprite/Container/cursor"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -1283.82
+offset_top = -1185.01
+offset_right = -730.81
+offset_bottom = -1102.01
+grow_horizontal = 2
+scale = Vector2(5, 5)
+theme_override_font_sizes/font_size = 60
+text = "Press A to use"
+
+[node name="MarginContainer" type="MarginContainer" parent="HUD/inventorySprite"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 52.0
+offset_top = 20.0
+offset_right = -50.0
+offset_bottom = -35.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/inventorySprite/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 22
+
+[node name="TextureRect1" type="TextureRect" parent="HUD/inventorySprite/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label1" type="Label" parent="HUD/inventorySprite/MarginContainer/HBoxContainer/TextureRect1"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 2
+
+[node name="TextureRect2" type="TextureRect" parent="HUD/inventorySprite/MarginContainer/HBoxContainer"]
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label2" type="Label" parent="HUD/inventorySprite/MarginContainer/HBoxContainer/TextureRect2"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 2
+
+[node name="TextureRect3" type="TextureRect" parent="HUD/inventorySprite/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label3" type="Label" parent="HUD/inventorySprite/MarginContainer/HBoxContainer/TextureRect3"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 2
+
+[node name="TextureRect4" type="TextureRect" parent="HUD/inventorySprite/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label4" type="Label" parent="HUD/inventorySprite/MarginContainer/HBoxContainer/TextureRect4"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 2
+
+[node name="TextureRect5" type="TextureRect" parent="HUD/inventorySprite/MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.2
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Label5" type="Label" parent="HUD/inventorySprite/MarginContainer/HBoxContainer/TextureRect5"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -40.0
+offset_top = -23.0
+grow_horizontal = 0
+grow_vertical = 0
+horizontal_alignment = 2
+
+[node name="pausedGame" type="Label" parent="HUD/inventorySprite"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -234.0
+offset_top = -594.0
+offset_right = 243.0
+offset_bottom = -511.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 60
+text = "Game is paused!"
+
+[node name="Stats" type="TextureRect" parent="HUD"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -406.0
+offset_top = -172.0
+offset_right = 94.0
+offset_bottom = 328.0
+grow_horizontal = 0
+scale = Vector2(1.04212, 0.914735)
+texture = ExtResource("21_82x7d")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HUD/Stats"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -444.869
+offset_top = 198.139
+offset_right = 7759.13
+offset_bottom = 2246.14
+grow_horizontal = 0
+scale = Vector2(0.0375468, 0.0389025)
+
+[node name="Hunger" type="TextureRect" parent="HUD/Stats/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("17_kgcnv")
+expand_mode = 2
+script = ExtResource("18_xxnn3")
+
+[node name="Label" type="Label" parent="HUD/Stats/HBoxContainer/Hunger"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -970.373
+offset_top = -482.476
+offset_right = -841.373
+offset_bottom = -379.476
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(7.37459, 5.69116)
+theme_override_font_sizes/font_size = 75
+text = "100"
+horizontal_alignment = 3
+vertical_alignment = 3
+
+[node name="Thirst" type="TextureRect" parent="HUD/Stats/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("19_cfo54")
+expand_mode = 2
+script = ExtResource("20_8r5v4")
+
+[node name="Label2" type="Label" parent="HUD/Stats/HBoxContainer/Thirst"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -925.235
+offset_top = -471.026
+offset_right = -796.235
+offset_bottom = -368.026
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(7.37459, 5.69116)
+theme_override_font_sizes/font_size = 75
+text = "100"
+horizontal_alignment = 3
+vertical_alignment = 3
+
+[node name="MentalHealth" type="TextureRect" parent="HUD/Stats/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("20_qvrsu")
+expand_mode = 2
+
+[node name="Label3" type="Label" parent="HUD/Stats/HBoxContainer/MentalHealth"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1125.29
+offset_top = -471.026
+offset_right = -996.287
+offset_bottom = -368.026
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(7.37459, 5.69116)
+theme_override_font_sizes/font_size = 75
+text = "100"
+horizontal_alignment = 3
+vertical_alignment = 3
+
+[node name="Health" type="TextureRect" parent="HUD/Stats/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("21_ytj0f")
+expand_mode = 2
+script = ExtResource("24_pd4ix")
+
+[node name="Label4" type="Label" parent="HUD/Stats/HBoxContainer/Health"]
+layout_direction = 2
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1060.78
+offset_top = -471.026
+offset_right = -931.776
+offset_bottom = -368.026
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(7.37459, 5.69116)
+theme_override_font_sizes/font_size = 75
+text = "100"
+horizontal_alignment = 3
+vertical_alignment = 3
+
+[node name="SunDial" type="NinePatchRect" parent="HUD"]
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 43.0
+offset_bottom = 42.0
+scale = Vector2(3.72579, 3.1899)
+texture = ExtResource("21_82x7d")
+region_rect = Rect2(51, 209.5, 320, 67)
+axis_stretch_horizontal = 2
+axis_stretch_vertical = 2
+script = ExtResource("12_ytb47")
+
+[node name="sun_moon" type="TextureRect" parent="HUD/SunDial"]
+layout_mode = 0
+offset_left = -4.68719
+offset_top = -4.99452
+offset_right = 226.313
+offset_bottom = 220.005
+scale = Vector2(0.214784, 0.255848)
+texture = ExtResource("10_uej6q")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="days_label" type="Label" parent="HUD/SunDial/sun_moon"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -87.429
+offset_top = -201.803
+offset_right = -41.429
+offset_bottom = -178.803
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+text = "Days: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="arrow" type="TextureRect" parent="HUD/SunDial"]
+layout_mode = 0
+offset_left = -829.632
+offset_top = -470.734
+offset_right = 1090.37
+offset_bottom = 609.266
+rotation = 1.5708
+scale = Vector2(0.0137825, 0.0112933)
+pivot_offset = Vector2(850, 494.253)
+texture = ExtResource("11_3ge5d")
+
+[node name="WagonCraftMenu" type="PanelContainer" parent="HUD"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -250.0
+offset_top = -250.0
+offset_right = 250.0
+offset_bottom = 250.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("20_17a26")
+
+[node name="TextureRect" type="TextureRect" parent="HUD/WagonCraftMenu"]
+layout_mode = 2
+texture = ExtResource("21_nlmvw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/WagonCraftMenu/TextureRect"]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 40.0
+offset_top = 75.0
+offset_right = -40.0
+offset_bottom = -40.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="HUD/WagonCraftMenu/TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -250.0
+offset_top = 20.0
+offset_right = 250.0
+offset_bottom = 62.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 30
+text = "Crafting"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD"]
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 210.0
+offset_top = -250.0
+offset_right = 710.0
+offset_bottom = 250.0
+grow_vertical = 2
+rotation = 1.5708
+texture = ExtResource("15_s3qf2")
+script = ExtResource("22_a7nxx")
+
+[node name="SidePanel" type="TextureRect" parent="HUD/TextureRect"]
+layout_mode = 0
+offset_left = -4.0
+offset_top = 500.0
+offset_right = 496.0
+offset_bottom = 1000.0
+rotation = -1.5708
+texture = ExtResource("23_0xl2r")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="HUD/TextureRect/SidePanel"]
+layout_mode = 0
+offset_left = 352.0
+offset_top = 54.0
+offset_right = 392.0
+offset_bottom = 94.0
+scale = Vector2(1.6703, 10.089)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/TextureRect/SidePanel/ScrollContainer"]
+layout_mode = 2
+
+[node name="Button" type="TextureButton" parent="HUD/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -201.0
+offset_top = 25.0
+offset_right = 299.0
+offset_bottom = 525.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.57079
+scale = Vector2(0.137098, 0.137362)
+texture_normal = ExtResource("23_hhtt5")
+
+[node name="Button2" type="TextureButton" parent="HUD/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.0
+offset_top = 27.0
+offset_right = 382.0
+offset_bottom = 527.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.57079
+scale = Vector2(0.137098, 0.137362)
+texture_normal = ExtResource("23_y85ue")
+
+[node name="Button3" type="TextureButton" parent="HUD/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -31.0
+offset_top = 26.0
+offset_right = 469.0
+offset_bottom = 526.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.57079
+scale = Vector2(0.137098, 0.137362)
+texture_normal = ExtResource("24_nxm1u")
+
+[node name="Button4" type="TextureButton" parent="HUD/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 53.0
+offset_top = 27.0
+offset_right = 553.0
+offset_bottom = 527.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.57079
+scale = Vector2(0.137098, 0.137362)
+texture_normal = ExtResource("25_17ytw")
+
+[node name="Button5" type="TextureButton" parent="HUD/TextureRect"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 135.0
+offset_top = 26.0
+offset_right = 635.0
+offset_bottom = 526.0
+grow_horizontal = 2
+grow_vertical = 2
+rotation = -1.57079
+scale = Vector2(0.137098, 0.137362)
+texture_normal = ExtResource("26_4mxi0")
+
+[node name="Cursor" type="TextureRect" parent="HUD/TextureRect"]
+layout_mode = 0
+offset_left = 50.0007
+offset_top = 207.0
+offset_right = 1074.0
+offset_bottom = 1231.0
+scale = Vector2(0.07, 0.07)
+texture = ExtResource("20_ml287")
+
+[node name="DetailPanel" type="TextureRect" parent="HUD/TextureRect"]
+layout_mode = 0
+offset_left = 0.00118256
+offset_top = 325.0
+offset_right = 500.001
+offset_bottom = 825.0
+rotation = -1.5708
+scale = Vector2(1.12873, 1.02414)
+texture = ExtResource("24_q824w")
+
+[node name="ing1" type="TextureRect" parent="HUD/TextureRect/DetailPanel"]
+layout_mode = 0
+offset_left = 248.0
+offset_top = 73.232
+offset_right = 398.0
+offset_bottom = 223.232
+scale = Vector2(0.654388, 0.744084)
+texture = ExtResource("25_vo207")
+
+[node name="ing2" type="TextureRect" parent="HUD/TextureRect/DetailPanel"]
+layout_mode = 0
+offset_left = 353.493
+offset_top = 98.6191
+offset_right = 473.493
+offset_bottom = 218.619
+scale = Vector2(0.502712, 0.518427)
+texture = ExtResource("26_40w2u")
+
+[node name="Label" type="Label" parent="HUD/TextureRect/DetailPanel"]
+layout_mode = 0
+offset_left = 287.933
+offset_top = 48.8213
+offset_right = 433.933
+offset_bottom = 90.8213
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 20
+text = "CAMPFIRE"
+
+[node name="oxen" parent="." instance=ExtResource("22_ckoe8")]
+position = Vector2(-1322.5, -525.8)
+scale = Vector2(0.1, 0.1)
+follow_speed = 250.0
+follow_distance = 200.0
+
+[connection signal="time_changed" from="TimeManager" to="EnvironmentManager" method="_on_time_manager_time_changed"]
+[connection signal="health_update" from="Node y sorting/character" to="HUD/Stats/HBoxContainer/Health" method="_on_character_health_update"]
+[connection signal="hunger_update" from="Node y sorting/character" to="HUD/Stats/HBoxContainer/Hunger" method="_on_character_hunger_update"]
+[connection signal="inventory_updated" from="Node y sorting/character" to="HUD/inventorySprite" method="_on_character_inventory_updated"]
+[connection signal="thirst_update" from="Node y sorting/character" to="HUD/Stats/HBoxContainer/Thirst" method="_on_character_thirst_update"]

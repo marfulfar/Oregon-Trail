@@ -1,0 +1,74 @@
+[gd_scene load_steps=9 format=3 uid="uid://1tn7a1xb3r73"]
+
+[ext_resource type="Script" path="res://scripts/bush.gd" id="1_7tng0"]
+[ext_resource type="AudioStream" uid="uid://becu4gi6lshlp" path="res://assets/sounds/achievement-video-game-type-1-230515.mp3" id="3_fddmq"]
+[ext_resource type="SpriteFrames" uid="uid://brvcbntbcddrh" path="res://assets/animations/collect_somke.tres" id="4_inlul"]
+[ext_resource type="Texture2D" uid="uid://c026a5yv448ru" path="res://assets/sprites/Berries/no_berry_bush120.png" id="4_u3jeg"]
+[ext_resource type="Texture2D" uid="uid://c8m5gouehilpo" path="res://assets/sprites/Berries/berry_bush120.png" id="5_4c6uj"]
+[ext_resource type="Texture2D" uid="uid://v7rjrv7hw74" path="res://assets/sprites/Berries/blackberry.png" id="6_rhfwv"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s2ady"]
+size = Vector2(28.8334, 51)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_atpvg"]
+radius = 227.141
+
+[node name="Berry_bush" type="StaticBody2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_7tng0")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0.666667, -2.99999)
+rotation = 1.5708
+shape = SubResource("RectangleShape2D_s2ady")
+debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-1, 148)
+
+[node name="hit box" type="CollisionShape2D" parent="Area2D"]
+light_mask = 3
+position = Vector2(5, -179.333)
+scale = Vector2(-0.290285, 0.275064)
+shape = SubResource("CircleShape2D_atpvg")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_fddmq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(7.33333, -18)
+sprite_frames = ExtResource("4_inlul")
+animation = &"collect_smoke"
+frame = 23
+
+[node name="bush_no_berry" type="Sprite2D" parent="."]
+position = Vector2(4, 112)
+texture = ExtResource("4_u3jeg")
+offset = Vector2(0, -150)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(4, 112)
+texture = ExtResource("5_4c6uj")
+offset = Vector2(0, -150)
+
+[node name="Label" type="Label" parent="."]
+z_index = 10
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -27.6667
+offset_top = 28.6667
+offset_right = 467.333
+offset_bottom = 111.667
+grow_horizontal = 2
+scale = Vector2(0.978, 1)
+theme_override_font_sizes/font_size = 10
+text = "Press A to collect"
+
+[node name="blackberry" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("6_rhfwv")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

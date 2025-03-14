@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://e0ywis4km0we"]
+
+[ext_resource type="Script" path="res://scripts/base_item.gd" id="1_dsohw"]
+[ext_resource type="Texture2D" uid="uid://dfc1nuddy8quf" path="res://assets/sprites/log.png" id="1_mwkno"]
+
+[resource]
+script = ExtResource("1_dsohw")
+item_name = "log"
+item_texture = ExtResource("1_mwkno")
+item_desc = "log_desc"
+item_edible = false
+item_stackable = true
+item_stack_limit = 10
+item_tool = false
+item_ingredient = true
+item_scene_path = "res://scenes/log.tscn"
+item_qty_per_item = 1

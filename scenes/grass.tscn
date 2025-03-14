@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=3 uid="uid://cgyr55ucx245e"]
+
+[ext_resource type="Script" path="res://scripts/grass.gd" id="1_ge5da"]
+[ext_resource type="SpriteFrames" uid="uid://brvcbntbcddrh" path="res://assets/animations/collect_somke.tres" id="1_ud7x4"]
+[ext_resource type="Resource" uid="uid://bi73dq3kr1yvb" path="res://resources/grass.tres" id="2_lvx5s"]
+[ext_resource type="Texture2D" uid="uid://cd3lkr71hvoje" path="res://assets/sprites/grass/cut_grass_150x150.png" id="3_wm7t8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ja7m4"]
+radius = 57.0088
+
+[node name="grass" type="StaticBody2D"]
+scale = Vector2(0.5, 0.5)
+script = ExtResource("1_ge5da")
+resource = ExtResource("2_lvx5s")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("3_wm7t8")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_ja7m4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(5, 0)
+sprite_frames = ExtResource("1_ud7x4")
+animation = &"collect_smoke"
+frame = 23
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -56.0
+offset_top = 38.0
+offset_right = 75.0
+offset_bottom = 61.0
+grow_horizontal = 2
+text = "Press A to collect"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

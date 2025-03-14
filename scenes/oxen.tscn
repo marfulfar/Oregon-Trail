@@ -1,0 +1,147 @@
+[gd_scene load_steps=18 format=3 uid="uid://d0sx5an7d75jn"]
+
+[ext_resource type="Script" path="res://scripts/oxen_follow.gd" id="1_hql1y"]
+[ext_resource type="SpriteFrames" uid="uid://dbdfcxw6sfc4o" path="res://assets/animations/oxen_walk.tres" id="2_xf1qa"]
+[ext_resource type="Texture2D" uid="uid://clueuxuonhph8" path="res://assets/sprites/Wagon/prairie_schooner1.png" id="3_axs1m"]
+[ext_resource type="Texture2D" uid="uid://cdsdf486mkhg0" path="res://assets/sprites/Wagon/prairie_schooner2.png" id="3_vvqb8"]
+[ext_resource type="Texture2D" uid="uid://c7rokgvp28uky" path="res://assets/sprites/Wagon/prairie_schooner3.png" id="4_5h0tw"]
+[ext_resource type="Texture2D" uid="uid://b7c57f0yhup4s" path="res://assets/sprites/Wagon/prairie_schooner4.png" id="5_731ot"]
+[ext_resource type="Texture2D" uid="uid://d5gwc258x1t8" path="res://assets/sprites/Wagon/prairie_schooner5.png" id="6_krrcs"]
+[ext_resource type="Texture2D" uid="uid://cac24egmx0u0w" path="res://assets/sprites/Wagon/prairie_schooner6.png" id="7_7to4k"]
+[ext_resource type="Texture2D" uid="uid://cjdrxo61slxg5" path="res://assets/sprites/Wagon/prairie_schooner7.png" id="8_himoi"]
+[ext_resource type="Texture2D" uid="uid://hyoqw8orck84" path="res://assets/sprites/Wagon/prairie_schooner8.png" id="9_tqfou"]
+[ext_resource type="Texture2D" uid="uid://c2raoaja8wih6" path="res://assets/sprites/Wagon/prairie_schooner9.png" id="10_d22ad"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xhh2r"]
+load_path = "res://.godot/imported/prairie_schooner2.png-3cc2cf348279581e96ab49f7207f8e96.ctex"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_28l58"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("CompressedTexture2D_xhh2r")
+}],
+"loop": true,
+"name": &"wagon_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_axs1m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_vvqb8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5h0tw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_731ot")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_krrcs")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7to4k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_himoi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_tqfou")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_d22ad")
+}],
+"loop": true,
+"name": &"wagon_move",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_f5l1x"]
+size = Vector2(255.872, 269.455)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_risie"]
+size = Vector2(463, 1192.16)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s8frc"]
+radius = 6.44349
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvucv"]
+size = Vector2(14.6325, 16.3812)
+
+[node name="Node2D" type="CharacterBody2D" groups=["oxen"]]
+position = Vector2(-20, -845)
+script = ExtResource("1_hql1y")
+follow_speed = 2000.0
+follow_distance = 100.0
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-71, -385)
+sprite_frames = ExtResource("2_xf1qa")
+animation = &"oxen_idle"
+autoplay = "oxen_idle"
+frame_progress = 0.940713
+
+[node name="wagon" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
+position = Vector2(2000, -447)
+scale = Vector2(8.81299, 7.16631)
+sprite_frames = SubResource("SpriteFrames_28l58")
+animation = &"wagon_move"
+frame_progress = 0.240724
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/wagon"]
+position = Vector2(17.5309, -23.2337)
+shape = SubResource("RectangleShape2D_f5l1x")
+
+[node name="crafting_area" type="Area2D" parent="AnimatedSprite2D/wagon"]
+position = Vector2(-226.938, 62.3752)
+scale = Vector2(0.113469, 0.139542)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/wagon/crafting_area"]
+position = Vector2(3476, -515)
+scale = Vector2(2.95907, 2.16174)
+shape = SubResource("RectangleShape2D_risie")
+debug_color = Color(0.377058, 0.609597, 0.213521, 0.42)
+
+[node name="craft_menu_label" type="Label" parent="AnimatedSprite2D"]
+offset_left = 3668.0
+offset_top = -1194.0
+offset_right = 4975.0
+offset_bottom = -1070.0
+theme_override_font_sizes/font_size = 90
+text = "Press A to open crafting menu"
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(-71, -385)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1.52588e-05, 81)
+scale = Vector2(192.791, -180.488)
+shape = SubResource("CircleShape2D_s8frc")
+debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-52.5, -168)
+scale = Vector2(64.5821, 56.7291)
+shape = SubResource("RectangleShape2D_wvucv")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -53.0
+offset_top = 451.0
+offset_right = -13.0
+offset_bottom = 724.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(1, 0.996023)
+theme_override_font_sizes/font_size = 200
+
+[connection signal="body_entered" from="AnimatedSprite2D/wagon/crafting_area" to="." method="_on_crafting_area_body_entered"]
+[connection signal="body_exited" from="AnimatedSprite2D/wagon/crafting_area" to="." method="_on_crafting_area_body_exited"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

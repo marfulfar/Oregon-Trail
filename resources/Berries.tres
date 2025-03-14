@@ -1,0 +1,20 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://jm7cmnr488bc"]
+
+[ext_resource type="Texture2D" uid="uid://v7rjrv7hw74" path="res://assets/sprites/Berries/blackberry.png" id="1_2a84c"]
+[ext_resource type="Script" path="res://scripts/edible_item.gd" id="2_a1ndy"]
+
+[resource]
+script = ExtResource("2_a1ndy")
+food_value = 10
+thirst_value = 5
+health_value = 5
+spoil_time = 18000.0
+item_name = "Beriies"
+item_texture = ExtResource("1_2a84c")
+item_desc = ""
+item_edible = true
+item_stackable = true
+item_stack_limit = 10
+item_tool = false
+item_scene_path = "res://scenes/Blackberry.tscn"
+item_qty_per_item = 1

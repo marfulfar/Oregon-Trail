@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dsxe7ynnj46nw"]
+
+[ext_resource type="Texture2D" uid="uid://ckp5y2j6ugsik" path="res://assets/sprites/half_sun_moon.png" id="1_tn42j"]
+[ext_resource type="Script" path="res://scripts/sunDial.gd" id="1_ucgow"]
+[ext_resource type="Texture2D" uid="uid://iktmuolfa5dm" path="res://assets/sprites/arrow.png" id="3_b8r1t"]
+
+[node name="Node2D" type="StaticBody2D"]
+scale = Vector2(10, 10)
+script = ExtResource("1_ucgow")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_tn42j")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Sprite2D"]
+position = Vector2(2.68438, -0.425)
+rotation = -1.56731
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("3_b8r1t")
+offset = Vector2(-130.835, 36.5236)
+flip_h = true
