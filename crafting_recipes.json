@@ -1,41 +1,576 @@
 [
 	{
-		"recipeid": "LIT0001",
-		"ingredientsjson": "item_id:[BAS0001],quantity:[2];item_id:[BAS0002],quantity:[1]",
-		"result": "item_id:[LIT0001],quantity:[1]",
-		"category": "LIT",
-		"craftinglocation": "EVR",
-		"resultresourcepath": "res://resources/firecamp.tres",
-		"ingredient1resourcepath": "res://resources/Pinecone.tres",
-		"ingredient2resourcepath": "res://resources/grass.tres",
-		"toolrequirement": "null",
-		"skillrequirement": "null",
-		"description": "null"
+		"recipe_id": "REF-001",
+		"category": "REF",
+		"required_station": "NONE",
+		"result": { "item_id": "wooden_plank", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "log", "quantity": 3 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
 	},
 	{
-		"recipeid": "TOL0001",
-		"ingredientsjson": "item_id:[BAS0004],quantity:[1];item_id:[BAS0003],quantity:[1]",
-		"result": "item_id:[TOL0001],quantity:[1]",
+		"recipe_id": "REF-002",
+		"category": "REF",
+		"required_station": "NONE",
+		"result": { "item_id": "rope", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "grass_bundle", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "REF-003",
+		"category": "REF",
+		"required_station": "NONE",
+		"result": { "item_id": "leather", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "animal_hide", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "REF-004",
+		"category": "REF",
+		"required_station": "NONE",
+		"result": { "item_id": "charcoal", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "log", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "REF-005",
+		"category": "REF",
+		"required_station": "NONE",
+		"result": { "item_id": "metal_nails", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "stone", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "REF-006",
+		"category": "REF",
+		"required_station": "NONE",
+		"result": { "item_id": "wood_dowel", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "log", "quantity": 1 },
+			{ "item_id": "chisel", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "REF-007",
+		"category": "REF",
+		"required_station": "NONE",
+		"result": { "item_id": "spoke", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "log", "quantity": 2 },
+			{ "item_id": "chisel", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "REF-008",
+		"category": "REF",
+		"required_station": "NONE",
+		"result": { "item_id": "gunpowder", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "charcoal", "quantity": 2 },
+			{ "item_id": "sulfur", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "REF-009",
+		"category": "REF",
+		"required_station": "NONE",
+		"result": { "item_id": "bone_needle", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "bones", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+
+	{
+		"recipe_id": "TOL-001",
 		"category": "TOL",
-		"craftinglocation": "EVR",
-		"resultresourcepath": "res://resources/Berries.tres",
-		"ingredient1resourcepath": "res://resources/Pinecone.tres",
-		"ingredient2resourcepath": "res://resources/Flint.tres",
-		"toolrequirement": "null",
-		"skillrequirement": "null",
-		"description": "null"
+		"required_station": "NONE",
+		"result": { "item_id": "stone_axe", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "log", "quantity": 1 },
+			{ "item_id": "flint", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
 	},
 	{
-		"recipeid": "LIT0002",
-		"ingredientsjson": "item_id:[BAS0004],quantity:[1];item_id:[BAS0002],quantity:[1]",
-		"result": "item_id:[LIT0002],quantity:[1]",
-		"category": "LIT",
-		"craftinglocation": "EVR",
-		"resultresourcepath": "res://resources/Red_mushroom.tres",
-		"ingredient1resourcepath": "res://resources/Flint.tres",
-		"ingredient2resourcepath": "res://resources/grass.tres",
-		"toolrequirement": "null",
-		"skillrequirement": "null",
-		"description": "null"
+		"recipe_id": "TOL-002",
+		"category": "TOL",
+		"required_station": "NONE",
+		"result": { "item_id": "stone_pickaxe", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "log", "quantity": 1 },
+			{ "item_id": "flint", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "TOL-003",
+		"category": "TOL",
+		"required_station": "NONE",
+		"result": { "item_id": "wooden_spear", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "log", "quantity": 2 },
+			{ "item_id": "flint", "quantity": 1 },
+			{ "item_id": "rope", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "TOL-004",
+		"category": "TOL",
+		"required_station": "NONE",
+		"result": { "item_id": "wooden_bow", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "twigs", "quantity": 1 },
+			{ "item_id": "rope", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "TOL-005",
+		"category": "TOL",
+		"required_station": "NONE",
+		"result": { "item_id": "stone_arrow", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "twigs", "quantity": 1 },
+			{ "item_id": "flint", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "TOL-006",
+		"category": "TOL",
+		"required_station": "NONE",
+		"result": { "item_id": "chisel", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "twigs", "quantity": 1 },
+			{ "item_id": "flint", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "TOL-007",
+		"category": "TOL",
+		"required_station": "NONE",
+		"result": { "item_id": "bullets", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "flint", "quantity": 4 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "TOL-008",
+		"category": "TOL",
+		"required_station": "NONE",
+		"result": { "item_id": "wooden_hammer", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "log", "quantity": 2 },
+			{ "item_id": "stone", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "TOL-009",
+		"category": "TOL",
+		"required_station": "NONE",
+		"result": { "item_id": "fishing_rod", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "twigs", "quantity": 2 },
+			{ "item_id": "rope", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+
+	{
+		"recipe_id": "CAM-001",
+		"category": "CAM",
+		"required_station": "NONE",
+		"result": { "item_id": "torch", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "twigs", "quantity": 1 },
+			{ "item_id": "grass_bundle", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "CAM-002",
+		"category": "CAM",
+		"required_station": "NONE",
+		"result": { "item_id": "firecamp", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "log", "quantity": 2 },
+			{ "item_id": "grass_bundle", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "CAM-003",
+		"category": "CAM",
+		"required_station": "NONE",
+		"result": { "item_id": "canteen", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "animal_hide", "quantity": 1 },
+			{ "item_id": "grass_bundle", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "CAM-004",
+		"category": "CAM",
+		"required_station": "NONE",
+		"result": { "item_id": "snare_trap", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "twigs", "quantity": 1 },
+			{ "item_id": "rope", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "CAM-005",
+		"category": "CAM",
+		"required_station": "NONE",
+		"result": { "item_id": "basic_raft", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "log", "quantity": 4 },
+			{ "item_id": "rope", "quantity": 3 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "CAM-006",
+		"category": "CAM",
+		"required_station": "NONE",
+		"result": { "item_id": "sleeping_bag", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "animal_hide", "quantity": 2 },
+			{ "item_id": "grass_bundle", "quantity": 4 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "CAM-007",
+		"category": "CAM",
+		"required_station": "NONE",
+		"result": { "item_id": "preservation_salt", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "stone", "quantity": 2 },
+			{ "item_id": "bones", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "CAM-008",
+		"category": "CAM",
+		"required_station": "NONE",
+		"result": { "item_id": "sewing_kit", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "bone_needle", "quantity": 1 },
+			{ "item_id": "rope", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "CAM-009",
+		"category": "CAM",
+		"required_station": "NONE",
+		"result": { "item_id": "jerky_rack", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "twigs", "quantity": 1 },
+			{ "item_id": "rope", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+
+	{
+		"recipe_id": "WAG-001",
+		"category": "WAG",
+		"required_station": "SCHOONER",
+		"result": { "item_id": "animal_harness", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "animal_hide", "quantity": 1 },
+			{ "item_id": "rope", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "WAG-002",
+		"category": "WAG",
+		"required_station": "SCHOONER",
+		"result": { "item_id": "wooden_wheel", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "wooden_plank", "quantity": 2 },
+			{ "item_id": "spoke", "quantity": 3 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "WAG-003",
+		"category": "WAG",
+		"required_station": "SCHOONER",
+		"result": { "item_id": "wooden_axle", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "log", "quantity": 3 },
+			{ "item_id": "metal_nails", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "WAG-004",
+		"category": "WAG",
+		"required_station": "SCHOONER",
+		"result": { "item_id": "wagon_canvas_patch", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "leather", "quantity": 2 },
+			{ "item_id": "rope", "quantity": 1 },
+			{ "item_id": "bone_needle", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "WAG-005",
+		"category": "WAG",
+		"required_station": "SCHOONER",
+		"result": { "item_id": "wheel_grease", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "animal_fat", "quantity": 1 },
+			{ "item_id": "charcoal", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "WAG-006",
+		"category": "WAG",
+		"required_station": "SCHOONER",
+		"result": { "item_id": "storage_box", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "wooden_plank", "quantity": 3 },
+			{ "item_id": "metal_nails", "quantity": 4 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "WAG-007",
+		"category": "WAG",
+		"required_station": "SCHOONER",
+		"result": { "item_id": "reinforced_frame", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "wooden_plank", "quantity": 4 },
+			{ "item_id": "wood_dowel", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "WAG-008",
+		"category": "WAG",
+		"required_station": "SCHOONER",
+		"result": { "item_id": "wooden_wagon_brake", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "wooden_plank", "quantity": 1 },
+			{ "item_id": "rope", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "WAG-009",
+		"category": "WAG",
+		"required_station": "SCHOONER",
+		"result": { "item_id": "reinforced_wagon_brake", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "wooden_plank", "quantity": 1 },
+			{ "item_id": "metal_shard", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "WAG-010",
+		"category": "WAG",
+		"required_station": "SCHOONER",
+		"result": { "item_id": "oxen_shoes", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "stone", "quantity": 1 },
+			{ "item_id": "flint", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "WAG-011",
+		"category": "WAG",
+		"required_station": "SCHOONER",
+		"result": { "item_id": "metal_wheel_rim", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "metal_shard", "quantity": 4 },
+			{ "item_id": "metal_nails", "quantity": 4 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+
+	{
+		"recipe_id": "MED-001",
+		"category": "MED",
+		"required_station": "NONE",
+		"result": { "item_id": "bandage", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "grass_bundle", "quantity": 1 },
+			{ "item_id": "rope", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "MED-002",
+		"category": "MED",
+		"required_station": "NONE",
+		"result": { "item_id": "healing_salve", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "grass_bundle", "quantity": 1 },
+			{ "item_id": "blackberries", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "MED-003",
+		"category": "MED",
+		"required_station": "NONE",
+		"result": { "item_id": "pain_reliever", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "grass_bundle", "quantity": 1 },
+			{ "item_id": "yellow_mushroom", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "MED-004",
+		"category": "MED",
+		"required_station": "NONE",
+		"result": { "item_id": "energy_tonic", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "blackberries", "quantity": 2 },
+			{ "item_id": "red_mushroom", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "MED-005",
+		"category": "MED",
+		"required_station": "FIRE",
+		"result": { "item_id": "mental_health_tea", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "red_mushroom", "quantity": 3 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "MED-006",
+		"category": "MED",
+		"required_station": "NONE",
+		"result": { "item_id": "bone_splint", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "twigs", "quantity": 2 },
+			{ "item_id": "bandage", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "MED-007",
+		"category": "MED",
+		"required_station": "NONE",
+		"result": { "item_id": "snake_bite_poultice", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "grass_bundle", "quantity": 1 },
+			{ "item_id": "animal_fat", "quantity": 1 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "MED-008",
+		"category": "MED",
+		"required_station": "NONE",
+		"result": { "item_id": "animal_repellent", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "charcoal", "quantity": 2 },
+			{ "item_id": "animal_fat", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "MED-009",
+		"category": "MED",
+		"required_station": "NONE",
+		"result": { "item_id": "vitamin_c_shot", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "blackberries", "quantity": 2 },
+			{ "item_id": "apples", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
+	},
+	{
+		"recipe_id": "MED-010",
+		"category": "MED",
+		"required_station": "NONE",
+		"result": { "item_id": "dysenteria_med", "quantity": 1 },
+		"ingredients": [
+			{ "item_id": "yellow_mushroom", "quantity": 2 },
+			{ "item_id": "red_mushroom", "quantity": 2 }
+		],
+		"tool_requirement": null,
+		"skill_requirement": null
 	}
 ]
