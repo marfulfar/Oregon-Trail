@@ -1,20 +1,16 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bym0e0tp7yq8u"]
+[gd_resource type="Resource" format=3 uid="uid://bym0e0tp7yq8u"]
 
 [ext_resource type="Texture2D" uid="uid://b62fkhgr5up1p" path="res://assets/sprites/red_mushroom_516.png" id="1_nwqca"]
-[ext_resource type="Script" path="res://scripts/edible_item.gd" id="2_31sun"]
+[ext_resource type="Script" uid="uid://wmpdno11j88p" path="res://scripts/edible_item.gd" id="2_31sun"]
 
 [resource]
 script = ExtResource("2_31sun")
 food_value = 10
-thirst_value = 0
 health_value = 2
 spoil_time = 18000.0
+item_id = "red_mushroom"
 item_name = "red_mushroom"
 item_texture = ExtResource("1_nwqca")
 item_desc = "red_mushroom"
 item_edible = true
-item_stackable = true
-item_stack_limit = 10
-item_tool = false
 item_scene_path = "res://scenes/red_mushroom.tscn"
-item_qty_per_item = 1

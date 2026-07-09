@@ -21,8 +21,11 @@ func _on_area_2d_body_entered(body):
 	
 func _input(event):
 	if label.visible == true && Input.is_action_pressed("action"):
-		collect_smoke.show()
-		collect_smoke.play("collect_smoke")
+		if player.inventory.can_fit(resource, resource.item_qty_per_item):
+			collect_smoke.show()
+			collect_smoke.play("collect_smoke")
+		else:
+			print("Inventory full")
 	
 
 

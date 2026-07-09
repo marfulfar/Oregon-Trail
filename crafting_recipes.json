@@ -6,7 +6,7 @@
 		"category": "LIT",
 		"craftinglocation": "EVR",
 		"resultresourcepath": "res://resources/firecamp.tres",
-		"ingredient1resourcepath": "res://resources/Log.tres",
+		"ingredient1resourcepath": "res://resources/Pinecone.tres",
 		"ingredient2resourcepath": "res://resources/grass.tres",
 		"toolrequirement": "null",
 		"skillrequirement": "null",

@@ -1,3 +1,4 @@
+class_name Edible_Item
 extends "res://scripts/base_item.gd"
 
 @export var food_value : int

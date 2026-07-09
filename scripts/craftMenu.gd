@@ -11,7 +11,6 @@ var recipes : Array
 func _ready():
 	# Example Usage (Assuming your JSON file is named "recipes.json" in the project root)
 	recipes = load_recipes("res://crafting_recipes.json")
-	print(recipes[0])
 	populate_crafting_list(recipes)
 	
 
@@ -49,7 +48,6 @@ func populate_crafting_list(recipes):
 
 
 	for i in range(recipes.size()): # Iterate using an index 'i'
-		print(i)
 		var recipe = recipes[i] # Get the recipe at index 'i'
 		
 		var textureBackground = TextureRect.new()

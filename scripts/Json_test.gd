@@ -45,4 +45,3 @@ func load_recipes(filepath: String) -> Array:
 	else:
 		printerr("JSON is not an array of recipes.")
 		return []
-

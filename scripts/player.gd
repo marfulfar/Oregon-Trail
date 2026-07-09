@@ -25,26 +25,26 @@ var dir:String = "left"
 @onready var anim  = $AnimatedSprite2D
 @onready var position_2d = $position2D
 var is_action_playing = false
+
 #inventory
-var inventory_list = {}
-@export var inventory_limit = 5
+## Base personal inventory size, before any backpack is equipped. Backpacks
+## do NOT change this value (see BackpackItem) - they carry their own
+## separate Inventory that gets displayed alongside this one while worn.
+@export var base_inventory_capacity : int = 5
+var inventory : Inventory
+
 #signals
 signal thirst_update()
 signal hunger_update()
-signal inventory_updated(inventory_list)
+signal inventory_updated(inventory: Inventory)
 signal health_update()
-#oxen following
-@onready var follow_area = $Follow_area
-@onready var action_label = $Label
-@onready var oxen = $"../../oxen"
 
 func _ready():
 	current_health = max_health
+	inventory = Inventory.new(base_inventory_capacity)
 	hunger_depletion_rate = 100.0 / (hunger_num_of_days_full_depletion * time_manager.day_length)
 	thirst_depletion_rate = 100.0 / (thirst_num_of_days_full_depletion * time_manager.day_length)
 	health_depletion_rate = 100.0 / (health_num_days_full_depletion * time_manager.day_length)
-	
-	action_label.hide()
 
 # Hunger, Thirst and Health logic
 func _process(delta):
@@ -113,78 +113,44 @@ func _physics_process(delta):
 	move_and_slide()
 	# Setting animations and flipping character sprite
 	if is_moving == true:
-		anim.play("walk")
+		anim.play("new_walk")
 		if dir == "left":
 			anim.flip_h=true
 		if dir == "right":
 			anim.flip_h=false
 	elif is_moving == false:
-		anim.play("idle")
+		anim.play("new_idle")
 
 
-	if Input.is_action_just_pressed("action") and follow_area.get_overlapping_bodies().has(oxen):
-		if oxen.is_following:
-			oxen.stop_following()
-		else:
-			oxen.start_following()
-		action_label.hide()
-		
-		
-# Oxen logic - Follow and Unfollow
-func _on_follow_area_body_entered(body):
-	if body.name == "oxen":
-		if oxen.is_following:
-			action_label.text = "Press A to stop follow"
-		else:
-			action_label.text = "Press A to make follow"
-		action_label.show()
+# Inventory logic. Delegates all slot/stacking work to the Inventory class -
+# player.gd just decides WHEN items get added/removed and applies the
+# gameplay side-effects (eating) on top.
 
-func _on_follow_area_body_exited(body):
-	if body.name == "oxen":
-		action_label.hide()
+## Attempts to add qty of item_resource to the inventory. Returns true if it
+## fully fit and was added, false if there wasn't room (nothing is added in
+## that case - gathering scripts should check this before playing a
+## "collected" animation or freeing the world object).
+func update_inventory(item_resource: Resource, qty: int) -> bool:
+	if not inventory.can_fit(item_resource, qty):
+		return false
+	inventory.add_item(item_resource, qty)
+	emit_signal("inventory_updated", inventory) # Destiny: inventory Sprite UI
+	return true
 
-
-
-
-		
-#Inventory logic. Character has a dictionary that gets populated when picking objects
-func update_inventory(item_resource, qty:int):
-	if inventory_list.has(item_resource) and item_resource.item_stackable:
-		inventory_list[item_resource]+=qty
-	else:
-		if inventory_list.size()<inventory_limit: # Inventory limit size 
-			inventory_list[item_resource]=qty	
-		else:
-			print("inventory full") # Pending to handle. Probably a toast or bouncing animation like DST
-			
-	emit_signal("inventory_updated", inventory_list) # Destiny: inventory Sprite UI
-		
-func remove_item_inventory(item_resource, qty:int):
-	if inventory_list.has(item_resource):
-		var current_qty = inventory_list[item_resource]
-		if current_qty > qty:
-			inventory_list[item_resource] -= qty
-			if item_resource.item_edible:
-				hunger += item_resource.food_value
-				thirst += item_resource.thirst_value
-				current_health += item_resource.health_value
-		elif current_qty == qty:
-			inventory_list.erase(item_resource)
-			if item_resource.item_edible:
-				hunger += item_resource.food_value
-				thirst += item_resource.thirst_value
-				current_health += item_resource.health_value
-		
-		else:
-			print("Error: Trying to remove more items than available.")
-	else:
+## Removes qty of item_resource from the inventory (e.g. eating or dropping).
+## Applies edible effects (hunger/thirst/health) if the item is edible.
+func remove_item_inventory(item_resource: Resource, qty: int) -> void:
+	if item_resource == null:
 		print("Error: Item not found in inventory.")
+		return
 
-	emit_signal("inventory_updated", inventory_list)
-			
-	
-	
+	if not inventory.remove_item(item_resource.item_id, qty):
+		print("Error: Trying to remove more items than available.")
+		return
 
-	
-		
-		
+	if item_resource.item_edible:
+		hunger = min(hunger + item_resource.food_value, 100)
+		thirst = min(thirst + item_resource.thirst_value, 100)
+		current_health = min(current_health + item_resource.health_value, max_health)
+
+	emit_signal("inventory_updated", inventory)

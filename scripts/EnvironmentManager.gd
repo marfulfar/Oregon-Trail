@@ -1,11 +1,9 @@
-extends Node
+extends CanvasModulate
 
-@onready var time_manager = null
-@onready var directional_light = $DirectionalLight2D
-@onready var night_overlay = $CanvasLayer/ColorRect
+@onready var time_manager = %TimeManager
+@onready var night_overlay = $"."
 
 func _ready():
-	time_manager = get_parent().get_node("TimeManager")
 	if time_manager:
 		time_manager.connect("time_changed",_on_time_manager_time_changed)
 	else:
@@ -13,22 +11,14 @@ func _ready():
 
 
 func _on_time_manager_time_changed(time_of_day):
-	# Update sun position (light rotation)
-	var sun_angle = lerp(0, 360, time_of_day)
-	directional_light.rotation = sun_angle
+	# time_of_day should be a value between 0.0 and 1.0, where 0.0 is midnight and 0.5 is midday.
+	# We want to map this to a color between black and white.
+	var black_color = Color(0.03, 0.03, 0.06)  # Fully black
+	var white_color = Color.WHITE  # Fully white 
+	# Adjust time_of_day to make midnight fully black and midday fully white.
+	var adjusted_time = abs(time_of_day - 0.5) * 2.0
+	# Lerp between black and white based on adjusted_time.
+	var current_color = white_color.lerp(black_color, adjusted_time)
+	# Apply the color to the night overlay.
+	night_overlay.color = current_color
 	
-	#print(time_of_day)
-	
-	# Night overlay
-	# Second argument of lerp needs to be float and also 1 = full dark, 0 = full light
-	if time_of_day > 0.5: # Nighttime
-		night_overlay.color.a = lerp(0.0, 0.75, (time_of_day - 0.5) * 2) # Fade in
-		
-	else: # Daytime
-		night_overlay.color.a = lerp(0.75, 0.0, time_of_day * 2) # Fade out
-
-	# You can add more environmental effects here
-	# For example, changing the color of the sky, 
-	# adjusting fog, or triggering weather events
-
-

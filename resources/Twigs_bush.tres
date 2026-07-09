@@ -1,0 +1,14 @@
+[gd_resource type="Resource" format=3 uid="uid://qooxd73w4ewi"]
+
+[ext_resource type="Texture2D" uid="uid://di8rss475fhbh" path="res://assets/sprites/Twig/twig_bush.png" id="1_wtmif"]
+[ext_resource type="Script" uid="uid://clnpitdirfk83" path="res://scripts/base_item.gd" id="2_grooo"]
+
+[resource]
+script = ExtResource("2_grooo")
+item_id = "twig_bush"
+item_name = "twig_bush"
+item_texture = ExtResource("1_wtmif")
+item_desc = "twigs"
+item_stackable = false
+item_stack_limit = 1
+item_scene_path = "res://scenes/twig_bush.tscn"

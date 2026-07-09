@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ToolItem" format=3 uid="uid://coxhjrh5jpfut"]
+
+[ext_resource type="Texture2D" uid="uid://bqtth6cysotdy" path="res://assets/sprites/hatchet/hatchet.png" id="1_68dip"]
+[ext_resource type="Script" uid="uid://cvngw1fymmmft" path="res://scripts/tool_item.gd" id="2_3wy45"]
+
+[resource]
+script = ExtResource("2_3wy45")
+item_id = "stone_axe"
+item_name = "Stone Axe"
+item_texture = ExtResource("1_68dip")
+item_desc = "axe made of stone"
+item_stackable = false
+item_stack_limit = 1
+item_scene_path = "res://scenes/axe.tscn"
+equip_slot = 1

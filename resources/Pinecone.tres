@@ -1,17 +1,12 @@
-[gd_resource type="Resource" load_steps=3 format=3 uid="uid://8rl4skunvd01"]
+[gd_resource type="Resource" format=3 uid="uid://8rl4skunvd01"]
 
 [ext_resource type="Texture2D" uid="uid://drm3yb7a6xnxd" path="res://assets/sprites/pinecone.png" id="1_durqf"]
-[ext_resource type="Script" path="res://scripts/base_item.gd" id="2_4e4hk"]
+[ext_resource type="Script" uid="uid://clnpitdirfk83" path="res://scripts/base_item.gd" id="2_4e4hk"]
 
 [resource]
 script = ExtResource("2_4e4hk")
+item_id = "pinecone"
 item_name = "Pinecone"
 item_texture = ExtResource("1_durqf")
 item_desc = "pinecone"
-item_edible = false
-item_stackable = true
-item_stack_limit = 10
-item_tool = false
-item_ingredient = false
 item_scene_path = "res://scenes/pinecone.tscn"
-item_qty_per_item = 1

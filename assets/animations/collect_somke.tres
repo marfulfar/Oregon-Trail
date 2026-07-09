@@ -1,4 +1,4 @@
-[gd_resource type="SpriteFrames" load_steps=26 format=3 uid="uid://brvcbntbcddrh"]
+[gd_resource type="SpriteFrames" format=3 uid="uid://brvcbntbcddrh"]
 
 [ext_resource type="Texture2D" uid="uid://bsyurramhueb6" path="res://assets/sprites/Free Smoke Fx  Pixel 03.png" id="1_htwgs"]
 
@@ -173,7 +173,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_lvsv5")
 }],
-"loop": false,
+"loop": 0,
 "name": &"collect_smoke",
 "speed": 50.0
 }]

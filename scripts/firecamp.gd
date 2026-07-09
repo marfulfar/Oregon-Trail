@@ -1,10 +1,16 @@
 extends Node2D
 
+@onready var fuel = 100
+@onready var time_manager = %TimeManager
+@onready var point_of_light = $PointLight2D
 
 
 func _ready():
-		# Connect to the global time signal (you'll need to create this signal)
-	#get_parent().get_node("TimeManager").connect("time_changed",_on_time_changed) # Assumes your root node emits the signal
+	time_manager.connect("time_changed",_on_time_manager_time_changed)
 
-#func _on_time_changed(time_of_day):
-	pass
+func _on_time_manager_time_changed(time_of_day):
+	fuel -= 10
+	point_of_light.energy -= 0.2
+		
+	if fuel == 0:
+		queue_free()

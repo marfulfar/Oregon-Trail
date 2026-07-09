@@ -1,0 +1,47 @@
+[gd_scene load_steps=5 format=3 uid="uid://ynfq4gscf7vb"]
+
+[ext_resource type="Script" path="res://scripts/Twigs.gd" id="1_avt22"]
+[ext_resource type="Texture2D" uid="uid://jhw1hgm4blii" path="res://assets/sprites/Twig/twig.png" id="2_5g5d6"]
+[ext_resource type="SpriteFrames" uid="uid://brvcbntbcddrh" path="res://assets/animations/collect_somke.tres" id="3_v4cgu"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_k8d5m"]
+radius = 161.0
+height = 324.0
+
+[node name="Twigs" type="StaticBody2D"]
+scale = Vector2(0.2, 0.2)
+script = ExtResource("1_avt22")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_5g5d6")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1.2, 0.56)
+shape = SubResource("CapsuleShape2D_k8d5m")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 8)
+scale = Vector2(0.987575, 1.14891)
+sprite_frames = ExtResource("3_v4cgu")
+animation = &"collect_smoke"
+frame = 23
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -62.0
+offset_top = 90.0
+offset_right = 75.0
+offset_bottom = 113.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Press A to pick up"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

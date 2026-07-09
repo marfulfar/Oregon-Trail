@@ -9,7 +9,7 @@
 radius = 249.064
 
 [node name="red_mushroom" type="StaticBody2D" groups=["edible"]]
-scale = Vector2(0.3, 0.3)
+scale = Vector2(0.1, 0.1)
 script = ExtResource("1_lqb10")
 item_resource = ExtResource("2_l5ou7")
 

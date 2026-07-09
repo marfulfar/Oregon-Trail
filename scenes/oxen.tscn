@@ -1,6 +1,5 @@
-[gd_scene load_steps=18 format=3 uid="uid://d0sx5an7d75jn"]
+[gd_scene format=3 uid="uid://d0sx5an7d75jn"]
 
-[ext_resource type="Script" path="res://scripts/oxen_follow.gd" id="1_hql1y"]
 [ext_resource type="SpriteFrames" uid="uid://dbdfcxw6sfc4o" path="res://assets/animations/oxen_walk.tres" id="2_xf1qa"]
 [ext_resource type="Texture2D" uid="uid://clueuxuonhph8" path="res://assets/sprites/Wagon/prairie_schooner1.png" id="3_axs1m"]
 [ext_resource type="Texture2D" uid="uid://cdsdf486mkhg0" path="res://assets/sprites/Wagon/prairie_schooner2.png" id="3_vvqb8"]
@@ -21,7 +20,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("CompressedTexture2D_xhh2r")
 }],
-"loop": true,
+"loop": 1,
 "name": &"wagon_idle",
 "speed": 5.0
 }, {
@@ -53,58 +52,57 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("10_d22ad")
 }],
-"loop": true,
+"loop": 1,
 "name": &"wagon_move",
 "speed": 6.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f5l1x"]
-size = Vector2(255.872, 269.455)
+size = Vector2(316.2, 317.2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_risie"]
-size = Vector2(463, 1192.16)
+size = Vector2(453.4419, 1090.982)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_s8frc"]
-radius = 6.44349
+[sub_resource type="CircleShape2D" id="CircleShape2D_gtvhl"]
+radius = 380.0
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wvucv"]
-size = Vector2(14.6325, 16.3812)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sun1j"]
+size = Vector2(420, 260)
 
-[node name="Node2D" type="CharacterBody2D" groups=["oxen"]]
+[node name="Node2D" type="CharacterBody2D" unique_id=1687539577 groups=["oxen"]]
 position = Vector2(-20, -845)
-script = ExtResource("1_hql1y")
-follow_speed = 2000.0
-follow_distance = 100.0
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1573363284]
 position = Vector2(-71, -385)
 sprite_frames = ExtResource("2_xf1qa")
-animation = &"oxen_idle"
+animation = &"new_oxen_walk"
 autoplay = "oxen_idle"
-frame_progress = 0.940713
+frame_progress = 0.7777251
 
-[node name="wagon" type="AnimatedSprite2D" parent="AnimatedSprite2D"]
-position = Vector2(2000, -447)
-scale = Vector2(8.81299, 7.16631)
+[node name="wagon" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=2061942786]
+position = Vector2(694, -183.00003)
+scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_28l58")
 animation = &"wagon_move"
 frame_progress = 0.240724
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/wagon"]
-position = Vector2(17.5309, -23.2337)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/wagon" unique_id=514075622]
+position = Vector2(20.900024, -25.699997)
+scale = Vector2(0.99999976, 0.99999976)
 shape = SubResource("RectangleShape2D_f5l1x")
 
-[node name="crafting_area" type="Area2D" parent="AnimatedSprite2D/wagon"]
+[node name="crafting_area" type="Area2D" parent="AnimatedSprite2D/wagon" unique_id=1165648375]
 position = Vector2(-226.938, 62.3752)
 scale = Vector2(0.113469, 0.139542)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/wagon/crafting_area"]
-position = Vector2(3476, -515)
-scale = Vector2(2.95907, 2.16174)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/wagon/crafting_area" unique_id=1816493545]
+position = Vector2(3461.8584, -624.3603)
+scale = Vector2(2.9590702, 2.16174)
 shape = SubResource("RectangleShape2D_risie")
 debug_color = Color(0.377058, 0.609597, 0.213521, 0.42)
 
-[node name="craft_menu_label" type="Label" parent="AnimatedSprite2D"]
+[node name="craft_menu_label" type="Label" parent="AnimatedSprite2D" unique_id=1436463424]
+visible = false
 offset_left = 3668.0
 offset_top = -1194.0
 offset_right = 4975.0
@@ -112,36 +110,26 @@ offset_bottom = -1070.0
 theme_override_font_sizes/font_size = 90
 text = "Press A to open crafting menu"
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="FollowTriggerArea" type="Area2D" parent="." unique_id=143252399]
 position = Vector2(-71, -385)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FollowTriggerArea" unique_id=1847886260]
 position = Vector2(-1.52588e-05, 81)
-scale = Vector2(192.791, -180.488)
-shape = SubResource("CircleShape2D_s8frc")
+shape = SubResource("CircleShape2D_gtvhl")
 debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-52.5, -168)
-scale = Vector2(64.5821, 56.7291)
-shape = SubResource("RectangleShape2D_wvucv")
+[node name="BodyCollisionShape" type="CollisionShape2D" parent="." unique_id=585129106]
+position = Vector2(-71, -304)
+shape = SubResource("RectangleShape2D_sun1j")
 
-[node name="Label" type="Label" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -53.0
-offset_top = 451.0
-offset_right = -13.0
-offset_bottom = 724.0
-grow_horizontal = 2
-grow_vertical = 0
-scale = Vector2(1, 0.996023)
-theme_override_font_sizes/font_size = 200
+[node name="Label" type="Label" parent="." unique_id=634365375]
+offset_left = -233.0
+offset_top = -109.0
+offset_right = 182.0
+offset_bottom = 23.0
+theme_override_font_sizes/font_size = 60
 
 [connection signal="body_entered" from="AnimatedSprite2D/wagon/crafting_area" to="." method="_on_crafting_area_body_entered"]
 [connection signal="body_exited" from="AnimatedSprite2D/wagon/crafting_area" to="." method="_on_crafting_area_body_exited"]
-[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
-[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="body_entered" from="FollowTriggerArea" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="FollowTriggerArea" to="." method="_on_area_2d_body_exited"]

@@ -1,7 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://0e6qn6qn0f4a"]
+[gd_scene format=3 uid="uid://0e6qn6qn0f4a"]
 
 [ext_resource type="Texture2D" uid="uid://jhr438qebuqm" path="res://assets/Tools sprites/Axe/full_anim.png" id="1_erwjy"]
-[ext_resource type="Script" path="res://scripts/axe.gd" id="1_j0jq6"]
+[ext_resource type="Script" uid="uid://cpq6b7pnn44gc" path="res://scripts/axe.gd" id="1_j0jq6"]
 
 [sub_resource type="Animation" id="Animation_6bg4i"]
 resource_name = "axe"
@@ -45,7 +45,7 @@ tracks/2/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_cdvtl"]
 _data = {
-"axe": SubResource("Animation_6bg4i")
+&"axe": SubResource("Animation_6bg4i")
 }
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fyavh"]
@@ -68,12 +68,12 @@ func _process(delta):
 radius = 6.28968
 height = 90.2921
 
-[node name="axe" type="StaticBody2D"]
+[node name="axe" type="StaticBody2D" unique_id=1250237514]
 position = Vector2(-96, -152)
 rotation = 0.809514
 script = ExtResource("1_j0jq6")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1464725720]
 position = Vector2(9.56298, 4.24347)
 rotation = -0.655675
 texture = ExtResource("1_erwjy")
@@ -82,21 +82,19 @@ flip_h = true
 hframes = 5
 frame = 1
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-"": SubResource("AnimationLibrary_cdvtl")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=874048384]
+libraries/ = SubResource("AnimationLibrary_cdvtl")
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="Area2D" type="Area2D" parent="." unique_id=1162243159]
 
-[node name="pick_area" type="CollisionShape2D" parent="Area2D"]
+[node name="pick_area" type="CollisionShape2D" parent="Area2D" unique_id=1880857616]
 position = Vector2(-272.696, 277.478)
 rotation = 0.368697
 scale = Vector2(15.7495, 20.1144)
 shape = SubResource("CircleShape2D_fyavh")
 script = SubResource("GDScript_11bbe")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=736325677]
 position = Vector2(-124.926, -18.2061)
 rotation = 0.172009
 scale = Vector2(21.3719, 4.62942)
