@@ -93,8 +93,8 @@ speed = 400
 script = ExtResource("4_k4tfq")
 
 [node name="oxen" parent="Node y sorting" unique_id=109896838 instance=ExtResource("22_ckoe8")]
-position = Vector2(-264.5, -111.446)
-scale = Vector2(0.02, 0.0211954)
+position = Vector2(-189.8, -118.69437)
+scale = Vector2(0.05, 0.053)
 script = ExtResource("12_l8ah6")
 speed = 100.0
 stop_distance = 120.0

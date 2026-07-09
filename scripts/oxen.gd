@@ -48,11 +48,11 @@ func _physics_process(delta: float) -> void:
 			_face_direction(to_player.x)
 		else:
 			velocity = Vector2.ZERO
-			sprite.play("oxen_idle")
+			sprite.play("new_oxen_idle")
 			wagon.play("wagon_idle")
 	else:
 		velocity = Vector2.ZERO
-		sprite.play("oxen_idle")
+		sprite.play("new_oxen_idle")
 		wagon.play("wagon_idle")
 
 	move_and_slide()

@@ -75,9 +75,10 @@ position = Vector2(-20, -845)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1573363284]
 position = Vector2(-71, -385)
 sprite_frames = ExtResource("2_xf1qa")
-animation = &"new_oxen_walk"
-autoplay = "oxen_idle"
-frame_progress = 0.7777251
+animation = &"new_oxen_idle"
+autoplay = "new_oxen_idle"
+frame_progress = 0.86561084
+speed_scale = 0.75
 
 [node name="wagon" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=2061942786]
 position = Vector2(694, -183.00003)
