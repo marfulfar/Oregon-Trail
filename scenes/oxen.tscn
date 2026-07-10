@@ -109,7 +109,7 @@ offset_top = -1194.0
 offset_right = 4975.0
 offset_bottom = -1070.0
 theme_override_font_sizes/font_size = 90
-text = "Press A to open crafting menu"
+text = "Press 1 to open crafting menu"
 
 [node name="FollowTriggerArea" type="Area2D" parent="." unique_id=143252399]
 position = Vector2(-71, -385)

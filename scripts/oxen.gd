@@ -12,6 +12,7 @@ extends CharacterBody2D
 @onready var sprite = $AnimatedSprite2D
 @onready var wagon = $AnimatedSprite2D/wagon
 @onready var label = $Label
+@onready var craft_menu_label = $AnimatedSprite2D/craft_menu_label
 
 var is_following: bool = false
 var player_in_range: bool = false
@@ -21,6 +22,7 @@ var player: Node2D
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
 	label.hide()
+	craft_menu_label.hide()
 	_update_label_text()
 
 
@@ -86,6 +88,21 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.is_in_group("player"):
 		player_in_range = false
 		label.hide()
+
+
+## Marks the wagon as a "SCHOONER" crafting station while the player is
+## standing in crafting_area, so the crafting menu greys SCHOONER-gated
+## recipes (wheels, axles, wagon repairs, etc.) in/out accordingly.
+func _on_crafting_area_body_entered(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		StationManager.enter("SCHOONER")
+		craft_menu_label.show()
+
+
+func _on_crafting_area_body_exited(body: Node2D) -> void:
+	if body.is_in_group("player"):
+		StationManager.exit("SCHOONER")
+		craft_menu_label.hide()
 
 
 func _update_label_text() -> void:
