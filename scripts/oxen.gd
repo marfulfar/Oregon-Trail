@@ -72,7 +72,7 @@ func _face_direction(x_direction: float) -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if player_in_range and event.is_action_pressed("collect"):
+	if player_in_range and event.is_action_pressed("action"):
 		is_following = !is_following
 		_update_label_text()
 
