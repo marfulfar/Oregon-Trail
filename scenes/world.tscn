@@ -20,21 +20,11 @@
 [ext_resource type="Texture2D" uid="uid://ciwn1uwnpc7w8" path="res://assets/sprites/brain.png" id="20_qvrsu"]
 [ext_resource type="Texture2D" uid="uid://ccc7klvqnexcc" path="res://assets/sprites/stats_container.png" id="21_82x7d"]
 [ext_resource type="Texture2D" uid="uid://4aqmuiy18eku" path="res://assets/sprites/heart.png" id="21_ytj0f"]
-[ext_resource type="Script" uid="uid://dabeflnh5ktrh" path="res://scripts/Crafting.gd" id="22_a7nxx"]
+[ext_resource type="Script" uid="uid://dlsqusjju1ed1" path="res://scripts/crafting_menu.gd" id="22_a7nxx"]
 [ext_resource type="PackedScene" uid="uid://d0sx5an7d75jn" path="res://scenes/oxen.tscn" id="22_ckoe8"]
-[ext_resource type="Texture2D" uid="uid://cvpgnfumiywso" path="res://assets/sprites/UI/side_panel1.png" id="23_0xl2r"]
-[ext_resource type="Texture2D" uid="uid://bqtth6cysotdy" path="res://assets/sprites/hatchet/hatchet.png" id="23_hhtt5"]
-[ext_resource type="Texture2D" uid="uid://dhx3htx6rbns0" path="res://assets/sprites/campfire1.png" id="23_y85ue"]
-[ext_resource type="Texture2D" uid="uid://clueuxuonhph8" path="res://assets/sprites/Wagon/prairie_schooner1.png" id="24_nxm1u"]
 [ext_resource type="Script" uid="uid://doovuasjncjkl" path="res://scripts/Health.gd" id="24_pd4ix"]
-[ext_resource type="Texture2D" uid="uid://cxv6ueycfvwtk" path="res://assets/sprites/UI/detail_panel_2slots.png" id="24_q824w"]
-[ext_resource type="Texture2D" uid="uid://cus2au1ne8w7l" path="res://assets/sprites/cooktop/crockpot.png" id="25_17ytw"]
-[ext_resource type="Texture2D" uid="uid://cd3lkr71hvoje" path="res://assets/sprites/grass/cut_grass_150x150.png" id="25_vo207"]
-[ext_resource type="Texture2D" uid="uid://biusqinqpwja2" path="res://assets/sprites/wood plank/wood_plank.png" id="26_4mxi0"]
-[ext_resource type="Texture2D" uid="uid://b3cfdk008p75m" path="res://assets/sprites/log/log120.png" id="26_40w2u"]
 [ext_resource type="PackedScene" uid="uid://1tn7a1xb3r73" path="res://scenes/Berry_bush.tscn" id="33_omf08"]
 [ext_resource type="PackedScene" uid="uid://8yql43iiu6gn" path="res://scenes/grass_plant.tscn" id="34_7sclg"]
-[ext_resource type="PackedScene" uid="uid://ca82kyhb7h5mn" path="res://scenes/firecamp.tscn" id="34_hm7ek"]
 [ext_resource type="PackedScene" uid="uid://bb2yfge0sdd8b" path="res://scenes/red_mushroom.tscn" id="35_ynnuk"]
 [ext_resource type="Texture2D" uid="uid://ovycxc4qlja2" path="res://assets/sprites/ground/grass128x128.png" id="39_8u370"]
 [ext_resource type="Texture2D" uid="uid://bbcp6kwgo5ci1" path="res://assets/sprites/ground/Forest128x128.png" id="40_rga7q"]
@@ -93,7 +83,7 @@ speed = 400
 script = ExtResource("4_k4tfq")
 
 [node name="oxen" parent="Node y sorting" unique_id=109896838 instance=ExtResource("22_ckoe8")]
-position = Vector2(-189.8, -118.69437)
+position = Vector2(-188.2, -118.90632)
 scale = Vector2(0.05, 0.053)
 script = ExtResource("12_l8ah6")
 speed = 100.0
@@ -174,234 +164,109 @@ texture = ExtResource("11_3ge5d")
 
 [node name="CraftMenu" type="Control" parent="HUD" unique_id=1012375693]
 layout_mode = 3
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -20.0
-offset_right = 40.0
-offset_bottom = 20.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
-
-[node name="MainPanel" type="TextureRect" parent="HUD/CraftMenu" unique_id=342016677]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_left = 200.0
-offset_top = -224.0
-offset_right = 700.0
-offset_bottom = 276.0
-grow_vertical = 2
-rotation = 1.5708
-texture = ExtResource("15_s3qf2")
 script = ExtResource("22_a7nxx")
 
-[node name="craftTier1" type="TextureRect" parent="HUD/CraftMenu/MainPanel" unique_id=605093218]
+[node name="MenuPanel" type="PanelContainer" parent="HUD/CraftMenu" unique_id=1052672182]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -201.0
-offset_top = 25.0
-offset_right = 299.0
-offset_bottom = 525.0
-grow_horizontal = 2
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 620.0
 grow_vertical = 2
-rotation = -1.57079
-scale = Vector2(0.137098, 0.137362)
-texture = ExtResource("23_hhtt5")
 
-[node name="craftTier2" type="TextureRect" parent="HUD/CraftMenu/MainPanel" unique_id=1046418052]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -118.0
-offset_top = 27.0
-offset_right = 382.0
-offset_bottom = 527.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -1.57079
-scale = Vector2(0.137098, 0.137362)
-texture = ExtResource("23_y85ue")
+[node name="Margin" type="MarginContainer" parent="HUD/CraftMenu/MenuPanel" unique_id=1107312136]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
 
-[node name="craftTier3" type="TextureRect" parent="HUD/CraftMenu/MainPanel" unique_id=1147929133]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -31.0
-offset_top = 26.0
-offset_right = 469.0
-offset_bottom = 526.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -1.57079
-scale = Vector2(0.137098, 0.137362)
-texture = ExtResource("24_nxm1u")
-expand_mode = 3
+[node name="Columns" type="HBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin" unique_id=607627900]
+layout_mode = 2
+theme_override_constants/separation = 14
 
-[node name="craftTier4" type="TextureRect" parent="HUD/CraftMenu/MainPanel" unique_id=673497413]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 53.0
-offset_top = 27.0
-offset_right = 553.0
-offset_bottom = 527.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -1.57079
-scale = Vector2(0.137098, 0.137362)
-texture = ExtResource("25_17ytw")
+[node name="CategoryColumn" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns" unique_id=1034125162]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme_override_constants/separation = 6
 
-[node name="craftTier5" type="TextureRect" parent="HUD/CraftMenu/MainPanel" unique_id=860044705]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = 135.0
-offset_top = 26.0
-offset_right = 635.0
-offset_bottom = 526.0
-grow_horizontal = 2
-grow_vertical = 2
-rotation = -1.57079
-scale = Vector2(0.137098, 0.137362)
-texture = ExtResource("26_4mxi0")
+[node name="CategoryTitle" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/CategoryColumn" unique_id=848263037]
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+text = "CRAFTING"
 
-[node name="DetailPanel" type="TextureRect" parent="HUD/CraftMenu/MainPanel" unique_id=2058894245]
-layout_mode = 0
-offset_left = 8.00121
-offset_top = 336.0
-offset_right = 508.001
-offset_bottom = 836.0
-rotation = -1.5708
-scale = Vector2(1.12873, 1.02414)
-texture = ExtResource("24_q824w")
+[node name="CategoryList" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/CategoryColumn" unique_id=1061040609]
+layout_mode = 2
+theme_override_constants/separation = 4
 
-[node name="Title" type="Label" parent="HUD/CraftMenu/MainPanel/DetailPanel" unique_id=453406566]
-layout_mode = 0
-offset_left = 288.0
-offset_top = 49.0
-offset_right = 394.0
-offset_bottom = 81.0
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 20
-text = "CAMPFIRE"
+[node name="RecipeColumn" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns" unique_id=2143729023]
+visible = false
+custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
+theme_override_constants/separation = 6
 
-[node name="Description" type="Label" parent="HUD/CraftMenu/MainPanel/DetailPanel" unique_id=1626821854]
-layout_mode = 0
-offset_left = 264.899
-offset_top = 170.876
-offset_right = 370.899
-offset_bottom = 202.876
-scale = Vector2(1.43431, 2.11246)
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 8
-text = "Item's Description"
-horizontal_alignment = 1
+[node name="RecipeTitle" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/RecipeColumn" unique_id=78549171]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+text = "RECIPES"
+
+[node name="RecipeScroll" type="ScrollContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/RecipeColumn" unique_id=1947053812]
+custom_minimum_size = Vector2(0, 460)
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="RecipeList" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/RecipeColumn/RecipeScroll" unique_id=568798190]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+
+[node name="DetailColumn" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns" unique_id=67012137]
+visible = false
+custom_minimum_size = Vector2(220, 0)
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ResultRow" type="HBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn" unique_id=599005327]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ResultIcon" type="TextureRect" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow" unique_id=1996007747]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="ResultInfo" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow" unique_id=271533432]
+layout_mode = 2
+
+[node name="ResultName" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow/ResultInfo" unique_id=1471075097]
+layout_mode = 2
+theme_override_font_sizes/font_size = 16
+
+[node name="ResultQuantity" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow/ResultInfo" unique_id=1471951322]
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+
+[node name="ResultDescription" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn" unique_id=1353092119]
+layout_mode = 2
 autowrap_mode = 3
 
-[node name="Control" type="Control" parent="HUD/CraftMenu/MainPanel/DetailPanel" unique_id=831269756]
-anchors_preset = 0
-offset_left = 285.276
-offset_top = 106.431
-offset_right = 325.276
-offset_bottom = 146.431
+[node name="RequirementLabel" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn" unique_id=675577459]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.65, 0.25, 1)
 
-[node name="ing1" type="TextureRect" parent="HUD/CraftMenu/MainPanel/DetailPanel/Control" unique_id=1881044409]
-layout_mode = 0
-offset_left = -14.1752
-offset_top = -12.6936
-offset_right = 135.825
-offset_bottom = 137.306
-scale = Vector2(0.400603, 0.439724)
-texture = ExtResource("25_vo207")
-expand_mode = 3
-stretch_mode = 5
+[node name="IngredientsTitle" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn" unique_id=1873143092]
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+text = "Ingredients"
 
-[node name="ing2" type="TextureRect" parent="HUD/CraftMenu/MainPanel/DetailPanel/Control" unique_id=595294066]
-layout_mode = 0
-offset_left = 68.2183
-offset_top = -11.7172
-offset_right = 188.218
-offset_bottom = 108.283
-scale = Vector2(0.502712, 0.518427)
-texture = ExtResource("26_40w2u")
-expand_mode = 3
-stretch_mode = 5
-
-[node name="SidePanel" type="TextureRect" parent="HUD/CraftMenu/MainPanel" unique_id=1910088354]
-layout_mode = 0
-offset_left = 0.0018301
-offset_top = 504.0
-offset_right = 500.002
-offset_bottom = 1004.0
-rotation = -1.5708
-texture = ExtResource("23_0xl2r")
-
-[node name="Recipe1" type="TextureRect" parent="HUD/CraftMenu/MainPanel/SidePanel" unique_id=207193124]
-layout_mode = 0
-offset_left = 354.0
-offset_top = 57.0
-offset_right = 852.0
-offset_bottom = 490.0
-scale = Vector2(0.126419, 0.133807)
-expand_mode = 3
-
-[node name="Recipe2" type="TextureRect" parent="HUD/CraftMenu/MainPanel/SidePanel" unique_id=1091407555]
-layout_mode = 0
-offset_left = 352.0
-offset_top = 139.0
-offset_right = 2452.0
-offset_bottom = 2108.0
-scale = Vector2(0.0309464, 0.0314815)
-
-[node name="Recipe3" type="TextureRect" parent="HUD/CraftMenu/MainPanel/SidePanel" unique_id=44305635]
-layout_mode = 0
-offset_left = 352.0
-offset_top = 223.0
-offset_right = 2310.0
-offset_bottom = 2276.0
-scale = Vector2(0.033193, 0.0301963)
-
-[node name="Recipe4" type="TextureRect" parent="HUD/CraftMenu/MainPanel/SidePanel" unique_id=2018154867]
-layout_mode = 0
-offset_left = 352.0
-offset_top = 306.0
-offset_right = 862.0
-offset_bottom = 820.0
-scale = Vector2(0.127519, 0.124505)
-
-[node name="Recipe5" type="TextureRect" parent="HUD/CraftMenu/MainPanel/SidePanel" unique_id=343513476]
-layout_mode = 0
-offset_left = 353.0
-offset_top = 389.0
-offset_right = 792.0
-offset_bottom = 874.0
-scale = Vector2(0.141263, 0.125866)
-
-[node name="Cursor" type="TextureRect" parent="HUD/CraftMenu/MainPanel" unique_id=1901447322]
-layout_mode = 0
-offset_left = 48.0003
-offset_top = 79.9998
-offset_right = 1072.0
-offset_bottom = 1104.0
-scale = Vector2(0.07, 0.07)
-texture = ExtResource("20_ml287")
+[node name="IngredientsList" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn" unique_id=706504239]
+layout_mode = 2
+theme_override_constants/separation = 4
 
 [node name="Stats" type="Control" parent="HUD" unique_id=820940313]
 layout_mode = 3
@@ -748,11 +613,6 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 60
 text = "Game is paused!"
 
-[node name="FireCamp" parent="." unique_id=2019161635 instance=ExtResource("34_hm7ek")]
-visible = false
-position = Vector2(-760.1, -520.7001)
-
-[connection signal="time_changed" from="TimeManager" to="FireCamp" method="_on_time_manager_time_changed"]
 [connection signal="health_update" from="Node y sorting/character" to="HUD/Stats/Frame/HBoxContainer/Health" method="_on_character_health_update"]
 [connection signal="hunger_update" from="Node y sorting/character" to="HUD/Stats/Frame/HBoxContainer/Hunger" method="_on_character_hunger_update"]
 [connection signal="inventory_updated" from="Node y sorting/character" to="HUD/Inventory/inventorySprite" method="_on_character_inventory_updated"]
