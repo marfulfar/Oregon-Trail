@@ -20,12 +20,11 @@
 [ext_resource type="Texture2D" uid="uid://ciwn1uwnpc7w8" path="res://assets/sprites/brain.png" id="20_qvrsu"]
 [ext_resource type="Texture2D" uid="uid://ccc7klvqnexcc" path="res://assets/sprites/stats_container.png" id="21_82x7d"]
 [ext_resource type="Texture2D" uid="uid://4aqmuiy18eku" path="res://assets/sprites/heart.png" id="21_ytj0f"]
-[ext_resource type="Script" path="res://scripts/crafting_menu.gd" id="22_a7nxx"]
+[ext_resource type="Script" uid="uid://dlsqusjju1ed1" path="res://scripts/crafting_menu.gd" id="22_a7nxx"]
 [ext_resource type="PackedScene" uid="uid://d0sx5an7d75jn" path="res://scenes/oxen.tscn" id="22_ckoe8"]
 [ext_resource type="Script" uid="uid://doovuasjncjkl" path="res://scripts/Health.gd" id="24_pd4ix"]
 [ext_resource type="PackedScene" uid="uid://1tn7a1xb3r73" path="res://scenes/Berry_bush.tscn" id="33_omf08"]
 [ext_resource type="PackedScene" uid="uid://8yql43iiu6gn" path="res://scenes/grass_plant.tscn" id="34_7sclg"]
-[ext_resource type="PackedScene" uid="uid://ca82kyhb7h5mn" path="res://scenes/firecamp.tscn" id="34_hm7ek"]
 [ext_resource type="PackedScene" uid="uid://bb2yfge0sdd8b" path="res://scenes/red_mushroom.tscn" id="35_ynnuk"]
 [ext_resource type="Texture2D" uid="uid://ovycxc4qlja2" path="res://assets/sprites/ground/grass128x128.png" id="39_8u370"]
 [ext_resource type="Texture2D" uid="uid://bbcp6kwgo5ci1" path="res://assets/sprites/ground/Forest128x128.png" id="40_rga7q"]
@@ -84,7 +83,7 @@ speed = 400
 script = ExtResource("4_k4tfq")
 
 [node name="oxen" parent="Node y sorting" unique_id=109896838 instance=ExtResource("22_ckoe8")]
-position = Vector2(-189.8, -118.69437)
+position = Vector2(-188.2, -118.90632)
 scale = Vector2(0.05, 0.053)
 script = ExtResource("12_l8ah6")
 speed = 100.0
@@ -164,7 +163,7 @@ pivot_offset = Vector2(850, 494.253)
 texture = ExtResource("11_3ge5d")
 
 [node name="CraftMenu" type="Control" parent="HUD" unique_id=1012375693]
-layout_mode = 1
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -172,105 +171,100 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("22_a7nxx")
 
-[node name="MenuPanel" type="PanelContainer" parent="HUD/CraftMenu"]
+[node name="MenuPanel" type="PanelContainer" parent="HUD/CraftMenu" unique_id=1052672182]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.0
+anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 620.0
 grow_vertical = 2
 
-[node name="Margin" type="MarginContainer" parent="HUD/CraftMenu/MenuPanel"]
+[node name="Margin" type="MarginContainer" parent="HUD/CraftMenu/MenuPanel" unique_id=1107312136]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="Columns" type="HBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin"]
+[node name="Columns" type="HBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin" unique_id=607627900]
 layout_mode = 2
 theme_override_constants/separation = 14
 
-[node name="CategoryColumn" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns"]
-layout_mode = 2
+[node name="CategoryColumn" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns" unique_id=1034125162]
 custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="CategoryTitle" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/CategoryColumn"]
+[node name="CategoryTitle" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/CategoryColumn" unique_id=848263037]
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 text = "CRAFTING"
 
-[node name="CategoryList" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/CategoryColumn"]
+[node name="CategoryList" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/CategoryColumn" unique_id=1061040609]
 layout_mode = 2
 theme_override_constants/separation = 4
 
-[node name="RecipeColumn" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns"]
+[node name="RecipeColumn" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns" unique_id=2143729023]
 visible = false
-layout_mode = 2
 custom_minimum_size = Vector2(210, 0)
+layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="RecipeTitle" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/RecipeColumn"]
+[node name="RecipeTitle" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/RecipeColumn" unique_id=78549171]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
 text = "RECIPES"
 
-[node name="RecipeScroll" type="ScrollContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/RecipeColumn"]
-layout_mode = 2
+[node name="RecipeScroll" type="ScrollContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/RecipeColumn" unique_id=1947053812]
 custom_minimum_size = Vector2(0, 460)
+layout_mode = 2
 horizontal_scroll_mode = 0
 
-[node name="RecipeList" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/RecipeColumn/RecipeScroll"]
+[node name="RecipeList" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/RecipeColumn/RecipeScroll" unique_id=568798190]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 4
 
-[node name="DetailColumn" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns"]
+[node name="DetailColumn" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns" unique_id=67012137]
 visible = false
-layout_mode = 2
 custom_minimum_size = Vector2(220, 0)
-theme_override_constants/separation = 8
-
-[node name="ResultRow" type="HBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn"]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="ResultIcon" type="TextureRect" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow"]
+[node name="ResultRow" type="HBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn" unique_id=599005327]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="ResultIcon" type="TextureRect" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow" unique_id=1996007747]
 custom_minimum_size = Vector2(48, 48)
 layout_mode = 2
 expand_mode = 1
 stretch_mode = 5
 
-[node name="ResultInfo" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow"]
+[node name="ResultInfo" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow" unique_id=271533432]
 layout_mode = 2
 
-[node name="ResultName" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow/ResultInfo"]
+[node name="ResultName" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow/ResultInfo" unique_id=1471075097]
 layout_mode = 2
 theme_override_font_sizes/font_size = 16
-text = ""
 
-[node name="ResultQuantity" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow/ResultInfo"]
+[node name="ResultQuantity" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn/ResultRow/ResultInfo" unique_id=1471951322]
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
-text = ""
 
-[node name="ResultDescription" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn"]
+[node name="ResultDescription" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn" unique_id=1353092119]
 layout_mode = 2
 autowrap_mode = 3
-text = ""
 
-[node name="RequirementLabel" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn"]
+[node name="RequirementLabel" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn" unique_id=675577459]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.9, 0.65, 0.25, 1)
-text = ""
 
-[node name="IngredientsTitle" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn"]
+[node name="IngredientsTitle" type="Label" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn" unique_id=1873143092]
 layout_mode = 2
 theme_override_font_sizes/font_size = 14
 text = "Ingredients"
 
-[node name="IngredientsList" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn"]
+[node name="IngredientsList" type="VBoxContainer" parent="HUD/CraftMenu/MenuPanel/Margin/Columns/DetailColumn" unique_id=706504239]
 layout_mode = 2
 theme_override_constants/separation = 4
 
@@ -619,11 +613,6 @@ grow_horizontal = 2
 theme_override_font_sizes/font_size = 60
 text = "Game is paused!"
 
-[node name="FireCamp" parent="." unique_id=2019161635 instance=ExtResource("34_hm7ek")]
-visible = false
-position = Vector2(-760.1, -520.7001)
-
-[connection signal="time_changed" from="TimeManager" to="FireCamp" method="_on_time_manager_time_changed"]
 [connection signal="health_update" from="Node y sorting/character" to="HUD/Stats/Frame/HBoxContainer/Health" method="_on_character_health_update"]
 [connection signal="hunger_update" from="Node y sorting/character" to="HUD/Stats/Frame/HBoxContainer/Hunger" method="_on_character_hunger_update"]
 [connection signal="inventory_updated" from="Node y sorting/character" to="HUD/Inventory/inventorySprite" method="_on_character_inventory_updated"]

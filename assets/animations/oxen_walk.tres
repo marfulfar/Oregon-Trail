@@ -2,20 +2,6 @@
 
 [ext_resource type="Texture2D" uid="uid://bm5or6qgsrilk" path="res://assets/sprites/Oxen/oxen walk/sprite-max-px-frames-25-rows-5-cols-5 (1).png" id="1_b4k25"]
 [ext_resource type="Texture2D" uid="uid://c5hvetqk1smqd" path="res://assets/sprites/Oxen/oxen idle/sprite-max-px-frames-25-rows-5-cols-5 (3).png" id="1_eiobi"]
-[ext_resource type="Texture2D" uid="uid://bjkqwguyctibg" path="res://assets/sprites/Oxen/oxen idle/oxen_idle (1).png" id="1_g06bk"]
-[ext_resource type="Texture2D" uid="uid://cipfnx1tmoy0a" path="res://assets/sprites/Oxen/oxen idle/oxen_idle (2).png" id="2_fgmv7"]
-[ext_resource type="Texture2D" uid="uid://b0eejqdn8ul15" path="res://assets/sprites/Oxen/oxen idle/oxen_idle (3).png" id="3_28usj"]
-[ext_resource type="Texture2D" uid="uid://c00v7hnic8spp" path="res://assets/sprites/Oxen/oxen idle/oxen_idle (4).png" id="4_kmlnd"]
-[ext_resource type="Texture2D" uid="uid://dl7xdov5xcpvr" path="res://assets/sprites/Oxen/oxen idle/oxen_idle (5).png" id="5_joqsg"]
-[ext_resource type="Texture2D" uid="uid://ckuqf81nvwn6d" path="res://assets/sprites/Oxen/oxen walk/oxen_walk (1).png" id="6_bx35a"]
-[ext_resource type="Texture2D" uid="uid://byi5rwrmuqkug" path="res://assets/sprites/Oxen/oxen walk/oxen_walk (2).png" id="7_q318l"]
-[ext_resource type="Texture2D" uid="uid://cmw2rceckaxw6" path="res://assets/sprites/Oxen/oxen walk/oxen_walk (3).png" id="8_8abpr"]
-[ext_resource type="Texture2D" uid="uid://bpcmyddew2v5m" path="res://assets/sprites/Oxen/oxen walk/oxen_walk (4).png" id="9_6h0nj"]
-[ext_resource type="Texture2D" uid="uid://bxm74tjljej47" path="res://assets/sprites/Oxen/oxen walk/oxen_walk (5).png" id="10_hilk5"]
-[ext_resource type="Texture2D" uid="uid://b60280ue2fu5i" path="res://assets/sprites/Oxen/oxen walk/oxen_walk (6).png" id="11_7kbej"]
-[ext_resource type="Texture2D" uid="uid://b0cgj64cn3kvb" path="res://assets/sprites/Oxen/oxen walk/oxen_walk (7).png" id="12_2xehj"]
-[ext_resource type="Texture2D" uid="uid://csb7m7rf71bd1" path="res://assets/sprites/Oxen/oxen walk/oxen_walk (8).png" id="13_bg54y"]
-[ext_resource type="Texture2D" uid="uid://cbtwaxlbwbgm3" path="res://assets/sprites/Oxen/oxen walk/oxen_walk (9).png" id="14_nf42i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m6kf3"]
 atlas = ExtResource("1_eiobi")
@@ -387,56 +373,4 @@ animations = [{
 "loop": 1,
 "name": &"new_oxen_walk",
 "speed": 15.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("1_g06bk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_fgmv7")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_28usj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_kmlnd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_joqsg")
-}],
-"loop": 1,
-"name": &"oxen_idle",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("6_bx35a")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_q318l")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_8abpr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_6h0nj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_hilk5")
-}, {
-"duration": 1.0,
-"texture": ExtResource("11_7kbej")
-}, {
-"duration": 1.0,
-"texture": ExtResource("12_2xehj")
-}, {
-"duration": 1.0,
-"texture": ExtResource("13_bg54y")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_nf42i")
-}],
-"loop": 1,
-"name": &"oxen_walk",
-"speed": 8.0
 }]

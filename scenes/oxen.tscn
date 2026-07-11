@@ -75,17 +75,18 @@ position = Vector2(-20, -845)
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1573363284]
 position = Vector2(-71, -385)
 sprite_frames = ExtResource("2_xf1qa")
-animation = &"new_oxen_idle"
+animation = &"new_oxen_walk"
 autoplay = "new_oxen_idle"
-frame_progress = 0.86561084
+frame_progress = 0.25428912
 speed_scale = 0.75
 
 [node name="wagon" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=2061942786]
-position = Vector2(694, -183.00003)
+position = Vector2(666, -197.00003)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_28l58")
 animation = &"wagon_move"
-frame_progress = 0.240724
+frame = 7
+frame_progress = 0.4158033
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/wagon" unique_id=514075622]
 position = Vector2(20.900024, -25.699997)
@@ -97,7 +98,7 @@ position = Vector2(-226.938, 62.3752)
 scale = Vector2(0.113469, 0.139542)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/wagon/crafting_area" unique_id=1816493545]
-position = Vector2(3461.8584, -624.3603)
+position = Vector2(3988.7961, -633.3237)
 scale = Vector2(2.9590702, 2.16174)
 shape = SubResource("RectangleShape2D_risie")
 debug_color = Color(0.377058, 0.609597, 0.213521, 0.42)
