@@ -32,7 +32,7 @@ func _on_area_2d_body_entered(body):
 	
 
 func _input(event):
-	if Input.is_action_pressed("action") && label.visible == true && tree_chopped == false:
+	if Input.is_action_pressed("collect") && label.visible == true && tree_chopped == false:
 		collect_anim.visible=true
 		sound.play()
 		collect_anim.play("collect_smoke")

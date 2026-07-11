@@ -25,7 +25,7 @@ func _on_area_2d_body_entered(body):
 	
 	
 func _input(event):
-	if label.visible == true && Input.is_action_pressed("action"):
+	if label.visible == true && Input.is_action_pressed("collect"):
 		collect_smoke.show()
 		#sound.play()
 		collect_smoke.play("collect_smoke")

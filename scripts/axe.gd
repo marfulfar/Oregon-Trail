@@ -13,7 +13,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_pressed("action"):
+	if Input.is_action_pressed("collect"):
 		$AnimationPlayer.play("axe")
 	if character:
 		var character_sprite = character.get_node("AnimatedSprite2D") 

@@ -18,7 +18,7 @@ func _on_area_2d_body_entered(body):
 	
 	
 func _input(event):
-	if label.visible == true && Input.is_action_pressed("action"):
+	if label.visible == true && Input.is_action_pressed("collect"):
 		if player.inventory.can_fit(resource, resource.item_qty_per_item):
 			#sound.play()
 			collect_smoke.play("collect_smoke")
