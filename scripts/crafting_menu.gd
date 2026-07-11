@@ -99,6 +99,8 @@ func _input(event: InputEvent) -> void:
 		_move_selection(-1)
 	elif event.is_action_pressed("action") and not is_browsing_recipes:
 		_show_recipe_list()
+	elif event.is_action_pressed("action") and is_browsing_recipes:
+		_craft_selected_recipe()
 
 
 ## Opens or closes the whole menu, always resetting back to the top-level
@@ -226,6 +228,24 @@ func _show_recipe_list() -> void:
 	detail_column.show()
 	_populate_recipe_list()
 	_update_detail_panel()
+
+
+## Attempts to craft the currently selected recipe (bound to "action" while
+## browsing a recipe list). Closes the menu on success, so the player can
+## immediately see the item land in their inventory or watch a placement
+## blueprint appear for a structure. Leaves the menu open on failure (e.g.
+## a station requirement stopped being met) with nothing consumed.
+func _craft_selected_recipe() -> void:
+	var recipes := get_current_category_recipes()
+	if selected_recipe_index < 0 or selected_recipe_index >= recipes.size():
+		return
+
+	var recipe: Dictionary = recipes[selected_recipe_index]
+	if not is_recipe_available(recipe):
+		return
+
+	if craft_recipe(recipe):
+		_toggle_menu()
 
 
 ## Highlights the selected category row and dims the rest. Categories are
@@ -359,7 +379,17 @@ func craft_recipe(recipe: Dictionary) -> bool:
 
 	var result: Dictionary = recipe.get("result", {})
 	var result_item := ItemDatabase.get_item(result.get("item_id", ""))
-	if result_item == null or not inventory.can_fit(result_item, result.get("quantity", 1)):
+	if result_item == null:
+		return false
+
+	if result_item.item_placeable:
+		# Ingredients are left untouched here - placement only consumes them
+		# on confirm (see PlacementManager), so there's nothing to refund if
+		# the player cancels.
+		PlacementManager.start_placement(result_item, recipe)
+		return true
+
+	if not inventory.can_fit(result_item, result.get("quantity", 1)):
 		return false
 
 	for ingredient in ingredients:

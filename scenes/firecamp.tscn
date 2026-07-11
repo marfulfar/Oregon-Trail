@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://ca82kyhb7h5mn"]
+[gd_scene format=3 uid="uid://ca82kyhb7h5mn"]
 
-[ext_resource type="Script" path="res://scripts/firecamp.gd" id="1_bfran"]
+[ext_resource type="Script" uid="uid://flyte6docfo6" path="res://scripts/firecamp.gd" id="1_bfran"]
 [ext_resource type="Texture2D" uid="uid://dhx3htx6rbns0" path="res://assets/sprites/campfire1.png" id="4_o0w50"]
 [ext_resource type="Texture2D" uid="uid://crcf57ip8e7pa" path="res://assets/sprites/Campfire/campfire2.png" id="5_4afml"]
 [ext_resource type="Texture2D" uid="uid://da8wdpo6h83b0" path="res://assets/sprites/Campfire/campfire3.png" id="6_yk7lf"]
@@ -30,7 +30,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("9_f6rou")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 7.0
 }]
@@ -41,25 +41,29 @@ radius = 10.6072
 [sub_resource type="CircleShape2D" id="CircleShape2D_craftarea"]
 radius = 500.0
 
-[node name="FireCamp" type="StaticBody2D"]
-scale = Vector2(0.3, 0.3)
+[sub_resource type="CircleShape2D" id="CircleShape2D_blockers"]
+radius = 10.6072
+
+[node name="FireCamp" type="StaticBody2D" unique_id=720181839]
+scale = Vector2(0.05, 0.05)
 script = ExtResource("1_bfran")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="." unique_id=1603537528]
 position = Vector2(2, 132)
 sprite_frames = SubResource("SpriteFrames_rwste")
 animation = &"idle"
 autoplay = "idle"
-frame_progress = 0.77505
+frame = 3
+frame_progress = 0.4829406
 offset = Vector2(-2, -250)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=487508765]
 position = Vector2(0, 13)
 scale = Vector2(9.24, 4.6)
 shape = SubResource("CircleShape2D_73wmq")
 debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="." unique_id=126494246]
 z_as_relative = false
 position = Vector2(0, -30)
 color = Color(0.93519, 0.695543, 0.211847, 1)
@@ -69,14 +73,22 @@ range_z_max = 1000
 texture = ExtResource("10_hprgm")
 texture_scale = 4.0
 
-[node name="crafting_area" type="Area2D" parent="."]
+[node name="crafting_area" type="Area2D" parent="." unique_id=1893223214]
 position = Vector2(0, 13)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="crafting_area"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="crafting_area" unique_id=1156194803]
 shape = SubResource("CircleShape2D_craftarea")
 debug_color = Color(0.377058, 0.609597, 0.213521, 0.42)
 
-[node name="craft_menu_label" type="Label" parent="."]
+[node name="placement_blockers" type="Area2D" parent="." unique_id=1510023723]
+position = Vector2(0, 13)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="placement_blockers" unique_id=2109795560]
+scale = Vector2(9.24, 4.6)
+shape = SubResource("CircleShape2D_blockers")
+debug_color = Color(0.973413, 0.482288, 0.129412, 0.42)
+
+[node name="craft_menu_label" type="Label" parent="." unique_id=835697634]
 visible = false
 offset_left = -300.0
 offset_top = -700.0

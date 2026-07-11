@@ -12,3 +12,4 @@ item_desc = "Illuminates, warms and you can cook!"
 item_stackable = false
 item_stack_limit = 1
 item_scene_path = "res://scenes/firecamp.tscn"
+item_placeable = true
