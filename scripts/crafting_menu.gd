@@ -78,6 +78,10 @@ func _ready() -> void:
 	_load_recipes()
 	_build_category_list()
 	hide()
+	# The menu pauses the tree while open (see _toggle_menu), so it needs to
+	# keep processing input itself to hear the close/craft presses that get
+	# the game un-paused again.
+	process_mode = Node.PROCESS_MODE_ALWAYS
 
 
 func _input(event: InputEvent) -> void:
@@ -108,6 +112,7 @@ func _input(event: InputEvent) -> void:
 func _toggle_menu() -> void:
 	is_open = not is_open
 	visible = is_open
+	get_tree().paused = is_open
 	if is_open:
 		_show_category_list()
 
@@ -163,11 +168,25 @@ func get_current_category_recipes() -> Array:
 	return recipes_by_category.get(category_order[selected_category_index], [])
 
 
-## A recipe is craftable right now if it needs no station, or if the player
-## is within range of the station it does need (tracked by StationManager).
+## True if the recipe's station requirement (if any) is currently met AND
+## the player has enough of every ingredient in their inventory right now.
+## Drives which recipe rows get greyed out, and whether craft_recipe() will
+## actually succeed.
 func is_recipe_available(recipe: Dictionary) -> bool:
 	var station: String = recipe.get("required_station", "NONE")
-	return station == "NONE" or StationManager.is_near(station)
+	if station != "NONE" and not StationManager.is_near(station):
+		return false
+
+	var player := get_tree().get_first_node_in_group("player")
+	if player == null or player.inventory == null:
+		return false
+
+	var inventory: Inventory = player.inventory
+	for ingredient in recipe.get("ingredients", []):
+		if not inventory.has_item(ingredient["item_id"], ingredient["quantity"]):
+			return false
+
+	return true
 
 
 ## Builds the (static) list of category rows once. The list of categories
@@ -357,12 +376,11 @@ func _make_row_stylebox(color: Color) -> StyleBoxFlat:
 
 ## Attempts to craft `recipe` against the player's inventory: validates the
 ## required station and that every ingredient is available in sufficient
-## quantity, then consumes the ingredients and grants the result. Checks the
-## result will actually fit BEFORE consuming anything, so a full inventory
-## never destroys materials for nothing. Returns true if the craft succeeded.
-##
-## Not wired to any input yet - this pass is browse/view only. It's here,
-## fully working, so a future "confirm craft" input just has to call it.
+## quantity (via is_recipe_available), then consumes the ingredients and
+## grants the result (or starts placement for a structure - see
+## item_placeable below). Checks the result will actually fit BEFORE
+## consuming anything, so a full inventory never destroys materials for
+## nothing. Returns true if the craft succeeded.
 func craft_recipe(recipe: Dictionary) -> bool:
 	if not is_recipe_available(recipe):
 		return false
@@ -373,9 +391,6 @@ func craft_recipe(recipe: Dictionary) -> bool:
 
 	var inventory: Inventory = player.inventory
 	var ingredients: Array = recipe.get("ingredients", [])
-	for ingredient in ingredients:
-		if not inventory.has_item(ingredient["item_id"], ingredient["quantity"]):
-			return false
 
 	var result: Dictionary = recipe.get("result", {})
 	var result_item := ItemDatabase.get_item(result.get("item_id", ""))
