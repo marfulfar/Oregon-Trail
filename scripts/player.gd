@@ -87,23 +87,13 @@ func _process(delta):
 # Walking directions input
 func get_input():
 	var input_direction = Input.get_vector("left", "right", "up", "down")
+	if input_direction != Vector2.ZERO:
+		input_direction = input_direction.normalized() #ignore stick push distance - always move at full speed once past the deadzone
 	velocity = input_direction * speed #velocity comes from CharacterBody2D node
 
-	if Input.is_action_pressed("left"):
-		is_moving=true
-		dir="left"
-	elif Input.is_action_pressed("right"):
-		is_moving=true
-		dir="right"
-	elif Input.is_action_pressed("up"):
-		is_moving=true
-		dir="up"
-	elif Input.is_action_pressed("down"):
-		is_moving=true
-		dir="down"
-	else:
-		velocity = Vector2.ZERO
-		is_moving = false
+	is_moving = input_direction != Vector2.ZERO
+	if abs(input_direction.x) > 0.1: #deadband so a near-vertical stick angle doesn't flicker the flip while circling
+		dir = "left" if input_direction.x < 0 else "right"
 	
 	
 
