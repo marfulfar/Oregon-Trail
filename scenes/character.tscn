@@ -1,19 +1,12 @@
 [gd_scene format=3 uid="uid://byfysua6sa63t"]
 
 [ext_resource type="Script" uid="uid://cdty8lhj4j04j" path="res://scripts/player.gd" id="1_8547p"]
-[ext_resource type="Texture2D" uid="uid://bnkxeebmck538" path="res://assets/character/idle/1.png" id="2_rjtea"]
 [ext_resource type="Texture2D" uid="uid://b4e5d7aofmdb6" path="res://assets/character/new_axe/1.png" id="2_uvgum"]
-[ext_resource type="Texture2D" uid="uid://c6k4aeumaaay1" path="res://assets/character/idle/2.png" id="3_vcgls"]
 [ext_resource type="Texture2D" uid="uid://3sxhbacpcjbg" path="res://assets/character/new_axe/2.png" id="3_vft3j"]
 [ext_resource type="Texture2D" uid="uid://chf88lovypnwo" path="res://assets/character/new_axe/3.png" id="4_3wdhr"]
-[ext_resource type="Texture2D" uid="uid://x6uf3vm8kipv" path="res://assets/character/idle/3.png" id="4_e5gpu"]
-[ext_resource type="Texture2D" uid="uid://beojh13p7lcb7" path="res://assets/character/walk/Extended2.png" id="4_kwgf0"]
-[ext_resource type="Texture2D" uid="uid://cju2c7aeas8dl" path="res://assets/character/walk/Extended3.png" id="5_dpnpo"]
 [ext_resource type="Texture2D" uid="uid://d2m8h6382w1kf" path="res://assets/character/new_axe/4.png" id="5_ldnfs"]
-[ext_resource type="Texture2D" uid="uid://boeahhdv7xh6b" path="res://assets/character/walk/Extended 1.png" id="6_celxa"]
 [ext_resource type="Texture2D" uid="uid://cmolq16ihj3vc" path="res://assets/character/new_axe/5.png" id="6_x4ruc"]
 [ext_resource type="Texture2D" uid="uid://bvfgjtdudogb1" path="res://assets/character/new_axe/6.png" id="7_tsrdn"]
-[ext_resource type="Texture2D" uid="uid://dr5hqslgx8qcd" path="res://assets/character/walk/Extended.png" id="7_ybird"]
 [ext_resource type="Texture2D" uid="uid://cs35gj7ovlb61" path="res://assets/character/new_axe/7.png" id="8_l1jt3"]
 [ext_resource type="Texture2D" uid="uid://4wy8b7xwrnau" path="res://assets/character/new_axe/8(1).png" id="9_26oxo"]
 [ext_resource type="Texture2D" uid="uid://cv6sblgeneluf" path="res://assets/character/new_axe/8.png" id="10_kfolh"]
@@ -257,20 +250,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_rjtea")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_vcgls")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_e5gpu")
-}],
-"loop": 1,
-"name": &"idle",
-"speed": 6.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_8qrpl")
 }, {
 "duration": 1.0,
@@ -428,23 +407,6 @@ animations = [{
 "loop": 0,
 "name": &"new_walk",
 "speed": 18.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("4_kwgf0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_dpnpo")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_celxa")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_ybird")
-}],
-"loop": 1,
-"name": &"walk",
-"speed": 7.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_odmj4"]
@@ -461,8 +423,6 @@ speed = 1500
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_5byww")
 animation = &"new_walk"
-frame = 24
-frame_progress = 1.0
 offset = Vector2(0, -400)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=267165256]
@@ -474,5 +434,7 @@ debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
 [node name="hand" type="Node2D" parent="." unique_id=1002052325]
 position = Vector2(23.3333, -97.3333)
 script = ExtResource("13_ca7c7")
+
+[node name="Sprite2D" type="Sprite2D" parent="hand" unique_id=1861395514]
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

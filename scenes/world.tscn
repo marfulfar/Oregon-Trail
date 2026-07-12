@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://ioqujdleb2l1" path="res://scripts/oxen.gd" id="12_l8ah6"]
 [ext_resource type="Script" uid="uid://dlmpvyt1i7jfb" path="res://scripts/sunDial.gd" id="12_ytb47"]
 [ext_resource type="Script" uid="uid://c3d1xj3bnxr30" path="res://scripts/inventorySprite.gd" id="13_gtppk"]
+[ext_resource type="PackedScene" uid="uid://cwqoieqd1tnq2" path="res://scenes/backpack.tscn" id="14_luhhm"]
 [ext_resource type="Texture2D" uid="uid://7rnigoxvqcm2" path="res://assets/sprites/UI/inventory_black_back.png" id="15_s3qf2"]
 [ext_resource type="Texture2D" uid="uid://dpi4vthq6c8j8" path="res://assets/sprites/stomach.png" id="17_kgcnv"]
 [ext_resource type="Script" uid="uid://k76p7mj3drm1" path="res://scripts/Hunger.gd" id="18_xxnn3"]
@@ -23,12 +24,15 @@
 [ext_resource type="Script" uid="uid://dlsqusjju1ed1" path="res://scripts/crafting_menu.gd" id="22_a7nxx"]
 [ext_resource type="PackedScene" uid="uid://d0sx5an7d75jn" path="res://scenes/oxen.tscn" id="22_ckoe8"]
 [ext_resource type="Script" uid="uid://doovuasjncjkl" path="res://scripts/Health.gd" id="24_pd4ix"]
+[ext_resource type="Script" uid="uid://1quiklesq7w0" path="res://scripts/debug_equipment_test.gd" id="31_fh13f"]
+[ext_resource type="Script" uid="uid://cr7le48x3oxhu" path="res://scripts/contextual_action_menu.gd" id="33_4kbfs"]
 [ext_resource type="PackedScene" uid="uid://1tn7a1xb3r73" path="res://scenes/Berry_bush.tscn" id="33_omf08"]
 [ext_resource type="PackedScene" uid="uid://8yql43iiu6gn" path="res://scenes/grass_plant.tscn" id="34_7sclg"]
 [ext_resource type="PackedScene" uid="uid://bb2yfge0sdd8b" path="res://scenes/red_mushroom.tscn" id="35_ynnuk"]
 [ext_resource type="Texture2D" uid="uid://ovycxc4qlja2" path="res://assets/sprites/ground/grass128x128.png" id="39_8u370"]
 [ext_resource type="Texture2D" uid="uid://bbcp6kwgo5ci1" path="res://assets/sprites/ground/Forest128x128.png" id="40_rga7q"]
 [ext_resource type="Script" uid="uid://0l2vtwdtbwp8" path="res://scripts/tile_map_layer.gd" id="41_6oujy"]
+[ext_resource type="Script" uid="uid://b2pffsd1tk1y" path="res://scripts/equip_ui.gd" id="42_equip"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_hi6a0"]
 texture = ExtResource("39_8u370")
@@ -75,7 +79,7 @@ scale = Vector2(5, 4.718)
 
 [node name="character" parent="Node y sorting" unique_id=1665999450 instance=ExtResource("1_wr2da")]
 unique_name_in_owner = true
-position = Vector2(-121.68005, -126.91797)
+position = Vector2(-121.6, -127.38449)
 scale = Vector2(0.05, 0.05)
 speed = 200
 
@@ -101,6 +105,10 @@ scale = Vector2(0.2, 0.211954)
 [node name="red_mushroom2" parent="Node y sorting" unique_id=1748235903 instance=ExtResource("35_ynnuk")]
 position = Vector2(-62.64, -100.042)
 scale = Vector2(0.02, 0.0211954)
+
+[node name="leather_backpack" parent="Node y sorting" unique_id=517885664 instance=ExtResource("14_luhhm")]
+position = Vector2(-121.68, -126.92)
+scale = Vector2(0.1, 0.106)
 
 [node name="HUD" type="CanvasLayer" parent="." unique_id=1094187895]
 process_mode = 3
@@ -405,7 +413,7 @@ text = "100"
 horizontal_alignment = 3
 vertical_alignment = 3
 
-[node name="Inventory" type="Control" parent="HUD" unique_id=2003639783]
+[node name="Inventory" type="Control" parent="HUD" unique_id=2003639783 groups=["inventory_ui"]]
 layout_mode = 3
 anchors_preset = 7
 anchor_left = 0.5
@@ -612,6 +620,137 @@ offset_bottom = -511.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 60
 text = "Game is paused!"
+
+[node name="EquipUI" type="Control" parent="HUD" unique_id=900001001]
+layout_mode = 3
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -160.0
+offset_right = -20.0
+offset_bottom = 160.0
+grow_horizontal = 0
+grow_vertical = 2
+script = ExtResource("42_equip")
+
+[node name="Background" type="Sprite2D" parent="HUD/EquipUI" unique_id=1728941225]
+position = Vector2(35.92429, 104.15911)
+rotation = -1.5707964
+scale = Vector2(0.922172, 0.7869352)
+texture = ExtResource("21_82x7d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/EquipUI" unique_id=900001002]
+layout_mode = 0
+theme_override_constants/separation = 8
+
+[node name="HeadSlot" type="TextureRect" parent="HUD/EquipUI/VBoxContainer" unique_id=900001003]
+custom_minimum_size = Vector2(62, 66)
+layout_mode = 2
+texture = ExtResource("1_ru8tc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="HUD/EquipUI/VBoxContainer/HeadSlot" unique_id=900001004]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="TorsoSlot" type="TextureRect" parent="HUD/EquipUI/VBoxContainer" unique_id=900001005]
+custom_minimum_size = Vector2(62, 66)
+layout_mode = 2
+texture = ExtResource("1_ru8tc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="HUD/EquipUI/VBoxContainer/TorsoSlot" unique_id=900001006]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BackpackSlot" type="TextureRect" parent="HUD/EquipUI/VBoxContainer" unique_id=900001007]
+custom_minimum_size = Vector2(62, 66)
+layout_mode = 2
+texture = ExtResource("1_ru8tc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="HUD/EquipUI/VBoxContainer/BackpackSlot" unique_id=900001008]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="HandSlot" type="TextureRect" parent="HUD/EquipUI/VBoxContainer" unique_id=900001009]
+custom_minimum_size = Vector2(62, 66)
+layout_mode = 2
+texture = ExtResource("1_ru8tc")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Icon" type="TextureRect" parent="HUD/EquipUI/VBoxContainer/HandSlot" unique_id=900001010]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Selector" type="TextureRect" parent="HUD/EquipUI" unique_id=229005119]
+visible = false
+layout_mode = 1
+offset_right = 1024.0
+offset_bottom = 1024.0
+mouse_filter = 2
+texture = ExtResource("20_ml287")
+
+[node name="ContextMenu" type="Control" parent="HUD" unique_id=70302476]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("33_4kbfs")
+
+[node name="Panel" type="PanelContainer" parent="HUD/ContextMenu" unique_id=288398227]
+layout_mode = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HUD/ContextMenu/Panel" unique_id=1879738705]
+layout_mode = 2
+
+[node name="Drop" type="Label" parent="HUD/ContextMenu/Panel/VBoxContainer" unique_id=358173988]
+layout_mode = 2
+text = "△ Drop"
+
+[node name="Use" type="Label" parent="HUD/ContextMenu/Panel/VBoxContainer" unique_id=1675727107]
+layout_mode = 2
+text = "□ Use"
+
+[node name="Equip" type="Label" parent="HUD/ContextMenu/Panel/VBoxContainer" unique_id=436214169]
+layout_mode = 2
+text = "○ Equip"
+
+[node name="Unassigned" type="Label" parent="HUD/ContextMenu/Panel/VBoxContainer" unique_id=1232557373]
+layout_mode = 2
+text = "✕ –"
+
+[node name="DebugEquipmentTest" type="Node" parent="." unique_id=144892826]
+script = ExtResource("31_fh13f")
 
 [connection signal="health_update" from="Node y sorting/character" to="HUD/Stats/Frame/HBoxContainer/Health" method="_on_character_health_update"]
 [connection signal="hunger_update" from="Node y sorting/character" to="HUD/Stats/Frame/HBoxContainer/Hunger" method="_on_character_hunger_update"]

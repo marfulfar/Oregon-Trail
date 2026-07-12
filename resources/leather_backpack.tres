@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BackpackItem" format=3]
+
+[ext_resource type="Script" path="res://scripts/backpack_item.gd" id="1_bkpk"]
+[ext_resource type="Texture2D" path="res://assets/sprites/backpack/backpack_placeholder.png" id="2_bkpk"]
+
+[resource]
+script = ExtResource("1_bkpk")
+item_id = "leather_backpack"
+item_name = "Leather Backpack"
+item_texture = ExtResource("2_bkpk")
+item_desc = "A simple leather backpack. Adds extra storage while worn."
+item_stackable = false
+item_stack_limit = 1
+item_scene_path = "res://scenes/backpack.tscn"
+equip_slot = 4
+extra_slots = 5

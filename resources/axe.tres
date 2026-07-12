@@ -11,5 +11,5 @@ item_texture = ExtResource("1_68dip")
 item_desc = "axe made of stone"
 item_stackable = false
 item_stack_limit = 1
-item_scene_path = "res://scenes/axe.tscn"
+item_scene_path = "res://scenes/axe_pickup.tscn"
 equip_slot = 1

@@ -38,6 +38,11 @@ signal thirst_update()
 signal hunger_update()
 signal inventory_updated(inventory: Inventory)
 signal health_update()
+## Fired when world_tool_use is pressed and a tool is equipped in HAND - see
+## hand.gd (plays the swing feedback on the hand-item icon) and gathering
+## scripts like tree.gd (apply the actual gather effect if a matching target
+## is in range).
+signal tool_used(tool_type: ToolItem.ToolType)
 
 func _ready():
 	current_health = max_health
@@ -98,6 +103,29 @@ func get_input():
 	
 
 
+## World tool-use (Square/F): fires tool_used if a tool is equipped,
+## regardless of whether anything is in range - listeners (hand.gd for the
+## visual, gathering scripts for the actual effect) each decide their own
+## reaction. No-op if HAND is empty.
+##
+## Square is shared with menu_use (spec §5) since they're the same physical
+## button in different contexts - guarded via WorldInputGate so opening the
+## inventory panel doesn't let one press fire both a world tool-swing AND a
+## menu action simultaneously (the inventory panel deliberately doesn't
+## pause the game, so without this guard world_tool_use would keep firing
+## while it's open).
+func _unhandled_input(event):
+	if not event.is_action_pressed("world_tool_use"):
+		return
+
+	if WorldInputGate.is_blocked():
+		return
+
+	var equipped_tool: ToolItem = EquipmentManager.get_equipped(BaseItem.EquipSlot.HAND)
+	if equipped_tool != null:
+		tool_used.emit(equipped_tool.tool_type)
+
+
 func _physics_process(delta):
 	get_input()
 	move_and_slide()
@@ -116,25 +144,61 @@ func _physics_process(delta):
 # player.gd just decides WHEN items get added/removed and applies the
 # gameplay side-effects (eating) on top.
 
-## Attempts to add qty of item_resource to the inventory. Returns true if it
-## fully fit and was added, false if there wasn't room (nothing is added in
-## that case - gathering scripts should check this before playing a
-## "collected" animation or freeing the world object).
+## True if qty of item_resource could be added right now, either to the
+## player's own inventory or (if a backpack is equipped) its extra slots -
+## matches update_inventory()'s own fallback order, so a pre-check (e.g. a
+## gathering script gating its collect animation) never disagrees with what
+## actually happens once the pickup completes.
+func can_fit_anywhere(item_resource: Resource, qty: int) -> bool:
+	if inventory.can_fit(item_resource, qty):
+		return true
+	var backpack_inventory: Inventory = EquipmentManager.get_backpack_inventory()
+	return backpack_inventory != null and backpack_inventory.can_fit(item_resource, qty)
+
+
+## Attempts to add qty of item_resource to the inventory, falling back to the
+## equipped backpack's own slots if the base inventory is full - matches the
+## combined-row UX (spec: base row + backpack shown as one continuous pool).
+## Returns true if it fully fit and was added somewhere, false if there
+## wasn't room anywhere (nothing is added in that case - gathering scripts
+## should check can_fit_anywhere() before playing a "collected" animation or
+## freeing the world object).
 func update_inventory(item_resource: Resource, qty: int) -> bool:
-	if not inventory.can_fit(item_resource, qty):
-		return false
-	inventory.add_item(item_resource, qty)
-	emit_signal("inventory_updated", inventory) # Destiny: inventory Sprite UI
-	return true
+	if inventory.can_fit(item_resource, qty):
+		inventory.add_item(item_resource, qty)
+		emit_signal("inventory_updated", inventory) # Destiny: inventory Sprite UI
+		return true
+
+	var backpack_inventory: Inventory = EquipmentManager.get_backpack_inventory()
+	if backpack_inventory != null and backpack_inventory.can_fit(item_resource, qty):
+		backpack_inventory.add_item(item_resource, qty)
+		# backpack_inventory emits its own inventory_changed, which
+		# inventorySprite.gd already listens to directly - no separate
+		# inventory_updated emit needed for this branch.
+		return true
+
+	return false
 
 ## Removes qty of item_resource from the inventory (e.g. eating or dropping).
 ## Applies edible effects (hunger/thirst/health) if the item is edible.
-func remove_item_inventory(item_resource: Resource, qty: int) -> void:
+## target_inventory defaults to the player's own inventory - pass a backpack's
+## Inventory instead when removing an item stored in its extra slots (see
+## inventorySprite.gd's combined row navigation). slot_index, when given
+## (>= 0), removes from that exact slot instead of scanning for the first
+## slot matching item_resource.item_id - matters once the same item can
+## occupy more than one slot, so "the item under the cursor" and "the first
+## matching stack" can differ.
+func remove_item_inventory(item_resource: Resource, qty: int, target_inventory: Inventory = null, slot_index: int = -1) -> void:
+	if target_inventory == null:
+		target_inventory = inventory
+
 	if item_resource == null:
 		print("Error: Item not found in inventory.")
 		return
 
-	if not inventory.remove_item(item_resource.item_id, qty):
+	var removed: bool = target_inventory.remove_from_slot(slot_index, qty) if slot_index >= 0 \
+		else target_inventory.remove_item(item_resource.item_id, qty)
+	if not removed:
 		print("Error: Trying to remove more items than available.")
 		return
 
@@ -143,4 +207,8 @@ func remove_item_inventory(item_resource: Resource, qty: int) -> void:
 		thirst = min(thirst + item_resource.thirst_value, 100)
 		current_health = min(current_health + item_resource.health_value, max_health)
 
-	emit_signal("inventory_updated", inventory)
+	# Only the player's own inventory has a UI listener wired to this signal -
+	# a backpack's Inventory already emits its own inventory_changed directly
+	# (see Inventory.gd), which inventorySprite.gd listens to separately.
+	if target_inventory == inventory:
+		emit_signal("inventory_updated", inventory)

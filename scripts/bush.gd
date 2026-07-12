@@ -26,8 +26,8 @@ func _on_area_2d_body_entered(body):
 	
 	
 func _input(event):
-	if label.visible == true && Input.is_action_pressed("collect") && berry_collected == false:
-		if player.inventory.can_fit(resource, resource.item_qty_per_item):
+	if label.visible == true && Input.is_action_pressed("collect") && berry_collected == false && not WorldInputGate.is_blocked():
+		if player.can_fit_anywhere(resource, resource.item_qty_per_item):
 			collect_smoke.show()
 			#sound.play()
 			collect_smoke.play("collect_smoke")

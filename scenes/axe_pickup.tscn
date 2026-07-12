@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bb0nc0fa2kure"]
+
+[ext_resource type="Script" uid="uid://bjk7v4jxqrml" path="res://scripts/axe_pickup.gd" id="1_axep"]
+[ext_resource type="Texture2D" uid="uid://bqtth6cysotdy" path="res://assets/sprites/hatchet/hatchet.png" id="2_axep"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axep"]
+size = Vector2(400, 400)
+
+[node name="axe_pickup" type="StaticBody2D" unique_id=554472807]
+script = ExtResource("1_axep")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1193233132]
+scale = Vector2(0.025, 0.025)
+texture = ExtResource("2_axep")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=657052616]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=684217239]
+shape = SubResource("RectangleShape2D_axep")
+
+[node name="Label" type="Label" parent="." unique_id=706442545]
+z_index = 10
+offset_left = -5.0
+offset_top = -9.0
+offset_right = 119.0
+offset_bottom = 21.0
+scale = Vector2(0.1, 0.1)
+text = "Press X to equip"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

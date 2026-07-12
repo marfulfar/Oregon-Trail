@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cwqoieqd1tnq2"]
+
+[ext_resource type="Script" uid="uid://b7h5dwhvktp7p" path="res://scripts/backpack_pickup.gd" id="1_5gcru"]
+[ext_resource type="Texture2D" uid="uid://cey8162bcsqug" path="res://assets/sprites/backpack/backpack_placeholder.png" id="2_460lo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5gcru"]
+size = Vector2(400, 400)
+
+[node name="backpack" type="StaticBody2D" unique_id=517885664]
+script = ExtResource("1_5gcru")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=47108915]
+texture = ExtResource("2_460lo")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=861140158]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2087777723]
+shape = SubResource("RectangleShape2D_5gcru")
+
+[node name="Label" type="Label" parent="." unique_id=66273244]
+offset_left = -40.0
+offset_top = -60.0
+offset_right = 84.0
+offset_bottom = -37.0
+text = "Press X to equip"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

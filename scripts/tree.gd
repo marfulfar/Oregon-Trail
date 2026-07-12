@@ -21,6 +21,10 @@ func _ready():
 	var character_size = tree.get_rect().size
 	print(character_size)
 
+	var player := get_tree().get_first_node_in_group("player")
+	if player:
+		player.tool_used.connect(_on_tool_used)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
@@ -29,10 +33,14 @@ func _process(delta):
 func _on_area_2d_body_entered(body):
 	if body.name == "character" && tree_chopped==false:
 		label.visible = true
-	
 
-func _input(event):
-	if Input.is_action_pressed("collect") && label.visible == true && tree_chopped == false:
+
+## Chopping requires an axe in HAND and the player standing in range -
+## replaces the old direct Input.is_action_pressed("collect") polling (see
+## inventory_equip_system_spec.md §6) so future harvestables just connect to
+## this same signal instead of duplicating input-polling logic.
+func _on_tool_used(tool_type: ToolItem.ToolType) -> void:
+	if tool_type == ToolItem.ToolType.AXE && label.visible == true && tree_chopped == false:
 		collect_anim.visible=true
 		sound.play()
 		collect_anim.play("collect_smoke")

@@ -97,6 +97,25 @@ func remove_item(item_id : String, qty : int) -> bool:
 	inventory_changed.emit()
 	return true
 
+## Removes qty from a specific slot index directly, rather than scanning for
+## the first slot matching an item_id (see remove_item()) - needed wherever
+## the caller already knows exactly which slot the player has selected (e.g.
+## the inventory cursor), since two stacks of the same item can sit in
+## different slots and remove_item() would always deplete the leftmost one
+## regardless of which the player is actually looking at.
+func remove_from_slot(slot_index : int, qty : int) -> bool:
+	if slot_index < 0 or slot_index >= slots.size():
+		return false
+	var slot: InventorySlot = slots[slot_index]
+	if slot.is_empty() or slot.quantity < qty:
+		return false
+	slot.quantity -= qty
+	if slot.quantity <= 0:
+		slot.clear()
+	inventory_changed.emit()
+	return true
+
+
 func count_item(item_id : String) -> int:
 	var total = 0
 	for slot in slots:

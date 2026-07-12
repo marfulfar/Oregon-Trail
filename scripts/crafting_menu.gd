@@ -51,6 +51,7 @@ const COLOR_REQUIREMENT_TEXT := Color(0.9, 0.65, 0.25)
 @onready var result_description: Label = $MenuPanel/Margin/Columns/DetailColumn/ResultDescription
 @onready var requirement_label: Label = $MenuPanel/Margin/Columns/DetailColumn/RequirementLabel
 @onready var ingredients_list: VBoxContainer = $MenuPanel/Margin/Columns/DetailColumn/IngredientsList
+@onready var inventory_menu = $"../Inventory"
 
 ## True while the menu overlay is visible and consuming navigation input.
 var is_open: bool = false
@@ -86,6 +87,10 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("crafting_menu"):
+		# Mutually exclusive with the inventory panel (spec §4): ignore the
+		# open press while inventory is up rather than letting both show.
+		if not is_open and inventory_menu.is_inventory_open:
+			return
 		_toggle_menu()
 		return
 
@@ -404,12 +409,18 @@ func craft_recipe(recipe: Dictionary) -> bool:
 		PlacementManager.start_placement(result_item, recipe)
 		return true
 
-	if not inventory.can_fit(result_item, result.get("quantity", 1)):
+	if not player.can_fit_anywhere(result_item, result.get("quantity", 1)):
 		return false
 
 	for ingredient in ingredients:
 		inventory.remove_item(ingredient["item_id"], ingredient["quantity"])
-	inventory.add_item(result_item, result.get("quantity", 1))
 
-	player.emit_signal("inventory_updated", inventory)
+	# update_inventory() already tries the base inventory then the equipped
+	# backpack's own slots (see player.gd) - the ground-drop below only ever
+	# fires if neither had room, which the can_fit_anywhere() check above
+	# should already rule out, but closes the gap defensively per the shared
+	# 3-tier "fit or drop" helper used everywhere else in the equip system.
+	if not player.update_inventory(result_item, result.get("quantity", 1)):
+		InventoryUtils.spawn_in_world(result_item, player.global_position)
+
 	return true

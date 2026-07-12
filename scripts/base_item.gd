@@ -1,3 +1,4 @@
+class_name BaseItem
 extends Resource
 
 ## Stable identifier used for inventory stacking, save data, and recipe

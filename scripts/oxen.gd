@@ -17,10 +17,12 @@ extends CharacterBody2D
 var is_following: bool = false
 var player_in_range: bool = false
 var player: Node2D
+var wagon_offset_x: float
 
 
 func _ready() -> void:
 	player = get_tree().get_first_node_in_group("player")
+	wagon_offset_x = wagon.position.x
 	label.hide()
 	craft_menu_label.hide()
 	_update_label_text()
@@ -64,11 +66,11 @@ func _face_direction(x_direction: float) -> void:
 	if x_direction > 0:
 		sprite.flip_h = true
 		wagon.flip_h = true
-		wagon.position.x = -2000
+		wagon.position.x = -wagon_offset_x
 	else:
 		sprite.flip_h = false
 		wagon.flip_h = false
-		wagon.position.x = 2000
+		wagon.position.x = wagon_offset_x
 
 
 func _input(event: InputEvent) -> void:

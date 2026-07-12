@@ -23,8 +23,8 @@ func _on_area_2d_body_entered(body):
 
 
 func _input(event):
-	if label.visible == true && Input.is_action_pressed("collect"):
-		if player.inventory.can_fit(item_resource, item_resource.item_qty_per_item):
+	if label.visible == true && Input.is_action_pressed("collect") && not WorldInputGate.is_blocked():
+		if player.can_fit_anywhere(item_resource, item_resource.item_qty_per_item):
 			picking_animation.play("collect_smoke")
 		else:
 			print("Inventory full")
