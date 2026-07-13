@@ -7,17 +7,16 @@ extends Node
 func _ready():
 	# Connect to the TimeManager's time_changed signal
 	if time_manager:
-		time_manager.connect("time_changed",_on_time_changed)
+		time_manager.time_changed.connect(_on_time_changed)
 	else:
-		printerr("TimeManager 2 not found!")
-		
+		printerr("TimeManager not found!")
 
+
+## time_of_day is 0..1 across a full day - lerp(90, 450, ...) sweeps the
+## arrow exactly 360 degrees (450 = 90 + 360) starting from the editor's
+## default pose (arrow.rotation is already 90 degrees in the scene), so
+## there's no visible snap on the very first update.
 func _on_time_changed(time_of_day):
-	# Rotate the arrow based on the time of day
-	#print(time_of_day)
-
 	var arrow_rotation = lerp(90, 450, time_of_day)
 	arrow.rotation_degrees = arrow_rotation
 	days_label.text = "Days: " + str(time_manager.days)
-
-	#print(arrow_rotation)

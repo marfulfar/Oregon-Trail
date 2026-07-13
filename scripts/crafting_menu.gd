@@ -409,6 +409,21 @@ func craft_recipe(recipe: Dictionary) -> bool:
 		PlacementManager.start_placement(result_item, recipe)
 		return true
 
+	# ItemDatabase.get_item() returns the same cached template Resource on
+	# every call - fresh_copy() gives this particular craft its own instance
+	# so per-item mutable state (e.g. a crafted BackpackItem's contents)
+	# never ends up shared with every other copy of this item_id.
+	result_item = result_item.fresh_copy()
+
+	if result_item.equip_slot == BaseItem.EquipSlot.BACKPACK:
+		# Backpacks never sit in the inventory row (see BackpackItem) - always
+		# equip directly, same as picking one up off the ground. equip_backpack()
+		# itself handles dropping whatever backpack was already worn.
+		for ingredient in ingredients:
+			inventory.remove_item(ingredient["item_id"], ingredient["quantity"])
+		EquipmentManager.equip_backpack(result_item)
+		return true
+
 	if not player.can_fit_anywhere(result_item, result.get("quantity", 1)):
 		return false
 

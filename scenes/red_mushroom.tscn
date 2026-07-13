@@ -32,20 +32,6 @@ position = Vector2(-2, -158)
 shape = SubResource("CircleShape2D_ikkh4")
 debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
 
-[node name="Label" type="Label" parent="."]
-z_index = 10
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -635.0
-offset_top = 20.0
-offset_right = -140.0
-offset_bottom = 103.0
-grow_horizontal = 2
-scale = Vector2(2.8361, 4.47201)
-theme_override_font_sizes/font_size = 60
-text = "Press A to collect"
-
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

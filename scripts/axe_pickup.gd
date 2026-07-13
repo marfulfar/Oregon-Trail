@@ -41,7 +41,14 @@ func _input(event):
 		EquipmentManager.equip(resource, BaseItem.EquipSlot.HAND)
 	else:
 		var player := get_tree().get_first_node_in_group("player")
-		if player != null:
-			InventoryUtils.add_or_drop(player.inventory, resource, 1)
+		# update_inventory() (not a raw InventoryUtils.add_or_drop() against
+		# player.inventory alone) so this also falls back to the equipped
+		# backpack's slots - otherwise, with the base inventory full and a
+		# backpack equipped with room to spare, this would always drop the
+		# axe right back to the ground: a fresh pickup Node spawned on every
+		# single press for no actual state change (same class of bug as
+		# equip_backpack()'s self-re-equip loop).
+		if player != null and not player.update_inventory(resource, 1):
+			InventoryUtils.spawn_in_world(resource, player.global_position)
 	get_viewport().set_input_as_handled()
 	queue_free()

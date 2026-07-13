@@ -1,15 +1,17 @@
 [gd_scene format=3 uid="uid://cwqoieqd1tnq2"]
 
 [ext_resource type="Script" uid="uid://b7h5dwhvktp7p" path="res://scripts/backpack_pickup.gd" id="1_5gcru"]
-[ext_resource type="Texture2D" uid="uid://cey8162bcsqug" path="res://assets/sprites/backpack/backpack_placeholder.png" id="2_460lo"]
+[ext_resource type="Texture2D" uid="uid://b64mchpgb11xv" path="res://assets/sprites/backpack/satchel.png" id="2_460lo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5gcru"]
 size = Vector2(400, 400)
 
 [node name="backpack" type="StaticBody2D" unique_id=517885664]
+scale = Vector2(0.12, 0.12)
 script = ExtResource("1_5gcru")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=47108915]
+scale = Vector2(0.3, 0.3)
 texture = ExtResource("2_460lo")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=861140158]

@@ -18,9 +18,6 @@ func _ready():
 	label.visible = false
 	collect_anim.visible=false
 
-	var character_size = tree.get_rect().size
-	print(character_size)
-
 	var player := get_tree().get_first_node_in_group("player")
 	if player:
 		player.tool_used.connect(_on_tool_used)

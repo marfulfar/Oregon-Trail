@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dtaiimgrfh0pi"]
 
-[ext_resource type="Script" path="res://twig_bush.gd" id="1_s1588"]
+[ext_resource type="Script" path="res://scripts/twig_bush.gd" id="1_s1588"]
 [ext_resource type="Texture2D" uid="uid://di8rss475fhbh" path="res://assets/sprites/Twig/twig_bush.png" id="2_84b3f"]
 [ext_resource type="SpriteFrames" uid="uid://brvcbntbcddrh" path="res://assets/animations/collect_somke.tres" id="3_xxqj2"]
 
@@ -27,20 +27,6 @@ position = Vector2(16, 69)
 sprite_frames = ExtResource("3_xxqj2")
 animation = &"collect_smoke"
 frame = 23
-
-[node name="Label" type="Label" parent="."]
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -66.0
-offset_top = 152.0
-offset_right = 71.0
-offset_bottom = 175.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Press A to pick up"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

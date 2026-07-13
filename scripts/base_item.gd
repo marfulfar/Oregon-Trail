@@ -31,3 +31,15 @@ enum EquipSlot { NONE, HAND, TORSO, HEAD, BACKPACK }
 ## Which equip slot this item goes into when equipped. Leave NONE for items
 ## that only ever live in the inventory (berries, logs, twigs, etc).
 @export var equip_slot : EquipSlot = EquipSlot.NONE
+
+## Returns an independent physical copy of this item, safe to hand to a
+## player as a brand-new instance (crafted, or a world pickup's default
+## load() fallback). load() returns Godot's cached Resource singleton for a
+## given path, so without this every copy of an item ever crafted or found
+## would otherwise be the exact same object - harmless for stateless items
+## (flint, twigs, berries...) but a real bug for anything with per-instance
+## mutable state. Overridden by item types that carry such state (see
+## BackpackItem.fresh_copy()) - the base implementation just returns self,
+## since sharing the template causes no harm for plain data-only items.
+func fresh_copy() -> Resource:
+	return self

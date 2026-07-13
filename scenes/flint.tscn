@@ -7,6 +7,7 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5nh0y"]
 
 [node name="StaticBody2D" type="StaticBody2D"]
+scale = Vector2(0.3, 0.318)
 script = ExtResource("1_k32kw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -28,21 +29,6 @@ rotation = 1.75842
 scale = Vector2(3.15557, 3.81644)
 shape = SubResource("CapsuleShape2D_5nh0y")
 debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
-
-[node name="Label" type="Label" parent="."]
-z_index = 10
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -149.0
-offset_top = 36.0
-offset_right = 346.0
-offset_bottom = 119.0
-grow_horizontal = 2
-scale = Vector2(2.81555, 3.67374)
-size_flags_vertical = 0
-theme_override_font_sizes/font_size = 15
-text = "Press A to collect"
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

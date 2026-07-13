@@ -175,10 +175,7 @@ func _process(delta):
 			if slot and not slot.is_empty():
 				var selected_item = slot.item
 				player.remove_item_inventory(selected_item, 1, _get_active_inventory(cursor_slot), _get_local_slot_index(cursor_slot))
-				var scene_path = selected_item.item_scene_path
-				var instance = load(scene_path).instantiate()
-				instance.position = world.to_local(player.global_position)
-				world.add_child(instance)
+				InventoryUtils.spawn_in_world(selected_item, player.global_position)
 		else:
 			_unequip_column_slot(equip_ui.get_slot_at_index(cursor_slot))
 
@@ -200,8 +197,8 @@ func _unequip_column_slot(target_slot: BaseItem.EquipSlot) -> void:
 		return
 
 	var item := EquipmentManager.unequip(target_slot)
-	if item != null:
-		InventoryUtils.add_or_drop(player_inventory, item, 1)
+	if item != null and not player.update_inventory(item, 1):
+		InventoryUtils.spawn_in_world(item, player.global_position)
 
 
 ## Circle/equip from the inventory row. Removes item from inventory first
@@ -219,8 +216,8 @@ func _equip_from_inventory(item: Resource, index: int) -> void:
 		return
 
 	var occupant := EquipmentManager.get_equipped(target_slot)
-	if occupant != null:
-		InventoryUtils.add_or_drop(player_inventory, occupant, 1)
+	if occupant != null and not player.update_inventory(occupant, 1):
+		InventoryUtils.spawn_in_world(occupant, player.global_position)
 	EquipmentManager.equip(item, target_slot)
 
 

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BackpackItem" format=3]
 
 [ext_resource type="Script" path="res://scripts/backpack_item.gd" id="1_bkpk"]
-[ext_resource type="Texture2D" path="res://assets/sprites/backpack/backpack_placeholder.png" id="2_bkpk"]
+[ext_resource type="Texture2D" uid="uid://b64mchpgb11xv" path="res://assets/sprites/backpack/satchel.png" id="2_bkpk"]
 
 [resource]
 script = ExtResource("1_bkpk")

@@ -51,20 +51,6 @@ position = Vector2(4, 112)
 texture = ExtResource("5_4c6uj")
 offset = Vector2(0, -150)
 
-[node name="Label" type="Label" parent="."]
-z_index = 10
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -27.6667
-offset_top = 28.6667
-offset_right = 467.333
-offset_bottom = 111.667
-grow_horizontal = 2
-scale = Vector2(0.978, 1)
-theme_override_font_sizes/font_size = 10
-text = "Press A to collect"
-
 [node name="blackberry" type="Sprite2D" parent="."]
 visible = false
 texture = ExtResource("6_rhfwv")

@@ -108,7 +108,7 @@
 		"required_station": "NONE",
 		"result": { "item_id": "stone_axe", "quantity": 1 },
 		"ingredients": [
-			{ "item_id": "log", "quantity": 1 },
+			{ "item_id": "twigs", "quantity": 1 },
 			{ "item_id": "flint", "quantity": 1 }
 		],
 		"tool_requirement": null,

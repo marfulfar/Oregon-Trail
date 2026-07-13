@@ -61,6 +61,14 @@ func get_backpack_inventory() -> Inventory:
 ## world first, contents intact - backpacks always swap, never stack or wait
 ## in the inventory.
 func equip_backpack(new_backpack: BackpackItem) -> void:
+	## load() returns Godot's cached Resource singleton for a given path, so a
+	## ground pickup can carry the exact same BackpackItem instance as the one
+	## already worn (e.g. re-touching a dropped copy of your own backpack).
+	## Without this check, unequip_backpack() below would pointlessly drop a
+	## fresh world instance and immediately re-equip it - a new pickup Node
+	## spawned on every single press for no actual state change.
+	if _equipped.get(BaseItem.EquipSlot.BACKPACK) == new_backpack:
+		return
 	if _equipped.has(BaseItem.EquipSlot.BACKPACK):
 		unequip_backpack()
 	_equipped[BaseItem.EquipSlot.BACKPACK] = new_backpack

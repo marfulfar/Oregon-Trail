@@ -15,7 +15,12 @@ extends StaticBody2D
 
 func _ready():
 	if resource == null:
-		resource = load("res://resources/leather_backpack.tres")
+		# fresh_copy(), not a raw load(): this is the ONE spot a backpack
+		# pickup doesn't inherit its resource from an explicit drop/spawn (see
+		# InventoryUtils.spawn_in_world), so without it this instance would
+		# share load()'s cached BackpackItem - and its bag - with every other
+		# untouched leather_backpack.tres reference in the game.
+		resource = load("res://resources/leather_backpack.tres").fresh_copy()
 	label.visible = false
 
 

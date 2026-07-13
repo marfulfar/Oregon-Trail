@@ -3,7 +3,7 @@ extends Node
 
 signal time_changed(time_of_day)
 
-@export var day_length = 1 #600 # 10 minutes in seconds
+@export var day_length = 480.0 # 8 minutes in seconds
 #day goes from 0 to 0.1
 @export var minutes_per_signal = 0.02
 var time_of_day = 0.0
