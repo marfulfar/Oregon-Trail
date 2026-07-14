@@ -12,6 +12,12 @@ func _ready():
 	collect_smoke.hide()
 	player = get_tree().get_first_node_in_group("player")
 
+	# Every grass_plant shares the same SpriteFrames and starts playing at
+	# the same moment, so a whole patch would otherwise sway in perfect
+	# lockstep - jump to a random point in the loop so instances desync.
+	var anim: StringName = bush.animation
+	bush.set_frame_and_progress(randi() % bush.sprite_frames.get_frame_count(anim), randf())
+
 
 func _on_area_2d_body_entered(body):
 	if body.name == "character":

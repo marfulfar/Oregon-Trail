@@ -22,8 +22,8 @@ var is_dehydrated = false
 @export var speed = 800
 var is_moving:bool = false
 var dir:String = "left"
+var facing:String = "side" # "side", "front" (facing camera) or "back" (facing away)
 @onready var anim  = $AnimatedSprite2D
-@onready var position_2d = $position2D
 var is_action_playing = false
 
 #inventory
@@ -97,10 +97,17 @@ func get_input():
 	velocity = input_direction * speed #velocity comes from CharacterBody2D node
 
 	is_moving = input_direction != Vector2.ZERO
-	if abs(input_direction.x) > 0.1: #deadband so a near-vertical stick angle doesn't flicker the flip while circling
-		dir = "left" if input_direction.x < 0 else "right"
-	
-	
+	if is_moving:
+		# Whichever axis dominates picks the animation: side view for mostly
+		# horizontal movement, front/back for mostly vertical.
+		if abs(input_direction.x) >= abs(input_direction.y):
+			facing = "side"
+			if abs(input_direction.x) > 0.1: #deadband so a near-vertical stick angle doesn't flicker the flip while circling
+				dir = "left" if input_direction.x < 0 else "right"
+		else:
+			facing = "back" if input_direction.y < 0 else "front"
+
+
 
 
 ## World tool-use (Square/F): fires tool_used if a tool is equipped,
@@ -131,11 +138,16 @@ func _physics_process(delta):
 	move_and_slide()
 	# Setting animations and flipping character sprite
 	if is_moving == true:
-		anim.play("new_walk")
-		if dir == "left":
-			anim.flip_h=true
-		if dir == "right":
-			anim.flip_h=false
+		match facing:
+			"side":
+				anim.play("walk_side")
+				anim.flip_h = dir == "left"
+			"back":
+				anim.play("walk_back")
+				anim.flip_h = false
+			"front":
+				anim.play("walk_front")
+				anim.flip_h = false
 	elif is_moving == false:
 		anim.play("new_idle")
 

@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://bp7f70je2s8od"]
+[gd_scene format=3 uid="uid://bp7f70je2s8od"]
 
-[ext_resource type="Script" path="res://scripts/tree.gd" id="1_60m8t"]
+[ext_resource type="Script" uid="uid://dwknucg2k3n2a" path="res://scripts/tree.gd" id="1_60m8t"]
 [ext_resource type="Texture2D" uid="uid://v3dm42up7g2v" path="res://assets/sprites/stump.png" id="3_8ld3j"]
 [ext_resource type="SpriteFrames" uid="uid://brvcbntbcddrh" path="res://assets/animations/collect_somke.tres" id="4_kikcj"]
 [ext_resource type="AudioStream" uid="uid://dily4i81327xd" path="res://assets/sounds/log-split-88986.mp3" id="5_eblwt"]
@@ -13,63 +13,48 @@ height = 171.956
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gyoen"]
 size = Vector2(58.1334, 77.571)
 
-[node name="tree" type="StaticBody2D"]
+[node name="tree" type="StaticBody2D" unique_id=1546591057]
 scale = Vector2(0.5, 0.5)
 script = ExtResource("1_60m8t")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(-8, -41)
+[node name="smoke" type="AnimatedSprite2D" parent="." unique_id=1951297674]
+position = Vector2(31.999992, -52.000004)
+scale = Vector2(3.515625, 2.741379)
+sprite_frames = ExtResource("4_kikcj")
+animation = &"collect_smoke"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1386907281]
+scale = Vector2(2.0803, 1.8964)
 texture = ExtResource("5_xbusq")
-offset = Vector2(0, -200)
+offset = Vector2(0, -191.18)
 
-[node name="Area2D" type="Area2D" parent="."]
-position = Vector2(3, -180)
-scale = Vector2(1.36, 1.36)
+[node name="Area2D" type="Area2D" parent="." unique_id=143027324]
+position = Vector2(21.999998, -136.00002)
+scale = Vector2(1.3600001, 1.3599999)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1153126124]
 y_sort_enabled = true
-position = Vector2(-2.94118, 94.8529)
+position = Vector2(-2.9411736, 98.52943)
 scale = Vector2(-1.32144, 0.513128)
 shape = SubResource("CapsuleShape2D_dheop")
 
-[node name="stump_box" type="CollisionShape2D" parent="."]
-position = Vector2(-2.00007, -35)
-rotation = 1.5708
+[node name="stump" type="Sprite2D" parent="." unique_id=1183285927]
+position = Vector2(16, 12)
+scale = Vector2(0.56399995, 0.46001548)
+texture = ExtResource("3_8ld3j")
+offset = Vector2(0, -75)
+
+[node name="stump_box" type="CollisionShape2D" parent="." unique_id=1102290766]
+position = Vector2(16, -4.999999)
+rotation = 1.5708001
 scale = Vector2(0.722476, 1.2118)
 shape = SubResource("RectangleShape2D_gyoen")
 debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
 
-[node name="stump" type="Sprite2D" parent="."]
-position = Vector2(-1, -41)
-scale = Vector2(0.206778, 0.248794)
-texture = ExtResource("3_8ld3j")
-offset = Vector2(0, -75)
-
-[node name="smoke" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, -50)
-sprite_frames = ExtResource("4_kikcj")
-animation = &"collect_smoke"
-
-[node name="Label" type="Label" parent="."]
-z_index = 10
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -79.0
-offset_top = 4.0
-offset_right = 368.0
-offset_bottom = 87.0
-grow_horizontal = 2
-theme_override_font_sizes/font_size = 30
-text = "Press A to chop"
-
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1002344716]
 position = Vector2(-1, -48)
 stream = ExtResource("5_eblwt")
 
-[node name="Node" type="Node2D" parent="."]
-position = Vector2(-125.333, -70)
-
+[connection signal="animation_finished" from="smoke" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
-[connection signal="animation_finished" from="smoke" to="." method="_on_animated_sprite_2d_animation_finished"]

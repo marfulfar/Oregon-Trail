@@ -1,24 +1,69 @@
 [gd_scene format=3 uid="uid://d0sx5an7d75jn"]
 
+[ext_resource type="Texture2D" uid="uid://5q43mxvq2fb8" path="res://assets/sprites/Wagon/sprite-max-px-frames-25-rows-5-cols-5 (4).png" id="2_c8ysp"]
 [ext_resource type="SpriteFrames" uid="uid://dbdfcxw6sfc4o" path="res://assets/animations/oxen_walk.tres" id="2_xf1qa"]
-[ext_resource type="Texture2D" uid="uid://clueuxuonhph8" path="res://assets/sprites/Wagon/prairie_schooner1.png" id="3_axs1m"]
-[ext_resource type="Texture2D" uid="uid://cdsdf486mkhg0" path="res://assets/sprites/Wagon/prairie_schooner2.png" id="3_vvqb8"]
-[ext_resource type="Texture2D" uid="uid://c7rokgvp28uky" path="res://assets/sprites/Wagon/prairie_schooner3.png" id="4_5h0tw"]
-[ext_resource type="Texture2D" uid="uid://b7c57f0yhup4s" path="res://assets/sprites/Wagon/prairie_schooner4.png" id="5_731ot"]
-[ext_resource type="Texture2D" uid="uid://d5gwc258x1t8" path="res://assets/sprites/Wagon/prairie_schooner5.png" id="6_krrcs"]
-[ext_resource type="Texture2D" uid="uid://cac24egmx0u0w" path="res://assets/sprites/Wagon/prairie_schooner6.png" id="7_7to4k"]
-[ext_resource type="Texture2D" uid="uid://cjdrxo61slxg5" path="res://assets/sprites/Wagon/prairie_schooner7.png" id="8_himoi"]
-[ext_resource type="Texture2D" uid="uid://hyoqw8orck84" path="res://assets/sprites/Wagon/prairie_schooner8.png" id="9_tqfou"]
-[ext_resource type="Texture2D" uid="uid://c2raoaja8wih6" path="res://assets/sprites/Wagon/prairie_schooner9.png" id="10_d22ad"]
 
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_xhh2r"]
-load_path = "res://.godot/imported/prairie_schooner2.png-3cc2cf348279581e96ab49f7207f8e96.ctex"
+[sub_resource type="AtlasTexture" id="AtlasTexture_vip0p"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(0, 0, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ioapc"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(506, 460, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gtvhl"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(1012, 460, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sun1j"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(1518, 460, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ch8io"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(2024, 460, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nma61"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(0, 920, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vq3k"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(506, 920, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1v2w"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(1012, 920, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dkrbx"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(1518, 920, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqnvh"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(0, 1840, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ordx5"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(506, 1840, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hj2uc"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(1012, 1840, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gf8o7"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(1518, 1840, 506, 460)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlndc"]
+atlas = ExtResource("2_c8ysp")
+region = Rect2(2024, 1840, 506, 460)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_28l58"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("CompressedTexture2D_xhh2r")
+"texture": SubResource("AtlasTexture_vip0p")
 }],
 "loop": 1,
 "name": &"wagon_idle",
@@ -26,71 +71,86 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_axs1m")
+"texture": SubResource("AtlasTexture_vip0p")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_vvqb8")
+"texture": SubResource("AtlasTexture_ioapc")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_5h0tw")
+"texture": SubResource("AtlasTexture_gtvhl")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_731ot")
+"texture": SubResource("AtlasTexture_sun1j")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_krrcs")
+"texture": SubResource("AtlasTexture_ch8io")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_7to4k")
+"texture": SubResource("AtlasTexture_nma61")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_himoi")
+"texture": SubResource("AtlasTexture_1vq3k")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_tqfou")
+"texture": SubResource("AtlasTexture_l1v2w")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_d22ad")
+"texture": SubResource("AtlasTexture_dkrbx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqnvh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ordx5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hj2uc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gf8o7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xlndc")
 }],
 "loop": 1,
 "name": &"wagon_move",
-"speed": 6.0
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_f5l1x"]
-size = Vector2(316.2, 317.2)
+size = Vector2(316.2, 352.29608)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_risie"]
-size = Vector2(453.4419, 1090.982)
+size = Vector2(686.2793, 1245.2725)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_gtvhl"]
-radius = 380.0
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_c8ysp"]
+radius = 285.0
+height = 1442.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sun1j"]
-size = Vector2(420, 260)
+size = Vector2(569, 430)
 
 [node name="Node2D" type="CharacterBody2D" unique_id=1687539577 groups=["oxen"]]
 position = Vector2(-20, -845)
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1573363284]
 position = Vector2(-71, -385)
+scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("2_xf1qa")
 animation = &"new_oxen_walk"
 autoplay = "new_oxen_idle"
-frame_progress = 0.25428912
 speed_scale = 0.75
 
 [node name="wagon" type="AnimatedSprite2D" parent="AnimatedSprite2D" unique_id=2061942786]
-position = Vector2(666, -197.00003)
-scale = Vector2(3, 3)
+position = Vector2(592.6667, -97.99998)
+scale = Vector2(2.3102767, 1.8416663)
 sprite_frames = SubResource("SpriteFrames_28l58")
-animation = &"wagon_move"
-frame = 7
-frame_progress = 0.4158033
+animation = &"wagon_idle"
+frame_progress = 0.037774745
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/wagon" unique_id=514075622]
-position = Vector2(20.900024, -25.699997)
-scale = Vector2(0.99999976, 0.99999976)
+position = Vector2(20.90004, -8.151947)
+scale = Vector2(0.99999976, 0.9999995)
 shape = SubResource("RectangleShape2D_f5l1x")
 
 [node name="crafting_area" type="Area2D" parent="AnimatedSprite2D/wagon" unique_id=1165648375]
@@ -98,8 +158,8 @@ position = Vector2(-226.938, 62.3752)
 scale = Vector2(0.113469, 0.139542)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AnimatedSprite2D/wagon/crafting_area" unique_id=1816493545]
-position = Vector2(3988.7961, -633.3237)
-scale = Vector2(2.9590702, 2.16174)
+position = Vector2(4333.287, -466.5559)
+scale = Vector2(2.95907, 2.16174)
 shape = SubResource("RectangleShape2D_risie")
 debug_color = Color(0.377058, 0.609597, 0.213521, 0.42)
 
@@ -116,12 +176,13 @@ text = "Press 1 to open crafting menu"
 position = Vector2(-71, -385)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="FollowTriggerArea" unique_id=1847886260]
-position = Vector2(-1.52588e-05, 81)
-shape = SubResource("CircleShape2D_gtvhl")
+position = Vector2(-324, 62)
+rotation = 1.5707964
+shape = SubResource("CapsuleShape2D_c8ysp")
 debug_color = Color(0.929361, 0.161989, 0.528207, 0.42)
 
 [node name="BodyCollisionShape" type="CollisionShape2D" parent="." unique_id=585129106]
-position = Vector2(-71, -304)
+position = Vector2(119.5, -323)
 shape = SubResource("RectangleShape2D_sun1j")
 
 [node name="Label" type="Label" parent="." unique_id=634365375]

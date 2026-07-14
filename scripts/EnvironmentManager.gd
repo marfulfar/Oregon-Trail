@@ -40,4 +40,3 @@ func _process(_delta):
 		adjusted_time = (time_of_day - DUSK_START) / (DUSK_END - DUSK_START)
 
 	night_overlay.color = DAY_COLOR.lerp(NIGHT_COLOR, adjusted_time)
-

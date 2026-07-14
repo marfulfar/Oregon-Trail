@@ -26,8 +26,8 @@ StationManager="*res://scripts/station_manager.gd"
 PlacementManager="*res://scripts/placement_manager.gd"
 EquipmentManager="*res://scripts/equipment_manager.gd"
 InventoryUtils="*res://scripts/inventory_utils.gd"
-_mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 WorldInputGate="*res://scripts/world_input_gate.gd"
+_mcp_game_helper="*res://addons/godot_ai/runtime/game_helper.gd"
 
 [display]
 
