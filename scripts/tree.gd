@@ -3,11 +3,11 @@ extends StaticBody2D
 
 @onready var stump = $stump
 @onready var tree = $Sprite2D
-@onready var label = $Label
 @onready var tree_chopped = false
 @onready var collect_anim = $smoke
 @onready var stump_collision = $stump_box
 var tree_life = 100
+var is_player_in_range = false
 const log_scene = preload("res://scenes/log.tscn")
 @onready var sound = $AudioStreamPlayer2D
 
@@ -15,7 +15,6 @@ const log_scene = preload("res://scenes/log.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	stump.visible = false
-	label.visible = false
 	collect_anim.visible=false
 
 	var player := get_tree().get_first_node_in_group("player")
@@ -29,7 +28,7 @@ func _process(delta):
 
 func _on_area_2d_body_entered(body):
 	if body.name == "character" && tree_chopped==false:
-		label.visible = true
+		is_player_in_range = true
 
 
 ## Chopping requires an axe in HAND and the player standing in range -
@@ -37,7 +36,7 @@ func _on_area_2d_body_entered(body):
 ## inventory_equip_system_spec.md §6) so future harvestables just connect to
 ## this same signal instead of duplicating input-polling logic.
 func _on_tool_used(tool_type: ToolItem.ToolType) -> void:
-	if tool_type == ToolItem.ToolType.AXE && label.visible == true && tree_chopped == false:
+	if tool_type == ToolItem.ToolType.AXE && is_player_in_range && tree_chopped == false:
 		collect_anim.visible=true
 		sound.play()
 		collect_anim.play("collect_smoke")
@@ -45,13 +44,13 @@ func _on_tool_used(tool_type: ToolItem.ToolType) -> void:
 
 
 func _on_area_2d_body_exited(body):
-	label.visible = false
+	is_player_in_range = false
 
 
 func _on_animated_sprite_2d_animation_finished():
 	if tree_life <= 0:
 		tree_chopped = true
-		label.visible=false
+		is_player_in_range = false
 		tree.visible = false
 		stump.visible=true
 		stump_collision.scale = Vector2(0.75,0.5)

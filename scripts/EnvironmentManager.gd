@@ -4,21 +4,40 @@ extends CanvasModulate
 @onready var night_overlay = $"."
 
 func _ready():
-	if time_manager:
-		time_manager.connect("time_changed",_on_time_manager_time_changed)
-	else:
+	if not time_manager:
 		printerr("TimeManager not found!")
 
 
-func _on_time_manager_time_changed(time_of_day):
-	# time_of_day should be a value between 0.0 and 1.0, where 0.0 is midnight and 0.5 is midday.
-	# We want to map this to a color between black and white.
-	var black_color = Color(0.03, 0.03, 0.06)  # Fully black
-	var white_color = Color.WHITE  # Fully white 
-	# Adjust time_of_day to make midnight fully black and midday fully white.
-	var adjusted_time = abs(time_of_day - 0.5) * 2.0
-	# Lerp between black and white based on adjusted_time.
-	var current_color = white_color.lerp(black_color, adjusted_time)
-	# Apply the color to the night overlay.
-	night_overlay.color = current_color
-	
+## Night is a plateau, not just a single instant at 0.0/1.0 - without
+## unlit ground/trees to see by, the player should be effectively blind
+## outside a light source's radius for the whole dusk-to-dawn stretch,
+## not just a brief moment around midnight.
+const DAWN_START = 0.2
+const DAWN_END = 0.3
+const DUSK_START = 0.7
+const DUSK_END = 0.8
+const NIGHT_COLOR = Color(0.01, 0.01, 0.02)
+const DAY_COLOR = Color.WHITE
+
+## Reads time_of_day directly every frame instead of TimeManager's
+## throttled time_changed signal - the signal only fires every
+## minutes_per_signal (~4.8s at current settings), which made the dusk/
+## dawn fade visibly step between colors. Polling continuously makes the
+## color track time_of_day's own continuous increase, so the fade is
+## as smooth as the framerate.
+func _process(_delta):
+	if not time_manager:
+		return
+	var time_of_day: float = time_manager.time_of_day
+	var adjusted_time: float
+	if time_of_day < DAWN_START or time_of_day >= DUSK_END:
+		adjusted_time = 1.0 # full night
+	elif time_of_day < DAWN_END:
+		adjusted_time = 1.0 - (time_of_day - DAWN_START) / (DAWN_END - DAWN_START)
+	elif time_of_day < DUSK_START:
+		adjusted_time = 0.0 # full day
+	else:
+		adjusted_time = (time_of_day - DUSK_START) / (DUSK_END - DUSK_START)
+
+	night_overlay.color = DAY_COLOR.lerp(NIGHT_COLOR, adjusted_time)
+

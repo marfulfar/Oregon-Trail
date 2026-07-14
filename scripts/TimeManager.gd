@@ -6,7 +6,9 @@ signal time_changed(time_of_day)
 @export var day_length = 480.0 # 8 minutes in seconds
 #day goes from 0 to 0.1
 @export var minutes_per_signal = 0.02
-var time_of_day = 0.0
+## time_of_day is 0..1 across a full day: 0.0/1.0 = midnight, 0.5 = noon.
+const DAWN = 0.25
+var time_of_day = DAWN
 var days = 0
 var previous_time = 0.0
 var last_signal_time = 0.0

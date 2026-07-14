@@ -1,6 +1,8 @@
 extends Node2D
 
 @onready var fuel = 100
+const MAX_FUEL = 100
+const BASE_LIGHT_ENERGY = 2.0
 ## %TimeManager unique-name lookup only resolves for nodes present in the
 ## scene when it was saved - a campfire spawned at runtime as a placement
 ## blueprint has no such owner chain, so this uses the same group lookup the
@@ -23,14 +25,18 @@ func _ready():
 	time_manager.connect("time_changed",_on_time_manager_time_changed)
 	craft_menu_label.hide()
 
+## Fuel is spent in step with TimeManager's ticks so a full tank burns
+## for roughly one full day/night cycle regardless of day_length or
+## minutes_per_signal tuning - light energy tracks the remaining fuel
+## fraction so it dims smoothly instead of stepping down in chunks.
 func _on_time_manager_time_changed(time_of_day):
 	if is_blueprint:
 		return
 
-	fuel -= 10
-	point_of_light.energy -= 0.2
+	fuel -= 1
+	point_of_light.energy = BASE_LIGHT_ENERGY * (float(fuel) / MAX_FUEL)
 
-	if fuel == 0:
+	if fuel <= 0:
 		queue_free()
 
 
