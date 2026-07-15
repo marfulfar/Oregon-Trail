@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://gfcgyepegqb1"
-path="res://.godot/imported/HM_forest_corner128.png-abed2168ada8b43ad38957f8fa3840bc.ctex"
+uid="uid://dh75eeemqi6l8"
+path="res://.godot/imported/HM_yellowgrass_1corner128.png-27eed3e75534f84edc71981780ba3671.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ground/HM_forest_corner128.png"
-dest_files=["res://.godot/imported/HM_forest_corner128.png-abed2168ada8b43ad38957f8fa3840bc.ctex"]
+source_file="res://assets/sprites/ground/HM_yellowgrass_1corner128.png"
+dest_files=["res://.godot/imported/HM_yellowgrass_1corner128.png-27eed3e75534f84edc71981780ba3671.ctex"]
 
 [params]
 

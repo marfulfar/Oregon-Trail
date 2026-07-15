@@ -13,8 +13,14 @@ extends TileMapLayer
 ## variants, picked at random, purely for visual variety along long borders.
 @export var grass_transition_source_id: int = 7
 @export var forest_transition_source_ids: Array[int] = [8, 9]
-@export var forest_corner_source_id: int = 10
-@export var grass_corner_source_id: int = 11
+
+## Each boundary (forest/green, yellow/green) gets a corner tile hosted on
+## *each* side, so a diagonal-only touch rounds off on both cells instead of
+## just one.
+@export var forest_corner_source_id: int = 10 # forest cell, green notch
+@export var green_forest_corner_source_id: int = 11 # green cell, forest notch
+@export var green_yellow_corner_source_id: int = 12 # green cell, yellow notch
+@export var yellow_corner_source_id: int = 13 # yellow cell, green notch
 
 @export var noise_frequency: float = 0.03
 @export var noise_seed: int = 0
@@ -69,10 +75,15 @@ const ALL_OFFSETS: Array[Vector2i] = [
 ]
 
 ## Which corner of each corner texture is the odd-one-out at identity
-## transform: HM_forest_corner128 has its grass notch top-left (NW), and
-## HM_grass_corner128 has its yellow notch top-right (NE).
+## transform:
+## - HM_forest_3corner128:      green notch, top-left (NW)
+## - HM_greengrass_3corner128:  forest notch, top-left (NW)
+## - HM_yellowgrass_1corner128: yellow notch, bottom-left (SW)
+## - HM_yellowgrass_3corner128: green notch, top-left (NW)
 const FOREST_CORNER_DEFAULT := Vector2i(-1, -1)
-const GRASS_CORNER_DEFAULT := Vector2i(1, -1)
+const GREEN_FOREST_CORNER_DEFAULT := Vector2i(-1, -1)
+const GREEN_YELLOW_CORNER_DEFAULT := Vector2i(-1, 1)
+const YELLOW_CORNER_DEFAULT := Vector2i(-1, -1)
 
 func _ready() -> void:
 	generate_terrain()
@@ -124,10 +135,6 @@ func _biome_at(cell: Vector2i) -> Biome:
 	return Biome.GRASS_GREEN
 
 
-## Paints one cell: a plain tile for interior cells, a straight transition
-## tile for cells sitting right at a straight boundary, or a corner tile for
-## cells that only touch the other biome diagonally. Yellow takes priority
-## over forest in the rare case a single green cell borders both.
 func _paint_cell(cell: Vector2i, biomes: Dictionary) -> void:
 	var biome: Biome = biomes[cell]
 
@@ -136,7 +143,7 @@ func _paint_cell(cell: Vector2i, biomes: Dictionary) -> void:
 		return
 
 	if biome == Biome.GRASS_YELLOW:
-		_set_random_tile(cell, yellow_grass_source_ids)
+		_paint_yellow_cell(cell, biomes)
 		return
 
 	_paint_grass_cell(cell, biomes)
@@ -158,9 +165,23 @@ func _paint_forest_cell(cell: Vector2i, biomes: Dictionary) -> void:
 	_set_random_tile(cell, forest_source_ids)
 
 
+## Yellow cells only ever need the corner treatment (same reasoning as
+## forest above - the straight edge is entirely owned by the grass side).
+func _paint_yellow_cell(cell: Vector2i, biomes: Dictionary) -> void:
+	if _find_neighbor_direction(cell, biomes, NEIGHBOR_OFFSETS, Biome.GRASS_GREEN) == Vector2i.ZERO:
+		var corner_dir := _find_neighbor_direction(cell, biomes, CORNER_OFFSETS, Biome.GRASS_GREEN)
+		if corner_dir != Vector2i.ZERO:
+			var transform := _corner_transform(YELLOW_CORNER_DEFAULT, corner_dir)
+			set_cell(cell, yellow_corner_source_id, Vector2i(0, 0), transform)
+			return
+
+	_set_random_tile(cell, yellow_grass_source_ids)
+
+
 ## Green grass cells check straight neighbors first (yellow, then forest),
-## falling back to a corner tile if the other biome only touches diagonally,
-## and finally a plain tile if this cell is nowhere near a boundary.
+## then corner neighbors (yellow, then forest) for a diagonal-only touch,
+## and finally fall back to a plain tile. Yellow takes priority over forest
+## throughout, in the rare case a single green cell borders both.
 func _paint_grass_cell(cell: Vector2i, biomes: Dictionary) -> void:
 	var yellow_dir := _find_neighbor_direction(cell, biomes, NEIGHBOR_OFFSETS, Biome.GRASS_YELLOW)
 	if yellow_dir != Vector2i.ZERO:
@@ -175,8 +196,14 @@ func _paint_grass_cell(cell: Vector2i, biomes: Dictionary) -> void:
 
 	var yellow_corner_dir := _find_neighbor_direction(cell, biomes, CORNER_OFFSETS, Biome.GRASS_YELLOW)
 	if yellow_corner_dir != Vector2i.ZERO:
-		var transform := _corner_transform(GRASS_CORNER_DEFAULT, yellow_corner_dir)
-		set_cell(cell, grass_corner_source_id, Vector2i(0, 0), transform)
+		var transform := _corner_transform(GREEN_YELLOW_CORNER_DEFAULT, yellow_corner_dir)
+		set_cell(cell, green_yellow_corner_source_id, Vector2i(0, 0), transform)
+		return
+
+	var forest_corner_dir := _find_neighbor_direction(cell, biomes, CORNER_OFFSETS, Biome.FOREST)
+	if forest_corner_dir != Vector2i.ZERO:
+		var transform := _corner_transform(GREEN_FOREST_CORNER_DEFAULT, forest_corner_dir)
+		set_cell(cell, green_forest_corner_source_id, Vector2i(0, 0), transform)
 		return
 
 	_set_random_tile(cell, grass_source_ids)

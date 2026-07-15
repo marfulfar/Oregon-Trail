@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nvpx16ap6nj"
-path="res://.godot/imported/HM_grass_corner128.png-c382bb78990a0f0e0a74daa27cd20763.ctex"
+uid="uid://d3d73mr4v51cs"
+path="res://.godot/imported/HM_greengrass_3corner128.png-d4a400a2099c016250af9933346a3e9d.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/ground/HM_grass_corner128.png"
-dest_files=["res://.godot/imported/HM_grass_corner128.png-c382bb78990a0f0e0a74daa27cd20763.ctex"]
+source_file="res://assets/sprites/ground/HM_greengrass_3corner128.png"
+dest_files=["res://.godot/imported/HM_greengrass_3corner128.png-d4a400a2099c016250af9933346a3e9d.ctex"]
 
 [params]
 

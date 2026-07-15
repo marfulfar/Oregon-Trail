@@ -14,8 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://d0j03op5u62k1" path="res://assets/sprites/ground/HM_grass_transition128.png" id="11_grstr"]
 [ext_resource type="Texture2D" uid="uid://bbg6wok4qa0ho" path="res://assets/sprites/ground/HM_forest_transition128.png" id="12_fortr"]
 [ext_resource type="Texture2D" uid="uid://cah3u6kk550e2" path="res://assets/sprites/ground/HM_forest_2transition128.png" id="13_fortr2"]
-[ext_resource type="Texture2D" uid="uid://gfcgyepegqb1" path="res://assets/sprites/ground/HM_forest_corner128.png" id="14_forcnr"]
-[ext_resource type="Texture2D" uid="uid://nvpx16ap6nj" path="res://assets/sprites/ground/HM_grass_corner128.png" id="15_grscnr"]
+[ext_resource type="Texture2D" uid="uid://bvskp6h3h5hhs" path="res://assets/sprites/ground/HM_forest_3corner128.png" id="16_for3c"]
+[ext_resource type="Texture2D" uid="uid://d3d73mr4v51cs" path="res://assets/sprites/ground/HM_greengrass_3corner128.png" id="17_grn3c"]
+[ext_resource type="Texture2D" uid="uid://dh75eeemqi6l8" path="res://assets/sprites/ground/HM_yellowgrass_1corner128.png" id="18_yel1c"]
+[ext_resource type="Texture2D" uid="uid://dbauhci5lv0io" path="res://assets/sprites/ground/HM_yellowgrass_3corner128.png" id="19_yel3c"]
 [ext_resource type="Texture2D" uid="uid://ckp5y2j6ugsik" path="res://assets/sprites/half_sun_moon.png" id="10_uej6q"]
 [ext_resource type="Texture2D" uid="uid://iktmuolfa5dm" path="res://assets/sprites/arrow.png" id="11_3ge5d"]
 [ext_resource type="Script" uid="uid://ioqujdleb2l1" path="res://scripts/oxen.gd" id="12_l8ah6"]
@@ -91,13 +93,23 @@ texture = ExtResource("13_fortr2")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_forcnr"]
-texture = ExtResource("14_forcnr")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_for3c"]
+texture = ExtResource("16_for3c")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_grscnr"]
-texture = ExtResource("15_grscnr")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_grn3c"]
+texture = ExtResource("17_grn3c")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yel1c"]
+texture = ExtResource("18_yel1c")
+texture_region_size = Vector2i(128, 128)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_yel3c"]
+texture = ExtResource("19_yel3c")
 texture_region_size = Vector2i(128, 128)
 0:0/0 = 0
 
@@ -112,8 +124,10 @@ sources/5 = SubResource("TileSetAtlasSource_ltblu")
 sources/6 = SubResource("TileSetAtlasSource_drkblu")
 sources/7 = SubResource("TileSetAtlasSource_grstr")
 sources/9 = SubResource("TileSetAtlasSource_fortr2")
-sources/10 = SubResource("TileSetAtlasSource_forcnr")
-sources/11 = SubResource("TileSetAtlasSource_grscnr")
+sources/10 = SubResource("TileSetAtlasSource_for3c")
+sources/11 = SubResource("TileSetAtlasSource_grn3c")
+sources/12 = SubResource("TileSetAtlasSource_yel1c")
+sources/13 = SubResource("TileSetAtlasSource_yel3c")
 sources/8 = SubResource("TileSetAtlasSource_fortr")
 
 [node name="world" type="Node2D" unique_id=269027597 node_paths=PackedStringArray("ground_layer")]
