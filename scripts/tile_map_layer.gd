@@ -8,10 +8,13 @@ extends TileMapLayer
 @export var forest_source_ids: Array[int] = [3]
 
 ## Single-cell atlas sources for the boundary blend art (see
-## TRANSITION_TRANSFORMS below for how these get rotated to face the
-## neighbor they're blending into).
+## TRANSITION_TRANSFORMS/CORNER_TRANSFORMS below for how these get rotated
+## to face the neighbor they're blending into). Forest has two straight-edge
+## variants, picked at random, purely for visual variety along long borders.
 @export var grass_transition_source_id: int = 7
-@export var forest_transition_source_id: int = 8
+@export var forest_transition_source_ids: Array[int] = [8, 9]
+@export var forest_corner_source_id: int = 10
+@export var grass_corner_source_id: int = 11
 
 @export var noise_frequency: float = 0.03
 @export var noise_seed: int = 0
@@ -37,8 +40,8 @@ const ORIENTATIONS = [
 	TileSetAtlasSource.TRANSFORM_TRANSPOSE | TileSetAtlasSource.TRANSFORM_FLIP_H | TileSetAtlasSource.TRANSFORM_FLIP_V,
 ]
 
-## Both transition textures have their "special" color (yellow, or dark
-## forest) on the west half and green on the east half at identity
+## Both straight-edge transition textures have their "special" color (yellow,
+## or dark forest) on the west half and green on the east half at identity
 ## transform. This maps "direction from a transition cell to the neighbor
 ## it's blending into" to the flip/transpose combo that rotates the special
 ## half to face that neighbor.
@@ -53,14 +56,32 @@ const NEIGHBOR_OFFSETS: Array[Vector2i] = [
 	Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(0, 1),
 ]
 
+## The 4 diagonal directions a corner tile's odd-one-out corner can face.
+const CORNER_OFFSETS: Array[Vector2i] = [
+	Vector2i(-1, -1), Vector2i(1, -1), Vector2i(-1, 1), Vector2i(1, 1),
+]
+
+## Every neighbor offset (straight + diagonal) - used only for the yellow/
+## forest exclusion repair pass, which must catch corner-only touches too.
+const ALL_OFFSETS: Array[Vector2i] = [
+	Vector2i(-1, 0), Vector2i(1, 0), Vector2i(0, -1), Vector2i(0, 1),
+	Vector2i(-1, -1), Vector2i(1, -1), Vector2i(-1, 1), Vector2i(1, 1),
+]
+
+## Which corner of each corner texture is the odd-one-out at identity
+## transform: HM_forest_corner128 has its grass notch top-left (NW), and
+## HM_grass_corner128 has its yellow notch top-right (NE).
+const FOREST_CORNER_DEFAULT := Vector2i(-1, -1)
+const GRASS_CORNER_DEFAULT := Vector2i(1, -1)
+
 func _ready() -> void:
 	generate_terrain()
 
 
 ## Two passes: first decide every cell's biome from noise, then paint.
 ## Painting needs the whole biome map up front so a cell can look at its
-## neighbors' *final* biomes when deciding whether it needs a transition
-## tile instead of a plain one.
+## neighbors' *final* biomes when deciding whether it needs a transition or
+## corner tile instead of a plain one.
 func generate_terrain() -> void:
 	noise.seed = noise_seed if noise_seed != 0 else randi()
 	noise.frequency = noise_frequency
@@ -77,15 +98,16 @@ func generate_terrain() -> void:
 			var cell = Vector2i(x, y)
 			biomes[cell] = _biome_at(cell)
 
-	# Yellow grass must never sit directly next to forest - the only path
-	# between them is yellow -> [grass transition] -> green -> [forest
-	# transition] -> forest. Demote any yellow cell caught bordering forest
-	# straight to green so the painting pass below gives it a proper
-	# transition tile on the forest side instead.
+	# Yellow grass must never touch forest, not even at a corner - the only
+	# path between them is yellow -> [grass transition/corner] -> green ->
+	# [forest transition/corner] -> forest. Demote any yellow cell caught
+	# bordering forest (straight or diagonal) straight to green so the
+	# painting pass below gives it a proper transition/corner tile on the
+	# forest side instead.
 	for cell in biomes.keys():
 		if biomes[cell] != Biome.GRASS_YELLOW:
 			continue
-		for offset in NEIGHBOR_OFFSETS:
+		for offset in ALL_OFFSETS:
 			if biomes.get(cell + offset, Biome.GRASS_GREEN) == Biome.FOREST:
 				biomes[cell] = Biome.GRASS_GREEN
 				break
@@ -102,41 +124,84 @@ func _biome_at(cell: Vector2i) -> Biome:
 	return Biome.GRASS_GREEN
 
 
-## Paints one cell: a plain tile for interior cells, or the correct
-## transition tile (rotated to face the bordering biome) for green cells
-## sitting right at a boundary. Yellow takes priority over forest in the
-## rare case a single green cell borders both.
+## Paints one cell: a plain tile for interior cells, a straight transition
+## tile for cells sitting right at a straight boundary, or a corner tile for
+## cells that only touch the other biome diagonally. Yellow takes priority
+## over forest in the rare case a single green cell borders both.
 func _paint_cell(cell: Vector2i, biomes: Dictionary) -> void:
 	var biome: Biome = biomes[cell]
 
 	if biome == Biome.FOREST:
-		_set_random_tile(cell, forest_source_ids)
+		_paint_forest_cell(cell, biomes)
 		return
 
 	if biome == Biome.GRASS_YELLOW:
 		_set_random_tile(cell, yellow_grass_source_ids)
 		return
 
-	var yellow_dir := _find_neighbor_direction(cell, biomes, Biome.GRASS_YELLOW)
+	_paint_grass_cell(cell, biomes)
+
+
+## Forest cells only ever need the corner treatment (the straight edge
+## between forest and green grass is handled entirely from the grass side,
+## see _paint_grass_cell) - and only when this forest cell has no straight
+## green neighbor of its own, so it isn't already sitting right at a
+## straight border.
+func _paint_forest_cell(cell: Vector2i, biomes: Dictionary) -> void:
+	if _find_neighbor_direction(cell, biomes, NEIGHBOR_OFFSETS, Biome.GRASS_GREEN) == Vector2i.ZERO:
+		var corner_dir := _find_neighbor_direction(cell, biomes, CORNER_OFFSETS, Biome.GRASS_GREEN)
+		if corner_dir != Vector2i.ZERO:
+			var transform := _corner_transform(FOREST_CORNER_DEFAULT, corner_dir)
+			set_cell(cell, forest_corner_source_id, Vector2i(0, 0), transform)
+			return
+
+	_set_random_tile(cell, forest_source_ids)
+
+
+## Green grass cells check straight neighbors first (yellow, then forest),
+## falling back to a corner tile if the other biome only touches diagonally,
+## and finally a plain tile if this cell is nowhere near a boundary.
+func _paint_grass_cell(cell: Vector2i, biomes: Dictionary) -> void:
+	var yellow_dir := _find_neighbor_direction(cell, biomes, NEIGHBOR_OFFSETS, Biome.GRASS_YELLOW)
 	if yellow_dir != Vector2i.ZERO:
 		set_cell(cell, grass_transition_source_id, Vector2i(0, 0), TRANSITION_TRANSFORMS[yellow_dir])
 		return
 
-	var forest_dir := _find_neighbor_direction(cell, biomes, Biome.FOREST)
+	var forest_dir := _find_neighbor_direction(cell, biomes, NEIGHBOR_OFFSETS, Biome.FOREST)
 	if forest_dir != Vector2i.ZERO:
-		set_cell(cell, forest_transition_source_id, Vector2i(0, 0), TRANSITION_TRANSFORMS[forest_dir])
+		var source_id = forest_transition_source_ids[randi() % forest_transition_source_ids.size()]
+		set_cell(cell, source_id, Vector2i(0, 0), TRANSITION_TRANSFORMS[forest_dir])
+		return
+
+	var yellow_corner_dir := _find_neighbor_direction(cell, biomes, CORNER_OFFSETS, Biome.GRASS_YELLOW)
+	if yellow_corner_dir != Vector2i.ZERO:
+		var transform := _corner_transform(GRASS_CORNER_DEFAULT, yellow_corner_dir)
+		set_cell(cell, grass_corner_source_id, Vector2i(0, 0), transform)
 		return
 
 	_set_random_tile(cell, grass_source_ids)
 
 
-## Returns the offset to the first orthogonal neighbor matching `target`
-## biome, or Vector2i.ZERO if none border this cell.
-func _find_neighbor_direction(cell: Vector2i, biomes: Dictionary, target: Biome) -> Vector2i:
-	for offset in NEIGHBOR_OFFSETS:
+## Returns the offset to the first neighbor (checked among `offsets`)
+## matching `target` biome, or Vector2i.ZERO if none border this cell.
+func _find_neighbor_direction(cell: Vector2i, biomes: Dictionary, offsets: Array[Vector2i], target: Biome) -> Vector2i:
+	for offset in offsets:
 		if biomes.get(cell + offset, Biome.GRASS_GREEN) == target:
 			return offset
 	return Vector2i.ZERO
+
+
+## A corner is fully described by the sign of its x/y offset, and FLIP_H/
+## FLIP_V independently negate exactly one of those signs - so, unlike the
+## straight edges, no TRANSPOSE is ever needed here to reach any of the 4
+## corners from any starting corner.
+func _corner_transform(default_corner: Vector2i, target_corner: Vector2i) -> int:
+	var transform := 0
+	if target_corner.x != default_corner.x:
+		transform |= TileSetAtlasSource.TRANSFORM_FLIP_H
+	if target_corner.y != default_corner.y:
+		transform |= TileSetAtlasSource.TRANSFORM_FLIP_V
+	return transform
 
 
 func _set_random_tile(cell: Vector2i, source_ids: Array[int]) -> void:
