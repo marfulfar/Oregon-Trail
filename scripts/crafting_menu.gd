@@ -383,7 +383,7 @@ func _make_row_stylebox(color: Color) -> StyleBoxFlat:
 ## required station and that every ingredient is available in sufficient
 ## quantity (via is_recipe_available), then consumes the ingredients and
 ## grants the result (or starts placement for a structure - see
-## item_placeable below). Checks the result will actually fit BEFORE
+## PlaceableItem below). Checks the result will actually fit BEFORE
 ## consuming anything, so a full inventory never destroys materials for
 ## nothing. Returns true if the craft succeeded.
 func craft_recipe(recipe: Dictionary) -> bool:
@@ -402,7 +402,7 @@ func craft_recipe(recipe: Dictionary) -> bool:
 	if result_item == null:
 		return false
 
-	if result_item.item_placeable:
+	if result_item is PlaceableItem:
 		# Ingredients are left untouched here - placement only consumes them
 		# on confirm (see PlacementManager), so there's nothing to refund if
 		# the player cancels.

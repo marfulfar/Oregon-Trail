@@ -1,7 +1,7 @@
 [gd_resource type="Resource" format=3 uid="uid://jj43oy46oli7"]
 
 [ext_resource type="Texture2D" uid="uid://dhx3htx6rbns0" path="res://assets/sprites/campfire1.png" id="1_ry7cb"]
-[ext_resource type="Script" uid="uid://clnpitdirfk83" path="res://scripts/base_item.gd" id="2_otcfg"]
+[ext_resource type="Script" path="res://scripts/placeable_item.gd" id="2_otcfg"]
 
 [resource]
 script = ExtResource("2_otcfg")
@@ -12,4 +12,3 @@ item_desc = "Illuminates, warms and you can cook!"
 item_stackable = false
 item_stack_limit = 1
 item_scene_path = "res://scenes/firecamp.tscn"
-item_placeable = true

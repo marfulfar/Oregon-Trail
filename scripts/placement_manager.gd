@@ -3,7 +3,7 @@ extends Node
 ## Autoload that drives placing a crafted "structure" item (e.g. a firepit)
 ## into the world as a movable blueprint that follows the player, then
 ## finalizes it in place on confirm. Triggered from crafting_menu.gd's
-## craft_recipe() when the crafted result_item.item_placeable is true.
+## craft_recipe() when the crafted result_item is a PlaceableItem.
 ##
 ## Ingredients for a placement recipe are NOT consumed by craft_recipe() -
 ## they're only spent in _confirm() below, so cancel() never needs to
@@ -31,7 +31,7 @@ const FACING_OFFSETS := {
 }
 
 
-## Starts placement mode for result_item (needs item_placeable = true and a
+## Starts placement mode for result_item (needs to be a PlaceableItem with a
 ## valid item_scene_path). recipe is kept around so confirm knows which
 ## ingredients to consume.
 func start_placement(result_item: Resource, recipe: Dictionary) -> void:
