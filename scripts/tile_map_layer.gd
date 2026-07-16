@@ -17,8 +17,12 @@ const TERRAIN_YELLOW := 2
 @export var noise_seed: int = 0
 
 ## Controls how big/frequent the yellow-grass patches are within the green
-## grass biome. Higher frequency = smaller, more scattered patches.
-@export var yellow_patch_frequency: float = 0.06
+## grass biome. Higher frequency = smaller, more scattered patches, which
+## means a tighter-curving boundary that leans on corner tiles far more
+## than a straight edge - kept at or below noise_frequency so yellow
+## patches read as calm blobs like the forest/green boundary does, not a
+## "bubbly" speckle of little corners.
+@export var yellow_patch_frequency: float = 0.025
 @export var yellow_patch_threshold: float = 0.25
 
 ## Raw per-cell noise thresholding leaves behind small (1-8 cell) specks of
