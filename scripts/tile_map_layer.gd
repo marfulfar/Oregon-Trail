@@ -30,6 +30,16 @@ extends TileMapLayer
 @export var yellow_patch_frequency: float = 0.06
 @export var yellow_patch_threshold: float = 0.25
 
+## Raw per-cell noise thresholding leaves behind small (1-8 cell) specks of
+## the minority biome scattered inside a larger patch - technically a real
+## border, but not the kind corner/transition tiles are meant for. Each pass
+## has a cell adopt whichever biome is most common among its 8 neighbors,
+## which erodes those stray specks while leaving genuine patch boundaries
+## alone. A lone speck can survive a pass or two if it happens to sit
+## diagonal to another speck of the same stray biome (each briefly counts
+## as a neighbor vote for the other) - a few extra passes clear those too.
+@export var biome_smoothing_passes: int = 4
+
 var noise := FastNoiseLite.new()
 var yellow_noise := FastNoiseLite.new()
 
@@ -109,6 +119,9 @@ func generate_terrain() -> void:
 			var cell = Vector2i(x, y)
 			biomes[cell] = _biome_at(cell)
 
+	for i in range(biome_smoothing_passes):
+		_smooth_biomes(biomes)
+
 	# Yellow grass must never touch forest, not even at a corner - the only
 	# path between them is yellow -> [grass transition/corner] -> green ->
 	# [forest transition/corner] -> forest. Demote any yellow cell caught
@@ -125,6 +138,30 @@ func generate_terrain() -> void:
 
 	for cell in biomes.keys():
 		_paint_cell(cell, biomes)
+
+
+## One majority-vote pass over every cell: a cell flips to whichever biome
+## is most common among its 8 neighbors, but only on a strict majority (ties
+## keep the current biome) so this converges instead of oscillating forever.
+## Reads and writes happen against a snapshot so every cell in this pass
+## votes using the same "before" state.
+func _smooth_biomes(biomes: Dictionary) -> void:
+	var before := biomes.duplicate()
+	for cell in before.keys():
+		var counts: Dictionary = {}
+		for offset in ALL_OFFSETS:
+			var neighbor_biome = before.get(cell + offset, before[cell])
+			counts[neighbor_biome] = counts.get(neighbor_biome, 0) + 1
+
+		var current: Biome = before[cell]
+		var best_biome: Biome = current
+		var best_count: int = counts.get(current, 0)
+		for candidate in counts.keys():
+			if counts[candidate] > best_count:
+				best_biome = candidate
+				best_count = counts[candidate]
+
+		biomes[cell] = best_biome
 
 
 func _biome_at(cell: Vector2i) -> Biome:
@@ -158,8 +195,8 @@ func _paint_forest_cell(cell: Vector2i, biomes: Dictionary) -> void:
 	if _find_neighbor_direction(cell, biomes, NEIGHBOR_OFFSETS, Biome.GRASS_GREEN) == Vector2i.ZERO:
 		var corner_dir := _find_neighbor_direction(cell, biomes, CORNER_OFFSETS, Biome.GRASS_GREEN)
 		if corner_dir != Vector2i.ZERO:
-			var transform := _corner_transform(FOREST_CORNER_DEFAULT, corner_dir)
-			set_cell(cell, forest_corner_source_id, Vector2i(0, 0), transform)
+			var orientation := _corner_transform(FOREST_CORNER_DEFAULT, corner_dir)
+			set_cell(cell, forest_corner_source_id, Vector2i(0, 0), orientation)
 			return
 
 	_set_random_tile(cell, forest_source_ids)
@@ -171,8 +208,8 @@ func _paint_yellow_cell(cell: Vector2i, biomes: Dictionary) -> void:
 	if _find_neighbor_direction(cell, biomes, NEIGHBOR_OFFSETS, Biome.GRASS_GREEN) == Vector2i.ZERO:
 		var corner_dir := _find_neighbor_direction(cell, biomes, CORNER_OFFSETS, Biome.GRASS_GREEN)
 		if corner_dir != Vector2i.ZERO:
-			var transform := _corner_transform(YELLOW_CORNER_DEFAULT, corner_dir)
-			set_cell(cell, yellow_corner_source_id, Vector2i(0, 0), transform)
+			var orientation := _corner_transform(YELLOW_CORNER_DEFAULT, corner_dir)
+			set_cell(cell, yellow_corner_source_id, Vector2i(0, 0), orientation)
 			return
 
 	_set_random_tile(cell, yellow_grass_source_ids)
@@ -196,14 +233,14 @@ func _paint_grass_cell(cell: Vector2i, biomes: Dictionary) -> void:
 
 	var yellow_corner_dir := _find_neighbor_direction(cell, biomes, CORNER_OFFSETS, Biome.GRASS_YELLOW)
 	if yellow_corner_dir != Vector2i.ZERO:
-		var transform := _corner_transform(GREEN_YELLOW_CORNER_DEFAULT, yellow_corner_dir)
-		set_cell(cell, green_yellow_corner_source_id, Vector2i(0, 0), transform)
+		var orientation := _corner_transform(GREEN_YELLOW_CORNER_DEFAULT, yellow_corner_dir)
+		set_cell(cell, green_yellow_corner_source_id, Vector2i(0, 0), orientation)
 		return
 
 	var forest_corner_dir := _find_neighbor_direction(cell, biomes, CORNER_OFFSETS, Biome.FOREST)
 	if forest_corner_dir != Vector2i.ZERO:
-		var transform := _corner_transform(GREEN_FOREST_CORNER_DEFAULT, forest_corner_dir)
-		set_cell(cell, green_forest_corner_source_id, Vector2i(0, 0), transform)
+		var orientation := _corner_transform(GREEN_FOREST_CORNER_DEFAULT, forest_corner_dir)
+		set_cell(cell, green_forest_corner_source_id, Vector2i(0, 0), orientation)
 		return
 
 	_set_random_tile(cell, grass_source_ids)
@@ -223,12 +260,12 @@ func _find_neighbor_direction(cell: Vector2i, biomes: Dictionary, offsets: Array
 ## straight edges, no TRANSPOSE is ever needed here to reach any of the 4
 ## corners from any starting corner.
 func _corner_transform(default_corner: Vector2i, target_corner: Vector2i) -> int:
-	var transform := 0
+	var orientation := 0
 	if target_corner.x != default_corner.x:
-		transform |= TileSetAtlasSource.TRANSFORM_FLIP_H
+		orientation |= TileSetAtlasSource.TRANSFORM_FLIP_H
 	if target_corner.y != default_corner.y:
-		transform |= TileSetAtlasSource.TRANSFORM_FLIP_V
-	return transform
+		orientation |= TileSetAtlasSource.TRANSFORM_FLIP_V
+	return orientation
 
 
 func _set_random_tile(cell: Vector2i, source_ids: Array[int]) -> void:
