@@ -24,6 +24,11 @@ var is_moving:bool = false
 var dir:String = "left"
 var facing:String = "side" # "side", "front" (facing camera) or "back" (facing away)
 @onready var anim  = $AnimatedSprite2D
+@onready var action_anim_player: AnimationPlayer = $AnimationPlayer
+## Wraps hand (which chop_hand animates) - flipping this mirrors both the
+## swing's position keys AND the tool icon's art in one go, since Node2D
+## children inherit a negative parent scale. See hand.gd for the icon itself.
+@onready var hand_flip: Node2D = $hand_flip
 var is_action_playing = false
 
 #inventory
@@ -50,6 +55,7 @@ func _ready():
 	hunger_depletion_rate = 100.0 / (hunger_num_of_days_full_depletion * time_manager.day_length)
 	thirst_depletion_rate = 100.0 / (thirst_num_of_days_full_depletion * time_manager.day_length)
 	health_depletion_rate = 100.0 / (health_num_days_full_depletion * time_manager.day_length)
+	action_anim_player.animation_finished.connect(_on_action_animation_finished)
 
 # Hunger, Thirst and Health logic
 func _process(delta):
@@ -91,6 +97,13 @@ func _process(delta):
 
 # Walking directions input
 func get_input():
+	# Freeze movement while a tool-use animation is playing - all input
+	# waits until chop_hand finishes (see _on_action_animation_finished).
+	if is_action_playing:
+		velocity = Vector2.ZERO
+		is_moving = false
+		return
+
 	var input_direction = Input.get_vector("left", "right", "up", "down")
 	if input_direction != Vector2.ZERO:
 		input_direction = input_direction.normalized() #ignore stick push distance - always move at full speed once past the deadzone
@@ -128,26 +141,46 @@ func _unhandled_input(event):
 	if WorldInputGate.is_blocked():
 		return
 
+	if is_action_playing:
+		return
+
 	var equipped_tool: ToolItem = EquipmentManager.get_equipped(BaseItem.EquipSlot.HAND)
 	if equipped_tool != null:
 		tool_used.emit(equipped_tool.tool_type)
+		is_action_playing = true
+		action_anim_player.play("chop_hand")
+
+
+## Clears is_action_playing once chop_hand finishes so _physics_process
+## resumes driving walk/idle on AnimatedSprite2D again.
+func _on_action_animation_finished(anim_name: StringName) -> void:
+	if anim_name == "chop_hand":
+		is_action_playing = false
 
 
 func _physics_process(delta):
 	get_input()
 	move_and_slide()
-	# Setting animations and flipping character sprite
+	# Setting animations and flipping character sprite - skipped while
+	# chop_hand (or any future action animation) owns AnimatedSprite2D's
+	# frame, otherwise this would stomp its frame every physics tick.
+	if is_action_playing:
+		return
 	if is_moving == true:
 		match facing:
 			"side":
 				anim.play("walk_side")
-				anim.flip_h = dir == "left"
+				var facing_left := dir == "left"
+				anim.flip_h = facing_left
+				hand_flip.scale.x = -1.0 if facing_left else 1.0
 			"back":
 				anim.play("walk_back")
 				anim.flip_h = false
+				hand_flip.scale.x = 1.0
 			"front":
 				anim.play("walk_front")
 				anim.flip_h = false
+				hand_flip.scale.x = 1.0
 	elif is_moving == false:
 		anim.play("new_idle")
 

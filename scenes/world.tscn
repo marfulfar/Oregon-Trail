@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bp7f70je2s8od" path="res://scenes/evergreen.tscn" id="2_l8ah6"]
 [ext_resource type="Script" uid="uid://d237jhenrkxk7" path="res://scripts/Camera2D.gd" id="4_k4tfq"]
 [ext_resource type="Script" uid="uid://vd68pfcqnhn7" path="res://scripts/TimeManager.gd" id="5_oxrcr"]
-[ext_resource type="TileSet" path="res://resources/ground_tileset.tres" id="6_ground_ts"]
+[ext_resource type="TileSet" uid="uid://bqfkx0vc7a83d" path="res://resources/ground_tileset.tres" id="6_ground_ts"]
 [ext_resource type="Texture2D" uid="uid://ckp5y2j6ugsik" path="res://assets/sprites/half_sun_moon.png" id="10_uej6q"]
 [ext_resource type="Texture2D" uid="uid://iktmuolfa5dm" path="res://assets/sprites/arrow.png" id="11_3ge5d"]
 [ext_resource type="Script" uid="uid://ioqujdleb2l1" path="res://scripts/oxen.gd" id="12_l8ah6"]
@@ -50,6 +50,8 @@ z_index = -10
 scale = Vector2(0.99999994, 0.99999994)
 tile_set = ExtResource("6_ground_ts")
 script = ExtResource("41_6oujy")
+noise_frequency = 0.025
+yellow_patch_frequency = 0.015
 
 [node name="TimeManager" type="Node" parent="." unique_id=161871959 groups=["TimeManager"]]
 unique_name_in_owner = true
